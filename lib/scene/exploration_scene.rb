@@ -116,9 +116,11 @@ module MyDungeonGame
 
     def move_mobs
       all_updated = true
+      dash = InputManager.down_dash?
+      dash &= !InputManager.down_ok?
       @mobs.each do |mob|
         # 画面に含まれないモブは1フレームで移動を完了させる
-        if !display_target?(mob)
+        if !display_target?(mob) || dash
           mob.do_not_animation_move
         else
           mob.move
@@ -215,12 +217,15 @@ module MyDungeonGame
       cur_x, cur_y = @player.x, @player.y
       if @floor.movable?(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.move_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
-        args = [self, dx * TILE_WIDTH, dy * TILE_HEIGHT, dash]
-        move_event = MoveEvent.create(*args)
-        @em.set_cut_in_event(move_event)
         tick
+        if dash
+          OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
+        else
+          args = [self, dx * TILE_WIDTH, dy * TILE_HEIGHT]
+          move_event = MoveEvent.create(*args)
+          @em.set_cut_in_event(move_event)
+        end
       end
-
       res
     end
 
