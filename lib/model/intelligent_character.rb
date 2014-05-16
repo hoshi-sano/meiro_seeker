@@ -13,6 +13,7 @@ module MyDungeonGame
       dx, dy = analyse
       if dx && dy
         change_direction_by_dxdy(dx, dy)
+        # 移動先に誰かいたら攻撃、誰もいなければ移動成立
         if @floor[self.x + dx, self.y + dy].any_one?
           target = @floor[self.x + dx, self.y + dy].character
           attack_to(target)

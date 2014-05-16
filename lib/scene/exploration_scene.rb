@@ -108,12 +108,17 @@ module MyDungeonGame
       @do_action = false
     end
 
+    def dash_move_mobs
+      @mobs.each do |mob|
+        mob.keep_prev
+      end
+    end
+
     def move_mobs
       all_updated = true
-      dash = InputManager.down_dash?
       @mobs.each do |mob|
         # 画面に含まれないモブは1フレームで移動を完了させる
-        if !display_target?(mob) || dash
+        if !display_target?(mob)
           mob.do_not_animation_move
         else
           mob.move
@@ -239,6 +244,8 @@ module MyDungeonGame
       false
     end
 
+    # 画面表示の対象かどうか、
+    # 画面内に収まる場合はtrueをそうでない場合はfalseを返す
     def display_target?(obj)
       args = [obj.x * TILE_WIDTH, obj.y * TILE_HEIGHT, obj]
       OutputManager.display_target?(*args)

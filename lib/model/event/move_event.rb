@@ -8,7 +8,7 @@ module MyDungeonGame
     def create(scene, dx, dy, dash=false)
       scene.instance_eval do
         if dash
-          event = MoveEvent.create_unit_move_event(self, dx, dy)
+          event = MoveEvent.create_dash_move_event(self, dx, dy)
         else
           x_move_unit = dx >= 0 ? MOVE_UNIT : MOVE_UNIT * -1
           y_move_unit = dy >= 0 ? MOVE_UNIT : MOVE_UNIT * -1
@@ -39,6 +39,18 @@ module MyDungeonGame
           @player.update
           update_mobs
           move_mobs
+          e.finalize
+        end
+      end
+    end
+
+    def create_dash_move_event(scene, x, y)
+      scene.instance_eval do
+        Event.new do |e|
+          OutputManager.modify_map_offset(x, y)
+          @player.update
+          update_mobs
+          dash_move_mobs
           e.finalize
         end
       end

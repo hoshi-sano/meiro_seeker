@@ -58,6 +58,12 @@ module MyDungeonGame
       @floor.movable?(self.x, self.y, self.x + dx, self.y + dy)
     end
 
+    def update
+      @disp_x = nil
+      @disp_y = nil
+      super
+    end
+
     # 見た目上の移動を実現するためのメソッド
     def move
       if moving_plan
@@ -67,15 +73,13 @@ module MyDungeonGame
           @disp_y = next_xy[1]
         else
           @moving_plan = nil
-          @disp_x = nil
-          @disp_y = nil
         end
       end
     end
 
     def moving?
-      !!(@disp_x && @disp_y)
-      # !!moving_plan
+      # !!(@disp_x && @disp_y)
+      !!moving_plan
     end
 
     def moving_plan
@@ -122,8 +126,13 @@ module MyDungeonGame
     def do_not_animation_move
       @next_xy = []
       @moving_plan = nil
-      @disp_x = nil
-      @disp_y = nil
+    end
+
+    def keep_prev
+      @next_xy = []
+      @moving_plan = nil
+      @disp_x = @prev_x * TILE_WIDTH
+      @disp_y = @prev_y * TILE_HEIGHT
     end
 
     private
