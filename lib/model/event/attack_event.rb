@@ -12,7 +12,8 @@ module MyDungeonGame
           Event.new do |e|
             attacker.hide
             @waiting_update_complete = true
-            args = [attacker.disp_x + cx, attacker.disp_y + cy,
+            args = [(attacker.x * TILE_WIDTH) + cx,
+                    (attacker.y * TILE_HEIGHT) + cy,
                     attacker.display_dummy, :character]
             OutputManager.reserve_draw(*args)
             e.finalize

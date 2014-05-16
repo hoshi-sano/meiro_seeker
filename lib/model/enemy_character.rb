@@ -7,6 +7,10 @@ module MyDungeonGame
     hate true
     hp 10
 
+    def attackable?(target)
+      self.hate? != !!target.hate?
+    end
+
     def go_toward(xy)
       candidates = {}
       ((self.y - 1)..(self.y + 1)).each do |cand_y|
@@ -14,8 +18,8 @@ module MyDungeonGame
           # MEMO: 移動候補先に味方キャラクターがいたら移動不可
           #       移動候補先に敵キャラクターがいたら移動可能(攻撃)
           if throughable?(cand_x - self.x, cand_y - self.y)
-            next if (@floor[cand_x, cand_y].any_one? &&
-                     @floor[cand_x, cand_y].character.hate?)
+            tile = @floor[cand_x, cand_y]
+            next if (tile.any_one? && !attackable?(tile.character))
             dist = calc_distance(cand_x, cand_y, *xy)
             candidates[dist] ||= []
             candidates[dist] << [cand_x, cand_y]

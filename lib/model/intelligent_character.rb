@@ -16,7 +16,7 @@ module MyDungeonGame
         # 移動先に誰かいたら攻撃、誰もいなければ移動成立
         if @floor[self.x + dx, self.y + dy].any_one?
           target = @floor[self.x + dx, self.y + dy].character
-          attack_to(target)
+          attack_to(target) if attackable?(target)
         else
           walk_to(dx, dy)
         end
@@ -25,6 +25,11 @@ module MyDungeonGame
         # * 出入口のない部屋にいて且つプレイヤーがいない
         random_walk
       end
+    end
+
+    # 攻撃可能かどうかの判定
+    def attackable?(target)
+      false
     end
 
     # 自身が今の場所に移動する直前に
