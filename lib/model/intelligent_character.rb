@@ -5,6 +5,7 @@ module MyDungeonGame
     type :mob
     update_interval 10
     image_path ENEMY_IMAGE_PATH
+    name "MOB"
 
     # TODO: N倍速対応
     def action

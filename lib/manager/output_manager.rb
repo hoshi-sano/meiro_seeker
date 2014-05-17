@@ -48,6 +48,19 @@ module MyDungeonGame
         end
       end
 
+      def reserve_draw_message_window(window)
+        # windowの表示
+        # TODO: window.imageがダサいのでなんとかする
+        args = [window.image, 0, 180, :window]
+        reserve_draw_center_with_calibration(*args)
+        # テキストの表示
+        # TODO: windowの幅を超えそうな場合は改行を入れる
+        font = FontProxy.get_font(window.font_type)
+        args = [40, 380, window.message, font, DISPLAYS.keys.index(:window)]
+        DISPLAYS[:window].reserve_draw_text(*args)
+        # TODO: 話者の名前、画像の表示
+      end
+
       def reserve_draw_without_offset(x, y, obj, type=:radar_map)
         if DISPLAYS[type]
           DISPLAYS[type].reserve_draw(x, y, obj.image, DISPLAYS.keys.index(type))

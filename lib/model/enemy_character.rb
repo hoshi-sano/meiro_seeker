@@ -5,6 +5,7 @@ module MyDungeonGame
     update_interval 10
     image_path ENEMY_IMAGE_PATH
     hate true
+    name "ENEMY"
     hp 10
 
     def attackable?(target)

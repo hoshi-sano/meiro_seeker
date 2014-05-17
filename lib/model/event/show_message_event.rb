@@ -3,11 +3,9 @@ module MyDungeonGame
     module_function
     def create(scene, message='')
       scene.instance_eval do
-        window = MessageWindow.new
+        window = MessageWindow.new(message)
         Event.new do |e|
-          # TODO: window.imageがダサいのでなんとかする
-          args = [window.image, 0, 170, :window]
-          OutputManager.reserve_draw_center_with_calibration(*args)
+          OutputManager.reserve_draw_message_window(window)
           @player.update
           update_mobs
           move_mobs

@@ -2,6 +2,7 @@ module MyDungeonGame
   class PlayerCharacter < Character
     type :player
     update_interval 10
+    name "PLAYER"
 
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
@@ -46,26 +47,30 @@ module MyDungeonGame
       @events << EventPacket.new(PlayerAttackEvent)
       targets.each do |target|
         # TODO: 命中判定
-        target.attacked_by(self)
         @events << EventPacket.new(DamageEvent, target)
+        target.attacked_by(self)
         if target.dead?
           self.kill(target)
         end
       end
     end
 
-    # TODO: オーバーライド必要？
     def attacked_by(attacker)
-      super
-      @hp += 10
+      # TODO: ダメージ計算など
+      damage = 5
+      # @hp -= damage
+      msg = MessageManager.damage(damage)
+      attacker.events << EventPacket.new(ShowMessageEvent, msg)
     end
 
     def kill(target)
       super
+      msg = MessageManager.kill(target.name)
+      target.events << EventPacket.new(ShowMessageEvent, msg)
       # TODO: 経験値の習得
     end
 
-    def killed
+    def killed_by(attacker)
       super
       # TODO: ゲームオーバーイベント
     end

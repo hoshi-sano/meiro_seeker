@@ -17,6 +17,14 @@ module MyDungeonGame
         @update_interval || 10
       end
 
+      def name(value)
+        @name = value
+      end
+
+      def get_name
+        @name
+      end
+
       def hp(value)
         @default_hp = value
       end
@@ -99,7 +107,7 @@ module MyDungeonGame
     TRANSPARENCY = ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
-    attr_accessor :x, :y, :prev_x, :prev_y
+    attr_accessor :x, :y, :prev_x, :prev_y, :events, :name
 
     # TODO: 各インスタンスごとに画像をロードしてるのは無駄
     def initialize(img_path, floor)
@@ -123,6 +131,10 @@ module MyDungeonGame
 
     def update_interval
       self.class.get_update_interval
+    end
+
+    def name
+      self.class.get_name
     end
 
     def hate?
@@ -248,9 +260,9 @@ module MyDungeonGame
 
     def attack_to(target)
       # TODO: 命中判定
-      target.attacked_by(self)
       @events << EventPacket.new(AttackEvent, self)
       @events << EventPacket.new(DamageEvent, target)
+      target.attacked_by(self)
       if target.dead?
         self.kill(target)
       end
@@ -258,15 +270,18 @@ module MyDungeonGame
 
     def attacked_by(attacker)
       # TODO: ダメージ計算など
-      @hp -= 5
+      damage = 5
+      @hp -= damage
+      msg = MessageManager.attack(attacker.name, self.name, damage)
+      attacker.events << EventPacket.new(ShowMessageEvent, msg)
     end
 
     def kill(target)
-      target.killed
+      target.killed_by(self)
       @events << EventPacket.new(DeadEvent, target)
     end
 
-    def killed
+    def killed_by(attacker)
       # TODO: やられ画像に変更し、全ての活動を停止する
     end
   end

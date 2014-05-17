@@ -10,6 +10,7 @@ module MyDungeonGame
     type :mob
     update_interval 10
     image_path ENEMY_IMAGE_PATH
+    name "MOB"
 
     def initialize(floor)
       super(image_path, floor)

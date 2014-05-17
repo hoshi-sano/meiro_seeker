@@ -12,6 +12,11 @@ module MyDungeonGame
       @surface.draw(x, y, obj, z_idx)
     end
 
+    def reserve_draw_text(x, y, text, font, z_idx=0)
+      opts = {z: z_idx}
+      @surface.draw_font(x, y, text, font, opts)
+    end
+
     def exec_draw(x=0, y=0)
       @surface.update
       Window.draw(x, y, @surface)

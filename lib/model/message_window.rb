@@ -10,11 +10,15 @@ module MyDungeonGame
       end
     end
 
-    bg_image ViewProxy.rect(600, 100, [0, 0, 120], 140)
+    bg_image ViewProxy.rect(*WINDOW_POSITION[:message],
+                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
-    attr_reader :image
+    attr_reader :image, :message, :font_type
 
-    def initialize
+    def initialize(message, speaker=nil, font_type=:regular)
+      @message = message
+      @speaker = speaker
+      @font_type = font_type
       @image = self.class.image
     end
 

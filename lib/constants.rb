@@ -35,6 +35,17 @@ module MyDungeonGame
     alpha: 0,
   }
 
+  WINDOW_POSITION = {
+    message: [600, 100],
+  }
+  WINDOW_COLOR = {
+    regular: [0, 30, 30],
+  }
+
+  WINDOW_ALPHA = {
+    regular: 200,
+  }
+
   MOVE_UNIT = 8
   CHARACTER_PATTERN_NUM_X = 4
   CHARACTER_PATTERN_NUM_Y = 4
@@ -63,4 +74,5 @@ module MyDungeonGame
   }
   PLAYER_IMAGE_PATH = File.join(ROOT, 'data', 'uno.png')
   ENEMY_IMAGE_PATH  = File.join(ROOT, 'data', 'uno2.png')
+  MESSAGE_LIST_PATH = File.join(ROOT, 'data', 'messages.yml')
 end
