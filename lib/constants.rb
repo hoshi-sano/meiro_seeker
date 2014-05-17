@@ -46,6 +46,8 @@ module MyDungeonGame
     regular: 200,
   }
 
+  MESSAGE_SPEED = 4
+
   MOVE_UNIT = 8
   CHARACTER_PATTERN_NUM_X = 4
   CHARACTER_PATTERN_NUM_Y = 4

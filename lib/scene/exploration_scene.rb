@@ -81,6 +81,7 @@ module MyDungeonGame
       display_palyer
       display_mobs
       display_radar_map
+      display_window
       OutputManager.update
     end
 
@@ -269,6 +270,20 @@ module MyDungeonGame
     def display_base_map
       @floor.each_tile do |x, y, tile|
         OutputManager.reserve_draw(x * TILE_WIDTH, y * TILE_HEIGHT, tile, :map)
+      end
+    end
+
+    # TODO: メッセージウィンドウ表示の仕組みの変更
+    #       現状では死んだモブに別のモブが重なるように移動してきてしまう
+    def display_window
+      if @message_window
+        OutputManager.reserve_draw_message_window(@message_window)
+        if @message_window.permanent?
+        elsif @message_window.alive?
+          @message_window.tick
+        else
+          @message_window = nil
+        end
       end
     end
 
