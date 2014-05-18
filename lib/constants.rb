@@ -42,9 +42,18 @@ module MyDungeonGame
   WINDOW_COLOR = {
     regular: [0, 30, 30],
   }
-
   WINDOW_ALPHA = {
     regular: 200,
+  }
+
+  HP_METER_HEIGHT = 5
+  HP_METER_COLOR = {
+    current: [0, 255, 0],
+    max:     [255, 0, 0],
+  }
+  HP_METER_ALPHA = {
+    current: 255,
+    max:     255,
   }
 
   MESSAGE_SPEED = 4

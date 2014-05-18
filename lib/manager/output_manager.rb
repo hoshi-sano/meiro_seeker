@@ -57,17 +57,45 @@ module MyDungeonGame
         reserve_draw_center_with_calibration(*args)
 
         # フォーマットを利用してパラメータの文字列を作成
-        parm_str = sprintf("%3d", floor_number) + "F" + (" " * 18) +
-                   "Lv" + sprintf("%-2d", player.level) + (" " * 2) +
-                   "HP " + sprintf("%3d", player.hp) +
-                   "/" + sprintf("%-3d", player.max_hp) +(" " * 15) +
-                   sprintf("%6d", player.money) + "G"
-
+        parm_str = format_parameter(floor_number, player)
         font = FontProxy.get_font(:regular)
         args = [10, 10, parm_str, font, DISPLAYS.keys.index(:parameter)]
         DISPLAYS[:parameter].reserve_draw_text(*args)
-        # TODO: HPメーターの表示
+        # HPメーターの表示
+        create_hp_meter(player).each do |meter|
+          args = [290, 30, meter, :parameter]
+          reserve_draw_without_offset(*args)
+        end
         # TODO: 満腹度
+      end
+
+      # 表示するパラメータ文字列を生成する
+      def format_parameter(floor_number, player)
+        sprintf("%3d", floor_number) + "F" + (" " * 18) +
+          "Lv" + sprintf("%-2d", player.level) + (" " * 2) +
+          "HP" + sprintf("%3d", player.hp) +
+          "/" + sprintf("%-3d", player.max_hp) +(" " * 16) +
+          sprintf("%6d", player.money) + "G"
+      end
+
+      # HPメーターを生成して返す
+      def create_hp_meter(player)
+        res = []
+        @max_hp ||= player.max_hp
+        @hp ||= player.hp
+        # HPの変化がない場合は既存のものを返す
+        res[0] = @max_hp_meter if @max_hp == player.max_hp
+        res[1] = @hp_meter if @hp == player.hp
+
+        [[:max_hp, :max],
+         [:hp, :current]].each_with_index do |method_key, i|
+          next if res[i]
+          method, key = *method_key
+          args = [player.send(method), HP_METER_HEIGHT,
+                  HP_METER_COLOR[key], HP_METER_ALPHA[key]]
+          res[i] = ViewProxy.rect(*args)
+        end
+        res
       end
 
       def reserve_draw_message_window(window)
