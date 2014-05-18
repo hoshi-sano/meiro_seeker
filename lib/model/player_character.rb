@@ -3,9 +3,16 @@ module MyDungeonGame
     type :player
     update_interval 10
     name "PLAYER"
+    level 1
+    hp 15
+    power 5
 
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
+    end
+
+    def accuracy
+      PLAYER_ATTACK_ACCURACY
     end
 
     def attack_or_check
@@ -46,18 +53,21 @@ module MyDungeonGame
     def attack_to(targets)
       @events << EventPacket.new(PlayerAttackEvent)
       targets.each do |target|
-        # TODO: 命中判定
-        @events << EventPacket.new(DamageEvent, target)
-        target.attacked_by(self)
-        if target.dead?
-          self.kill(target)
+        if randomizer.rand(100)  < self.accuracy
+          @events << EventPacket.new(DamageEvent, target)
+          target.attacked_by(self)
+          if target.dead?
+            self.kill(target)
+          end
+        else
+          msg = MessageManager.missed(self.name)
+          @events << EventPacket.new(ShowMessageEvent, msg)
         end
       end
     end
 
     def attacked_by(attacker)
-      # TODO: ダメージ計算など
-      damage = 5
+      damage = calc_damage(attacker, self)
       # @hp -= damage
       msg = MessageManager.damage(damage)
       attacker.events << EventPacket.new(ShowMessageEvent, msg)

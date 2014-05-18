@@ -25,12 +25,18 @@ module MyDungeonGame
         @name
       end
 
-      def hp(value)
-        @default_hp = value
-      end
+      [
+       :hp,
+       :level,
+       :power,
+      ].each do |param_name|
+        define_method(param_name) do |value|
+          self.instance_variable_set("@default_#{param_name}", value)
+        end
 
-      def default_hp
-        @default_hp || 1
+        define_method("default_#{param_name}") do
+          self.instance_variable_get("@default_#{param_name}") || 1
+        end
       end
 
       def hate(value)
@@ -123,6 +129,8 @@ module MyDungeonGame
 
       # ステータス
       @hp = self.class.default_hp
+      @level = self.class.default_level
+      @power = self.class.default_power
     end
 
     def type
@@ -135,6 +143,11 @@ module MyDungeonGame
 
     def name
       self.class.get_name
+    end
+
+    def accuracy
+      # TODO: 状態によって数値を変更
+      MOB_ATTACK_ACCURACY
     end
 
     def hate?
@@ -259,18 +272,22 @@ module MyDungeonGame
     end
 
     def attack_to(target)
-      # TODO: 命中判定
       @events << EventPacket.new(AttackEvent, self)
-      @events << EventPacket.new(DamageEvent, target)
-      target.attacked_by(self)
-      if target.dead?
-        self.kill(target)
+      if randomizer.rand(100)  < self.accuracy
+        @events << EventPacket.new(DamageEvent, target)
+        target.attacked_by(self)
+        if target.dead?
+          self.kill(target)
+        end
+      else
+        msg = MessageManager.missed(self.name)
+        @events << EventPacket.new(ShowMessageEvent, msg)
       end
     end
 
     def attacked_by(attacker)
       # TODO: ダメージ計算など
-      damage = 5
+      damage = calc_damage(attacker, self)
       @hp -= damage
       msg = MessageManager.attack(attacker.name, self.name, damage)
       attacker.events << EventPacket.new(ShowMessageEvent, msg)
@@ -283,6 +300,48 @@ module MyDungeonGame
 
     def killed_by(attacker)
       # TODO: やられ画像に変更し、全ての活動を停止する
+    end
+
+    # ダメージ計算
+    def calc_damage(attacker, target)
+      pow     = attacker.calc_attack_power
+      rand    = (rand(250) + 875) / 1000.0 # 0.875 - 1.125
+      defence = calc_defence
+      (pow * rand - defence).round
+    end
+
+    # 攻撃力の計算
+    def calc_attack_power
+      calc_weapon_calibration +
+        calc_level_calibration +
+        calc_power_calibration
+    end
+
+    def calc_defence
+      0
+    end
+
+    private
+    # 各種計算式は http://asuka.lsx3.net/ を参照
+
+    # 武器補正の計算
+    def calc_weapon_calibration
+      # TODO
+      0
+    end
+
+    # レベル補正の計算
+    def calc_level_calibration
+      (Math.log((@level / 2) + 1) / Math.log(1.6)) ** 2
+    end
+
+    # 力補正の計算
+    def calc_power_calibration
+      if @power < 8
+        ((Math.log(3.0) / Math.log(1.6)) ** 2) * (@power / 8.0)
+      else
+        ((Math.log((@power / 2.0) - 1) / Math.log(1.6)) ** 2)
+      end
     end
   end
 end

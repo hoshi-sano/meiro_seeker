@@ -37,8 +37,8 @@ module MyDungeonGame
     # ランダム歩行
     # ランダムに決めた移動先が進行不可の場合は向きだけ変更する
     def random_walk
-      dx = DungeonManager.randomizer.rand(3) - 1
-      dy = DungeonManager.randomizer.rand(3) - 1
+      dx = randomizer.rand(3) - 1
+      dy = randomizer.rand(3) - 1
       change_direction_by_dxdy(dx, dy)
 
       walk_to(dx, dy)

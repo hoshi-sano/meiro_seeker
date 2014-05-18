@@ -5,8 +5,12 @@ module MyDungeonGame
       (x1 - x2).abs + (y1 - y2).abs
     end
 
+    def randomizer
+      DungeonManager.randomizer
+    end
+
     def random_select(array)
-      array[DungeonManager.randomizer.rand(array.size)]
+      array[randomizer.rand(array.size)]
     end
   end
 end

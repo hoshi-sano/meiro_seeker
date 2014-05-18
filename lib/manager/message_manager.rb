@@ -10,6 +10,7 @@ module MyDungeonGame
     FROM = 'f'
     TO = 't'
     POINT = 'p'
+    ATTACKER = 'a'
 
     module_function
 
@@ -29,6 +30,10 @@ module MyDungeonGame
 
     def kill(target)
       LIST[:kill].gsub(Regexp.new("#{TO}"), target)
+    end
+
+    def missed(attacker)
+      LIST[:attacker_missed].gsub(Regexp.new("#{ATTACKER}"), attacker)
     end
   end
 end

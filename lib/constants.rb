@@ -74,6 +74,11 @@ module MyDungeonGame
     [-1, -1] => :NW, # 左下 TODO
     [ 1, -1] => :NE, # 右下 TODO
   }
+
+  PLAYER_ATTACK_ACCURACY = 95
+  MOB_ATTACK_ACCURACY = 85
+  THROW_ACCURACY = 85
+
   PLAYER_IMAGE_PATH = File.join(ROOT, 'data', 'uno.png')
   ENEMY_IMAGE_PATH  = File.join(ROOT, 'data', 'uno2.png')
   MESSAGE_LIST_PATH = File.join(ROOT, 'data', 'messages.yml')
