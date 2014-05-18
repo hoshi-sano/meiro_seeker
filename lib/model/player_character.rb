@@ -66,7 +66,7 @@ module MyDungeonGame
     def kill(target)
       super
       msg = MessageManager.kill(target.name)
-      target.events << EventPacket.new(ShowMessageEvent, msg)
+      @events << EventPacket.new(ShowMessageEvent, msg)
       # TODO: 経験値の習得
     end
 
