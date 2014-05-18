@@ -7,8 +7,12 @@ module MyDungeonGame
     hp 15
     power 5
 
+    attr_reader :level, :max_hp, :money
+    attr_accessor :hp
+
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
+      @money = 0
     end
 
     def accuracy
@@ -54,8 +58,8 @@ module MyDungeonGame
       @events << EventPacket.new(PlayerAttackEvent)
       targets.each do |target|
         if randomizer.rand(100)  < self.accuracy
-          @events << EventPacket.new(DamageEvent, target)
-          target.attacked_by(self)
+          damage = target.attacked_by(self)
+          @events << EventPacket.new(DamageEvent, target, damage)
           if target.dead?
             self.kill(target)
           end
@@ -68,9 +72,9 @@ module MyDungeonGame
 
     def attacked_by(attacker)
       damage = calc_damage(attacker, self)
-      # @hp -= damage
       msg = MessageManager.damage(damage)
       attacker.events << EventPacket.new(ShowMessageEvent, msg)
+      damage
     end
 
     def kill(target)

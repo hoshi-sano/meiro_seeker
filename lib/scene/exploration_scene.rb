@@ -82,6 +82,7 @@ module MyDungeonGame
       display_base_map
       display_palyer
       display_mobs
+      display_parameter
       display_radar_map
       display_window
       OutputManager.update
@@ -267,6 +268,12 @@ module MyDungeonGame
       @mobs.each do |mob|
         OutputManager.reserve_draw(mob.disp_x, mob.disp_y, mob, :character)
       end
+    end
+
+    def display_parameter
+      # TODO: 階数を使う
+      floor_number = 1
+      OutputManager.reserve_draw_parameter(floor_number, @player)
     end
 
     def display_base_map

@@ -8,7 +8,6 @@ module MyDungeonGame
         res = nil
         if target.type == :player
           # TODO: プレイヤーの死
-          # MEMO: もしかしたら分岐は必要ないかも
         else
           res = Event.new {|e| target.show_switch; e.finalize }
           anime_length = CHARACTER_DEATH_ANIMATION_LENGTH

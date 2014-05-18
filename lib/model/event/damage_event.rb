@@ -3,10 +3,21 @@ module MyDungeonGame
   module DamageEvent
     module_function
 
-    def create(scene, target)
+    def create(scene, target, damage)
       scene.instance_eval do
         # TODO: 最終的には点滅はいらない。画像が変わるだけでいい。
-        res = Event.new {|e| target.show_switch; e.finalize }
+        if target.type == :player
+          res = Event.new do |e|
+            # プレーヤーへのダメージの場合、画面に表示する残りHPと被ダ
+            # メージ演出をシンクロさせるため、ここでHPの計算を行う
+            target.hp -= damage
+            target.hp = 0 if target.hp < 0
+            target.show_switch
+            e.finalize
+          end
+        else
+          res = Event.new {|e| target.show_switch; e.finalize }
+        end
         anime_length = CHARACTER_DAMAGE_ANIMATION_LENGTH
         anime_length.times do |i|
           if i < anime_length - 1

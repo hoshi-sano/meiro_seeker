@@ -13,7 +13,7 @@ module MyDungeonGame
     TTL = 100
     FULL_LINE_NUMBER = 3
 
-    bg_image ViewProxy.rect(*WINDOW_POSITION[:message],
+    bg_image ViewProxy.rect(*WINDOW_SIZE[:message],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     attr_reader :image, :font_type

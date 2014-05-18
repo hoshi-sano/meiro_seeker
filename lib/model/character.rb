@@ -128,6 +128,7 @@ module MyDungeonGame
       @events = []
 
       # ステータス
+      @max_hp = self.class.default_hp
       @hp = self.class.default_hp
       @level = self.class.default_level
       @power = self.class.default_power
@@ -274,8 +275,8 @@ module MyDungeonGame
     def attack_to(target)
       @events << EventPacket.new(AttackEvent, self)
       if randomizer.rand(100)  < self.accuracy
-        @events << EventPacket.new(DamageEvent, target)
-        target.attacked_by(self)
+        damage = target.attacked_by(self)
+        @events << EventPacket.new(DamageEvent, target, damage)
         if target.dead?
           self.kill(target)
         end
@@ -286,11 +287,11 @@ module MyDungeonGame
     end
 
     def attacked_by(attacker)
-      # TODO: ダメージ計算など
       damage = calc_damage(attacker, self)
       @hp -= damage
       msg = MessageManager.attack(attacker.name, self.name, damage)
       attacker.events << EventPacket.new(ShowMessageEvent, msg)
+      damage
     end
 
     def kill(target)
@@ -317,7 +318,9 @@ module MyDungeonGame
         calc_power_calibration
     end
 
+    # 防御力の計算
     def calc_defence
+      # TODO
       0
     end
 

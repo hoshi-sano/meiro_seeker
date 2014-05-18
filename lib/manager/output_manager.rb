@@ -6,9 +6,12 @@ module MyDungeonGame
       character: ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
       window:    ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
       effect:    ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
+      parameter: ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
       radar_map: ViewProxy.new(RADAR_MAP_UNIT_SIZE * WIDTH_TILE_NUM,
                                RADAR_MAP_UNIT_SIZE * HEIGHT_TILE_NUM),
     }.freeze
+    PARAMETER_BACK = ViewProxy.rect(*WINDOW_SIZE[:parameter],
+                                    WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     class << self
       def init(player_x, player_y)
@@ -46,6 +49,25 @@ module MyDungeonGame
         else
           false
         end
+      end
+
+      def reserve_draw_parameter(floor_number=1, player)
+        # パラメータの背景を表示
+        args = [PARAMETER_BACK, 0, -215, :parameter]
+        reserve_draw_center_with_calibration(*args)
+
+        # フォーマットを利用してパラメータの文字列を作成
+        parm_str = sprintf("%3d", floor_number) + "F" + (" " * 18) +
+                   "Lv" + sprintf("%-2d", player.level) + (" " * 2) +
+                   "HP " + sprintf("%3d", player.hp) +
+                   "/" + sprintf("%-3d", player.max_hp) +(" " * 15) +
+                   sprintf("%6d", player.money) + "G"
+
+        font = FontProxy.get_font(:regular)
+        args = [10, 10, parm_str, font, DISPLAYS.keys.index(:parameter)]
+        DISPLAYS[:parameter].reserve_draw_text(*args)
+        # TODO: HPメーターの表示
+        # TODO: 満腹度
       end
 
       def reserve_draw_message_window(window)

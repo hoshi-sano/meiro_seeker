@@ -35,8 +35,9 @@ module MyDungeonGame
     alpha: 0,
   }
 
-  WINDOW_POSITION = {
-    message: [600, 100],
+  WINDOW_SIZE = {
+    message:   [600, 100],
+    parameter: [600, 40],
   }
   WINDOW_COLOR = {
     regular: [0, 30, 30],
