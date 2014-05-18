@@ -92,6 +92,7 @@ module MyDungeonGame
     def tick
       @turn += 1
       @player.self_healing
+      @player.hunger
       # TODO: 状態異常からの復帰など
       @do_action = true
       # 敵の増加

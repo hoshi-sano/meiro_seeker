@@ -55,6 +55,15 @@ module MyDungeonGame
     current: 255,
     max:     255,
   }
+  STOMACH_METER_HEIGHT = 3
+  STOMACH_METER_COLOR = {
+    current: [0, 150, 200],
+    max:     [0,  80, 130],
+  }
+  STOMACH_METER_ALPHA = {
+    current: 255,
+    max:     255,
+  }
 
   MESSAGE_SPEED = 4
 

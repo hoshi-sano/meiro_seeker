@@ -7,13 +7,18 @@ module MyDungeonGame
     hp 15
     power 5
 
-    attr_reader :level, :max_hp, :money
+    attr_reader :level, :max_hp, :money, :stomach, :max_stomach
     attr_accessor :hp
+
+    HUNGER_INTERVAL = 10
 
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
       @money = 0
       @self_healing_value = 0 # 自然治癒力
+      @stomach = 100     # 満腹度
+      @max_stomach = 100 # 最大満腹度
+      @hunger_interval = HUNGER_INTERVAL
     end
 
     def accuracy
@@ -36,10 +41,14 @@ module MyDungeonGame
 
     # 毎ターンの満腹度の現象
     def hunger
-      @hunger_interal -= 1
-      if @hunger_interal <= 0
-        @stomach -= 1
-        @hunger_interal = HUNGER_INTERAL
+      if @stomach <= 0
+        # TODO: 空腹によるHP減少
+      else
+        @hunger_interval -= 1
+        if @hunger_interval <= 0
+          @stomach -= 1
+          @hunger_interval = HUNGER_INTERVAL
+        end
       end
     end
 

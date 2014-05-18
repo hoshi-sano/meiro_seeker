@@ -66,7 +66,11 @@ module MyDungeonGame
           args = [290, 30, meter, :parameter]
           reserve_draw_without_offset(*args)
         end
-        # TODO: 満腹度
+        # 満腹度の表示
+        create_stomach_meter(player).each do |meter|
+          args = [290, 35, meter, :parameter]
+          reserve_draw_without_offset(*args)
+        end
       end
 
       # 表示するパラメータ文字列を生成する
@@ -93,6 +97,25 @@ module MyDungeonGame
           method, key = *method_key
           args = [player.send(method), HP_METER_HEIGHT,
                   HP_METER_COLOR[key], HP_METER_ALPHA[key]]
+          res[i] = ViewProxy.rect(*args)
+        end
+        res
+      end
+
+      # 満腹度メーターを生成して返す
+      def create_stomach_meter(player)
+        res = []
+        @max_stomach ||= player.max_stomach
+        @stomach ||= player.stomach
+        # 満腹度の変化がない場合は既存のものを返す
+        res[0] = @max_stomach_meter if @max_stomach == player.max_stomach
+        res[1] = @stomach_meter if @stomach == player.stomach
+        [[:max_stomach, :max],
+         [:stomach, :current]].each_with_index do |method_key, i|
+          next if res[i]
+          method, key = *method_key
+          args = [player.send(method), STOMACH_METER_HEIGHT,
+                  STOMACH_METER_COLOR[key], STOMACH_METER_ALPHA[key]]
           res[i] = ViewProxy.rect(*args)
         end
         res
