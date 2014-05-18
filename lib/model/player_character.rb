@@ -11,7 +11,8 @@ module MyDungeonGame
     attr_reader :money, :stomach, :max_stomach
 
     HUNGER_INTERVAL = 10
-    HP_GAIN_BASE = 2
+    HP_GAIN_MIN = 2
+    HP_GAIN_AMPLITUDE = 5
 
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
@@ -24,7 +25,7 @@ module MyDungeonGame
 
     def level_up
       @level += 1
-      hp_diff = randomizer.rand(HP_GAIN_BASE + 1) + HP_GAIN_BASE # 2..4
+      hp_diff = randomizer.rand(HP_GAIN_AMPLITUDE + 1) + HP_GAIN_MIN # 2..7
       @max_hp += hp_diff
       @hp += hp_diff
     end
