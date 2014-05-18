@@ -35,16 +35,15 @@ module MyDungeonGame
 
     # 毎ターンの自然治癒
     def self_healing
-      return if @hp >= @max_hp
       @self_healing_value += calc_self_healing_value
       plus = @self_healing_value.floor
       @hp += plus
+      @hp = @max_hp if @hp > @max_hp
       @self_healing_value -= plus
     end
 
     def calc_self_healing_value
-      # TODO: 調整
-      @level / 5.0
+      @max_hp / 200.0
     end
 
     # 毎ターンの満腹度の現象
