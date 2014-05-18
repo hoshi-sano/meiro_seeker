@@ -12,12 +12,12 @@ module MyDungeonGame
         return current_level
       end
 
-      n = 1
-      next_level = current_level + n
-      while exp > required_exp
+      n = 0
+      while exp >= required_exp
         n += 1
         next_level = current_level + n
-        required_exp = get_exp(next_level)
+        check_level = next_level + 1
+        required_exp = get_exp(check_level)
       end
       next_level
     end

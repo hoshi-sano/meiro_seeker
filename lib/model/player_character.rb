@@ -11,6 +11,7 @@ module MyDungeonGame
     attr_reader :money, :stomach, :max_stomach
 
     HUNGER_INTERVAL = 10
+    HP_GAIN_BASE = 2
 
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
@@ -19,6 +20,13 @@ module MyDungeonGame
       @stomach = 100     # 満腹度
       @max_stomach = 100 # 最大満腹度
       @hunger_interval = HUNGER_INTERVAL
+    end
+
+    def level_up
+      @level += 1
+      hp_diff = randomizer.rand(HP_GAIN_BASE + 1) + HP_GAIN_BASE # 2..4
+      @max_hp += hp_diff
+      @hp += hp_diff
     end
 
     def accuracy
@@ -121,10 +129,9 @@ module MyDungeonGame
       # レベルアップのチェック
       current_exp_level = LevelManager.get_level(@level, @exp)
       if current_exp_level > @level
-        msg = MessageManager.level_up(self.name, @level)
+        msg = MessageManager.level_up(self.name, current_exp_level)
         @events << EventPacket.new(ShowMessageEvent, msg)
-        # TODO: レベルアップをイベントで行う
-        @level = current_exp_level
+        @events << EventPacket.new(PlayerLevelUpEvent, current_exp_level)
       end
     end
 
