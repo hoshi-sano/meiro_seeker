@@ -91,7 +91,8 @@ module MyDungeonGame
     # ターンを消費する
     def tick
       @turn += 1
-      # TODO: 1ターンごとのHP回復や状態異常からの復帰など
+      @player.self_healing
+      # TODO: 状態異常からの復帰など
       @do_action = true
       # 敵の増加
       if (@turn % RESPAWN_INTERVAL).zero?

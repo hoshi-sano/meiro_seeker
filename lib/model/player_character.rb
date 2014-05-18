@@ -13,10 +13,34 @@ module MyDungeonGame
     def initialize(floor)
       super(PLAYER_IMAGE_PATH, floor)
       @money = 0
+      @self_healing_value = 0 # 自然治癒力
     end
 
     def accuracy
       PLAYER_ATTACK_ACCURACY
+    end
+
+    # 毎ターンの自然治癒
+    def self_healing
+      return if @hp >= @max_hp
+      @self_healing_value += calc_self_healing_value
+      plus = @self_healing_value.floor
+      @hp += plus
+      @self_healing_value -= plus
+    end
+
+    def calc_self_healing_value
+      # TODO: 調整
+      @level / 5.0
+    end
+
+    # 毎ターンの満腹度の現象
+    def hunger
+      @hunger_interal -= 1
+      if @hunger_interal <= 0
+        @stomach -= 1
+        @hunger_interal = HUNGER_INTERAL
+      end
     end
 
     def attack_or_check
