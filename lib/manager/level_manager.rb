@@ -8,7 +8,7 @@ module MyDungeonGame
 
     def get_level(current_level, exp)
       required_exp = get_exp(current_level + 1)
-      if exp < required_exp
+      if required_exp.nil? || (exp < required_exp)
         return current_level
       end
 
@@ -18,6 +18,10 @@ module MyDungeonGame
         next_level = current_level + n
         check_level = next_level + 1
         required_exp = get_exp(check_level)
+        if required_exp.nil?
+          next_level = 99
+          break
+        end
       end
       next_level
     end
