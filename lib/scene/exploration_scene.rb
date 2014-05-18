@@ -92,7 +92,7 @@ module MyDungeonGame
       @turn += 1
       # TODO: 1ターンごとのHP回復や状態異常からの復帰など
       @do_action = true
-      # TODO: 敵の増加
+      # 敵の増加
       if (@turn % RESPAWN_INTERVAL).zero?
         mob = EnemyCharacter.new(@floor)
         set_random_position(mob)
