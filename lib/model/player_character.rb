@@ -6,9 +6,9 @@ module MyDungeonGame
     level 1
     hp 15
     power 5
+    exp 0
 
-    attr_reader :level, :max_hp, :money, :stomach, :max_stomach
-    attr_accessor :hp
+    attr_reader :money, :stomach, :max_stomach
 
     HUNGER_INTERVAL = 10
 
@@ -114,7 +114,18 @@ module MyDungeonGame
       super
       msg = MessageManager.kill(target.name)
       @events << EventPacket.new(ShowMessageEvent, msg)
-      # TODO: 経験値の習得
+      # 経験値の取得とメッセージ表示イベント
+      @exp += target.exp
+      msg = MessageManager.get_exp(target.exp)
+      @events << EventPacket.new(ShowMessageEvent, msg)
+      # レベルアップのチェック
+      current_exp_level = LevelManager.get_level(@level, @exp)
+      if current_exp_level > @level
+        msg = MessageManager.level_up(self.name, @level)
+        @events << EventPacket.new(ShowMessageEvent, msg)
+        # TODO: レベルアップをイベントで行う
+        @level = current_exp_level
+      end
     end
 
     def killed_by(attacker)

@@ -29,6 +29,7 @@ module MyDungeonGame
        :hp,
        :level,
        :power,
+       :exp,
       ].each do |param_name|
         define_method(param_name) do |value|
           self.instance_variable_set("@default_#{param_name}", value)
@@ -113,7 +114,8 @@ module MyDungeonGame
     TRANSPARENCY = ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
-    attr_accessor :x, :y, :prev_x, :prev_y, :events, :name
+    attr_reader :level, :max_hp, :exp
+    attr_accessor :x, :y, :prev_x, :prev_y, :events, :name, :hp
 
     # TODO: 各インスタンスごとに画像をロードしてるのは無駄
     def initialize(img_path, floor)
@@ -132,6 +134,7 @@ module MyDungeonGame
       @hp = self.class.default_hp
       @level = self.class.default_level
       @power = self.class.default_power
+      @exp =   self.class.default_exp
     end
 
     def type
