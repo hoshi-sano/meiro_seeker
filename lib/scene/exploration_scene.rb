@@ -282,8 +282,6 @@ module MyDungeonGame
       end
     end
 
-    # TODO: メッセージウィンドウ表示の仕組みの変更
-    #       現状では死んだモブに別のモブが重なるように移動してきてしまう
     def display_window
       if @message_window
         OutputManager.reserve_draw_message_window(@message_window)
