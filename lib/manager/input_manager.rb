@@ -26,6 +26,18 @@ module MyDungeonGame
         end
       end
 
+      def any_key?
+        res = false
+        get_input_xy.each {|d| res = true if !d.zero? }
+        return res if res
+
+        DEFAULT_KEY_CONFIG.each_key do |key|
+          res ||= INPUT.key_down?(DEFAULT_KEY_CONFIG[key])
+          break if res
+        end
+        res
+      end
+
       def down_dash?
         INPUT.key_down?(DEFAULT_KEY_CONFIG[:cancel])
       end

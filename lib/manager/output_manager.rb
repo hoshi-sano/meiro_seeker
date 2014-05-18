@@ -56,7 +56,7 @@ module MyDungeonGame
         # テキストの表示
         # TODO: windowの幅を超えそうな場合は改行を入れる
         font = FontProxy.get_font(window.font_type)
-        args = [40, 380, window.message, font, DISPLAYS.keys.index(:window)]
+        args = [40, 380, window.text, font, DISPLAYS.keys.index(:window)]
         DISPLAYS[:window].reserve_draw_text(*args)
         # TODO: 話者の名前、画像の表示
       end

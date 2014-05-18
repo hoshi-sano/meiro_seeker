@@ -4,14 +4,36 @@ module MyDungeonGame
 
     def create(scene, message='')
       scene.instance_eval do
-        window = MessageWindow.new('')
 
         first = Event.new do |e|
-          @message_window = window
+          if @message_window
+            @message_window.init_ttl
+            @message_window.newline!
+          else
+            @message_window = MessageWindow.new('')
+          end
           e.finalize
         end
 
-        # メッセージ送りを表現する
+        # メッセージウィンドウがいっぱいだった場合は
+        # 入力があるまで更新しない
+        check_full = Event.new do |e|
+          if !@message_window.full?
+            e.finalize
+          else
+            @message_window.permanence!
+            @message_window.display_next_arrow
+            @message_window.init_ttl
+            if InputManager.any_key?
+              @message_window.remove_arrow
+              @message_window.oldest_line_clear!
+              e.finalize
+            end
+          end
+        end
+        first.set_next(check_full)
+
+        # メッセージの流れを表現する
         range = 0..(message.length + MESSAGE_SPEED)
         range.step(MESSAGE_SPEED).each do |idx|
           follow_event = Event.new do |e|
@@ -20,6 +42,7 @@ module MyDungeonGame
           end
           first.set_next(follow_event)
         end
+
         first
       end
     end

@@ -58,14 +58,16 @@ module MyDungeonGame
       character.y = y
       character.prev_x = x
       character.prev_y = y
+      retry_limit = 10
       while player_xy = @floor.get_room(x, y).player_xy
         # 見える範囲には出現させない
-        break if !display_target?(character)
+        break if !display_target?(character) || retry_limit <= 0
         x, y = @floor.get_no_one_xy(DungeonManager.randomizer)
         character.x = x
         character.y = y
         character.prev_x = x
         character.prev_y = y
+        retry_limit -= 1
       end
       @floor[character.x, character.y].character = character
       true

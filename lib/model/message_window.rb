@@ -10,6 +10,9 @@ module MyDungeonGame
       end
     end
 
+    TTL = 100
+    FULL_LINE_NUMBER = 3
+
     bg_image ViewProxy.rect(*WINDOW_POSITION[:message],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
@@ -18,10 +21,11 @@ module MyDungeonGame
 
     def initialize(message, speaker=nil, font_type=:regular)
       @message = message
+      @past_messages = []
       @speaker = speaker
       @font_type = font_type
       @image = self.class.image
-      @ttl = 100 # TODO: 調整
+      @ttl = TTL
     end
 
     def width
@@ -32,8 +36,52 @@ module MyDungeonGame
       @image.height
     end
 
+    def text
+      return '' if @past_messages.empty? && @message.nil?
+
+      res = @past_messages.join("\n")
+      res += "\n" if !res.empty?
+      res += @message if @message
+      res
+    end
+
+    ARROW_FLASH_INTERVAL = 15
+
+    def display_next_arrow
+      latest = @past_messages.last
+      if @arrow_flash_interval.nil?
+        latest.concat('>')
+      end
+      @arrow_flash_interval ||= ARROW_FLASH_INTERVAL
+      @arrow_flash_interval -= 1
+      if @arrow_flash_interval <= 0
+        latest.concat('>')
+        latest.gsub!(/>>/, '')
+        @arrow_flash_interval = ARROW_FLASH_INTERVAL
+      end
+    end
+
+    def remove_arrow
+      @past_messages.last.gsub!(/>/, '')
+      @arrow_flash_interval = nil
+    end
+
+    def newline!
+      return if @message.nil?
+      @past_messages << @message
+      @message = nil
+    end
+
+    def oldest_line_clear!
+      @past_messages.shift
+    end
+
+    def full?
+      @past_messages.size >= FULL_LINE_NUMBER
+    end
+
     def init_ttl
-      @ttl = 100 # TODO: 調整
+      @ttl = TTL
     end
 
     def tick
