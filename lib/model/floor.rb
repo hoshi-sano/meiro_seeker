@@ -1,6 +1,12 @@
 module MyDungeonGame
   # Meiro::Floorクラスの拡張
   module Floor
+    attr_reader :storey
+
+    def set_storey(num)
+      @storey = num
+    end
+
     # キャラクターが不在のマスの座標を返す
     def get_no_one_xy(randomizer=nil)
       randomizer ||= Random.new

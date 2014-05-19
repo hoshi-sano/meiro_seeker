@@ -26,6 +26,10 @@ module MyDungeonGame
       def rect(width, height, color=[255, 255, 255], alpha=255)
         Rect.new(width, height, color, alpha)
       end
+
+      def box(width, height, color=[255, 255, 255], alpha=255)
+        Box.new(width, height, color, alpha)
+      end
     end
 
     class Rect
@@ -42,6 +46,14 @@ module MyDungeonGame
 
       def height
         @image.height
+      end
+    end
+
+    class Box < Rect
+      def initialize(width, height, color, alpha)
+        _color = [alpha, *color]
+        args = [0, 0, width, height, _color]
+        @image = Image.new(width, height).box(*args)
       end
     end
   end

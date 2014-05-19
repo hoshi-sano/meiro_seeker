@@ -70,6 +70,10 @@ class Meiro::Tile::BaseTile
     !@character
   end
 
+  def no_object?
+    !@object
+  end
+
   def clear
     clear_object
     clear_character

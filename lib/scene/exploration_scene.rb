@@ -6,13 +6,18 @@ module MyDungeonGame
                              RADAR_MAP_COLOR[:player], RADAR_MAP_ALPHA[:player]),
       mob:    ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
                              RADAR_MAP_COLOR[:mob], RADAR_MAP_ALPHA[:mob]),
+      item:   ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+                             RADAR_MAP_COLOR[:item], RADAR_MAP_ALPHA[:item]),
+      stairs: ViewProxy.box(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+                            RADAR_MAP_COLOR[:stairs], RADAR_MAP_ALPHA[:stairs]),
       tile:   ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
                              RADAR_MAP_COLOR[:tile], RADAR_MAP_ALPHA[:tile]),
     }.freeze
 
-    def initialize
+    def initialize(storey=1, player=nil)
       extend(HelperMethods)
       @floor = DungeonManager.create_floor
+      @floor.set_storey(storey)
 
       # 消費ターン数
       @turn = 0
@@ -28,18 +33,26 @@ module MyDungeonGame
       @waiting_update_complete = false
 
       # NPCの種類、数、初期位置を決定
-      @mobs = create_mobs
+      @mobs = create_mobs(@floor.storey)
+
+      # アイテム、罠、階段の初期位置を決定
+      @floor_objects = create_floor_objects(@floor.storey)
 
       # プレーヤーの初期位置を決定
-      @player = PlayerCharacter.new(@floor)
+      if player
+        player.floor = @floor
+        @player = player
+      else
+        @player = PlayerCharacter.new(@floor)
+      end
       set_random_position(@player)
 
       OutputManager.init(@player.x, @player.y)
       @em = EventManager.new(WaitInputEvent.create(self))
     end
 
-    def create_mobs
-      # TODO: 適切なNPC選択を行う
+    def create_mobs(storey)
+      # TODO: 階に合わせた適切なNPC選択を行う
       res = []
       room_num = @floor.all_rooms.size
       mob_num = DungeonManager.randomizer.rand(room_num) * 2
@@ -52,7 +65,24 @@ module MyDungeonGame
       res
     end
 
-    def set_random_position(character)
+    def create_floor_objects(storey)
+      # TODO: 階に合わせた適切なフロアオブジェクト選択を行う
+      res = []
+      stairs = Stairs.new(@floor)
+      set_random_position(stairs)
+      res << stairs
+      res
+    end
+
+    def set_random_position(obj)
+      if obj.kind_of?(Character)
+        set_character_random_position(obj)
+      else
+        set_floor_object_random_position(obj)
+      end
+    end
+
+    def set_character_random_position(character)
       x, y = @floor.get_no_one_xy(DungeonManager.randomizer)
       character.x = x
       character.y = y
@@ -73,6 +103,14 @@ module MyDungeonGame
       true
     end
 
+    def set_floor_object_random_position(fobj)
+      x, y = @floor.get_no_one_xy(DungeonManager.randomizer)
+      fobj.x = x
+      fobj.y = y
+      @floor[fobj.x, fobj.y].object = fobj
+      true
+    end
+
     # 基本のループ処理
     def update
       # 条件・状態によって変化するイベントを処理
@@ -82,6 +120,7 @@ module MyDungeonGame
       display_base_map
       display_palyer
       display_mobs
+      display_floor_objects
       display_parameter
       display_radar_map
       display_window
@@ -223,6 +262,7 @@ module MyDungeonGame
       cur_x, cur_y = @player.x, @player.y
       if @floor.movable?(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.move_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
+        check_stairs(cur_x + dx, cur_y + dy)
         tick
         if dash
           OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
@@ -233,6 +273,20 @@ module MyDungeonGame
         end
       end
       res
+    end
+
+    # 足元が階段の場合、降りるかどうかの判断を下す
+    def check_stairs(x, y)
+      underfoot = @floor[x, y]
+      return if underfoot.no_object?
+      if underfoot.object.type == :stairs
+        # TODO: イベントでやる
+        go_to_next_floor
+      end
+    end
+
+    def go_to_next_floor
+      GeneralManager.next_floor(@floor, @player)
     end
 
     # 斜め移動かどうか
@@ -272,10 +326,16 @@ module MyDungeonGame
       end
     end
 
+    # アイテム、罠、階段などの表示
+    def display_floor_objects
+      @floor_objects.each do |fobj|
+        args = [fobj.x * TILE_WIDTH, fobj.y * TILE_HEIGHT, fobj, :object]
+        OutputManager.reserve_draw(*args)
+      end
+    end
+
     def display_parameter
-      # TODO: 階数を使う
-      floor_number = 1
-      OutputManager.reserve_draw_parameter(floor_number, @player)
+      OutputManager.reserve_draw_parameter(@floor.storey, @player)
     end
 
     def display_base_map

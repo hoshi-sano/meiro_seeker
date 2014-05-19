@@ -5,5 +5,6 @@ require 'floor'
 require 'room'
 
 require 'character'
+require 'floor_object'
 require 'event'
 require 'message_window'

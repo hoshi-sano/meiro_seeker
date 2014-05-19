@@ -11,6 +11,12 @@ module MyDungeonGame
         @current_scene = ExplorationScene.new
         @initialized = true
       end
+
+      def next_floor(floor, player)
+        floor_num = floor.storey + 1
+        player.events = []
+        @current_scene = ExplorationScene.new(floor_num, player)
+      end
     end
   end
 end

@@ -21,12 +21,16 @@ module MyDungeonGame
   RADAR_MAP_COLOR = {
     player: [255, 255, 0],
     mob:    [255, 0, 0],
+    item:   [0, 200, 255],
+    stairs: [0, 170, 220],
     tile:   [0, 0, 255],
   }
 
   RADAR_MAP_ALPHA = {
     player: 255,
     mob:    255,
+    item:   255,
+    stairs: 255,
     tile:   80,
   }
 
@@ -100,5 +104,6 @@ module MyDungeonGame
 
   PLAYER_IMAGE_PATH = File.join(ROOT, 'data', 'uno.png')
   ENEMY_IMAGE_PATH  = File.join(ROOT, 'data', 'uno2.png')
+  STAIRS_IMAGE_PATH = File.join(ROOT, 'data', 'stairs.png')
   MESSAGE_LIST_PATH = File.join(ROOT, 'data', 'messages.yml')
 end

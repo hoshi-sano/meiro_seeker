@@ -9,6 +9,7 @@ module MyDungeonGame
     exp 0
 
     attr_reader :money, :stomach, :max_stomach
+    attr_writer :floor
 
     HUNGER_INTERVAL = 10
     HP_GAIN_MIN = 2
