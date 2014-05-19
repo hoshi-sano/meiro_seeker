@@ -85,6 +85,7 @@ module MyDungeonGame
     end
 
     def tick
+      return if permanent?
       @ttl -= 1
     end
 
@@ -97,7 +98,7 @@ module MyDungeonGame
     end
 
     def alive?
-      @ttl > 0
+      @ttl != 0
     end
   end
 end

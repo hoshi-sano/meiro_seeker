@@ -347,8 +347,7 @@ module MyDungeonGame
     def display_window
       if @message_window
         OutputManager.reserve_draw_message_window(@message_window)
-        if @message_window.permanent?
-        elsif @message_window.alive?
+        if @message_window.alive?
           @message_window.tick
         else
           @message_window = nil

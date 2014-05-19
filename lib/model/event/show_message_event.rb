@@ -23,8 +23,8 @@ module MyDungeonGame
           else
             @message_window.permanence!
             @message_window.display_next_arrow
-            @message_window.init_ttl
             if InputManager.any_key?
+              @message_window.init_ttl
               @message_window.remove_arrow
               @message_window.oldest_line_clear!
               e.finalize
