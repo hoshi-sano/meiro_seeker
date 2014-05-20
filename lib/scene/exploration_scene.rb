@@ -262,7 +262,6 @@ module MyDungeonGame
       cur_x, cur_y = @player.x, @player.y
       if @floor.movable?(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.move_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
-        check_stairs(cur_x + dx, cur_y + dy)
         tick
         if dash
           OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
@@ -271,6 +270,7 @@ module MyDungeonGame
           move_event = MoveEvent.create(*args)
           @em.set_cut_in_event(move_event)
         end
+        check_stairs(cur_x + dx, cur_y + dy)
       end
       res
     end
@@ -280,8 +280,7 @@ module MyDungeonGame
       underfoot = @floor[x, y]
       return if underfoot.no_object?
       if underfoot.object.type == :stairs
-        # TODO: イベントでやる
-        go_to_next_floor
+        @em.set_cut_in_event(GoToNextFloorEvent.create(self))
       end
     end
 

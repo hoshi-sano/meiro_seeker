@@ -36,6 +36,18 @@ module MyDungeonGame
         false
       end
     end
+
+    def set_next_cut_in(event)
+      if event.kind_of?(Event)
+        @next_events.unshift(event)
+        true
+      elsif event.kind_of?(Array)
+        @next_events.unshift(event).flatten!
+        true
+      else
+        false
+      end
+    end
   end
 
   class EventPacket
@@ -58,3 +70,4 @@ require 'event/damage_event'
 require 'event/dead_event'
 require 'event/show_message_event'
 require 'event/player_level_up_event'
+require 'event/go_to_next_floor_event'

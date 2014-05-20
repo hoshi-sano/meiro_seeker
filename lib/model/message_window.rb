@@ -12,6 +12,7 @@ module MyDungeonGame
 
     TTL = 100
     FULL_LINE_NUMBER = 3
+    ARROW_FLASH_INTERVAL = 15
 
     bg_image ViewProxy.rect(*WINDOW_SIZE[:message],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
@@ -45,7 +46,10 @@ module MyDungeonGame
       res
     end
 
-    ARROW_FLASH_INTERVAL = 15
+    def clear
+      @past_messages.clear
+      @message.clear
+    end
 
     def display_next_arrow
       latest = @past_messages.last
@@ -78,6 +82,10 @@ module MyDungeonGame
 
     def full?
       @past_messages.size >= FULL_LINE_NUMBER
+    end
+
+    def set_ttl(val)
+      @ttl = val
     end
 
     def init_ttl

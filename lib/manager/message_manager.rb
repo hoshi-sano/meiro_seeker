@@ -23,6 +23,10 @@ module MyDungeonGame
 
     module_function
 
+    def get(key)
+      LIST[key]
+    end
+
     def attack(from, to, damage)
       map = {FROM => from, TO => to, POINT => damage.to_s}
       LIST[:attack].gsub(REGEXP[:from_to_point], map)
