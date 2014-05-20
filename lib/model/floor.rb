@@ -50,5 +50,23 @@ module MyDungeonGame
       target.y = y2
       @base_map[x2, y2].character = target
     end
+
+    # (x, y)座標の床の探索済みフラグを立てる。
+    # このとき、通路または出入口であれば周囲8マスまで、部屋内であれば部
+    # 屋全体のマスまで探索済みとする。
+    def searched(x, y)
+      target = self[x, y]
+      target.searched = true
+
+      if room = get_room(x, y)
+        room.searched!
+      else
+        ((y - 1)..(y + 1)).each do |ay|
+          ((x - 1)..(x + 1)).each do |ax|
+            self[ax, ay].searched = true
+          end
+        end
+      end
+    end
   end
 end

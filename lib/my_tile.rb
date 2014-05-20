@@ -52,7 +52,7 @@ TILE_IMAGE_KEY_MAP = {
 }
 
 class Meiro::Tile::BaseTile
-  attr_accessor :object, :character
+  attr_accessor :object, :character, :searched
 
   def any?
     !!(@object || @character)
@@ -94,6 +94,13 @@ class Meiro::Tile::BaseTile
   def height
     self.respond_to?(:image) ? self.image.height : 0
   end
+
+  # 探索済みの床か否か
+  # マップ表示に利用
+  def searched?
+    !!@searched
+  end
+
 end
 
 class Meiro::Tile::Flat

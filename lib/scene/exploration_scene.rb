@@ -46,6 +46,7 @@ module MyDungeonGame
         @player = PlayerCharacter.new(@floor)
       end
       set_random_position(@player)
+      @floor.searched(@player.x, @player.y)
 
       OutputManager.init(@player.x, @player.y)
       @em = EventManager.new(WaitInputEvent.create(self))
@@ -262,6 +263,7 @@ module MyDungeonGame
       cur_x, cur_y = @player.x, @player.y
       if @floor.movable?(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.move_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
+        @floor.searched(cur_x + dx, cur_y + dy)
         tick
         if dash
           OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
@@ -378,7 +380,7 @@ module MyDungeonGame
           args = [x * RADAR_MAP_UNIT_SIZE, y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[any.type], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
-        elsif tile.walkable?
+        elsif tile.walkable? && tile.searched?
           args = [x * RADAR_MAP_UNIT_SIZE, y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[:tile], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)

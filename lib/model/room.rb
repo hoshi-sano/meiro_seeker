@@ -16,5 +16,21 @@ module MyDungeonGame
       end
       res
     end
+
+    def searched?
+      !!@searched
+    end
+
+    # 部屋全体のマスの探索済みフラグを立てる
+    def searched!
+      return if @searched
+      self.each_coordinate do |rx, ry|
+        floor[rx, ry].searched = true
+      end
+      gate_coordinates.each do |gx, gy|
+        floor[gx, gy].searched = true
+      end
+      @searched = true
+    end
   end
 end
