@@ -40,6 +40,7 @@ module MyDungeonGame
   }
 
   WINDOW_SIZE = {
+    yes_no:    [150, 80],
     message:   [600, 100],
     parameter: [600, 40],
   }

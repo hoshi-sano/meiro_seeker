@@ -344,8 +344,14 @@ module MyDungeonGame
     end
 
     def display_window
+      display_message_window
+      display_yes_no_window
+    end
+
+    def display_message_window
       if @message_window
         OutputManager.reserve_draw_message_window(@message_window)
+        # TTLが枯渇するまで一定時間表示する
         if @message_window.alive?
           @message_window.tick
         else
@@ -354,7 +360,18 @@ module MyDungeonGame
       end
     end
 
+    def display_yes_no_window
+      if @yes_no_window
+        OutputManager.reserve_draw_yes_no_window(@yes_no_window)
+      end
+    end
+
+    def hide_radar_map?
+      !!@yes_no_window
+    end
+
     def display_radar_map
+      return if hide_radar_map?
       @floor.each_tile do |x, y, tile|
         if tile.any?
           any = tile.character || tile.object

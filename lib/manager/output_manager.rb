@@ -121,7 +121,9 @@ module MyDungeonGame
         res
       end
 
+      # メッセージ用ウインドウの表示
       def reserve_draw_message_window(window)
+        # TODO: 数値の定数化
         # windowの表示
         # TODO: window.imageがダサいのでなんとかする
         args = [window.image, 0, 180, :window]
@@ -132,6 +134,18 @@ module MyDungeonGame
         args = [40, 380, window.text, font, DISPLAYS.keys.index(:window)]
         DISPLAYS[:window].reserve_draw_text(*args)
         # TODO: 話者の名前、画像の表示
+      end
+
+      # ２択ウインドウの表示
+      def reserve_draw_yes_no_window(window)
+        # TODO: 数値の定数化
+        # windowの表示
+        args = [window.image, 200, -60, :window]
+        reserve_draw_center_with_calibration(*args)
+        # テキストの表示
+        font = FontProxy.get_font(window.font_type)
+        args = [460, 150, window.text, font, DISPLAYS.keys.index(:window)]
+        DISPLAYS[:window].reserve_draw_text(*args)
       end
 
       def reserve_draw_without_offset(x, y, obj, type=:radar_map)

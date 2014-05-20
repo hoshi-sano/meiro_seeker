@@ -15,6 +15,14 @@ module MyDungeonGame
         [INPUT.get_x, INPUT.get_y]
       end
 
+      def get_x
+        INPUT.get_x
+      end
+
+      def get_y
+        INPUT.get_y
+      end
+
       # TODO: キーコンフィグを使えるようにする
       DEFAULT_KEY_CONFIG.keys.each do |key_name|
         define_method("push_#{key_name}?".to_sym) do
