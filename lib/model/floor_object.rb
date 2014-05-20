@@ -21,11 +21,12 @@ module MyDungeonGame
     end
 
     attr_reader :image, :type
-    attr_accessor :x, :y
+    attr_accessor :x, :y, :searched
 
     def initialize
       @type = self.class.get_type
       @image = self.class.default_image
+      @searched = false
     end
 
     def width
@@ -34,6 +35,14 @@ module MyDungeonGame
 
     def height
       @image.height
+    end
+
+    def searched?
+      !!@searched
+    end
+
+    def searched!
+      @searched = true
     end
   end
 end

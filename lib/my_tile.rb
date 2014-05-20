@@ -101,6 +101,10 @@ class Meiro::Tile::BaseTile
     !!@searched
   end
 
+  def searched!
+    @searched = true
+    @object.searched! if @object
+  end
 end
 
 class Meiro::Tile::Flat

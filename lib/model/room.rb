@@ -25,10 +25,10 @@ module MyDungeonGame
     def searched!
       return if @searched
       self.each_coordinate do |rx, ry|
-        floor[rx, ry].searched = true
+        floor[rx, ry].searched!
       end
       gate_coordinates.each do |gx, gy|
-        floor[gx, gy].searched = true
+        floor[gx, gy].searched!
       end
       @searched = true
     end

@@ -372,17 +372,39 @@ module MyDungeonGame
       !!@yes_no_window
     end
 
+    # マップの表示
     def display_radar_map
       return if hide_radar_map?
+
+      # 床の表示
       @floor.each_tile do |x, y, tile|
-        if tile.any?
-          any = tile.character || tile.object
-          args = [x * RADAR_MAP_UNIT_SIZE, y * RADAR_MAP_UNIT_SIZE,
-                  RADAR_MAP_IMAGES[any.type], :radar_map]
-          OutputManager.reserve_draw_without_offset(*args)
-        elsif tile.walkable? && tile.searched?
+        if tile.walkable? && tile.searched?
           args = [x * RADAR_MAP_UNIT_SIZE, y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[:tile], :radar_map]
+          OutputManager.reserve_draw_without_offset(*args)
+        end
+      end
+
+      # プレイヤーの表示
+      args = [@player.x * RADAR_MAP_UNIT_SIZE, @player.y * RADAR_MAP_UNIT_SIZE,
+              RADAR_MAP_IMAGES[:player], :radar_map]
+      OutputManager.reserve_draw_without_offset(*args)
+
+      # モブの表示
+      vision = @player.visible_objects
+      @mobs.each do |mob|
+        if vision.include?(mob)
+          args = [mob.x * RADAR_MAP_UNIT_SIZE, mob.y * RADAR_MAP_UNIT_SIZE,
+                  RADAR_MAP_IMAGES[:mob], :radar_map]
+          OutputManager.reserve_draw_without_offset(*args)
+        end
+      end
+
+      # アイテム、罠、階段の表示
+      @floor_objects.each do |obj|
+        if obj.searched?
+          args = [obj.x * RADAR_MAP_UNIT_SIZE, obj.y * RADAR_MAP_UNIT_SIZE,
+                  RADAR_MAP_IMAGES[obj.type], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
         end
       end

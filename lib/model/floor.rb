@@ -55,15 +55,12 @@ module MyDungeonGame
     # このとき、通路または出入口であれば周囲8マスまで、部屋内であれば部
     # 屋全体のマスまで探索済みとする。
     def searched(x, y)
-      target = self[x, y]
-      target.searched = true
-
       if room = get_room(x, y)
         room.searched!
       else
         ((y - 1)..(y + 1)).each do |ay|
           ((x - 1)..(x + 1)).each do |ax|
-            self[ax, ay].searched = true
+            self[ax, ay].searched!
           end
         end
       end

@@ -83,6 +83,24 @@ module MyDungeonGame
       res
     end
 
+    # 認知可能なモブやオブジェクトを返す
+    # (通路であれば周囲8マス、部屋内であれば部屋全体)
+    def visible_objects
+      res = []
+      if room = @floor.get_room(self.x, self.y)
+        room.each_coordinate do |rx, ry|
+          res << @floor[rx, ry].character || @floor[rx, ry].object
+        end
+      else
+        ((self.y - 1)..(self.y + 1)).each do |ay|
+          ((self.x - 1)..(self.x + 1)).each do |ax|
+            res << @floor[ax, ay].character || @floor[ax, ay].object
+          end
+        end
+      end
+      res
+    end
+
     # 話す、調べるなどの対象を返す
     def check_target
       _x, _y = DIRECTION_STEP_MAP[@current_direction][:forward]
