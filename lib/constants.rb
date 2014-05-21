@@ -41,6 +41,7 @@ module MyDungeonGame
 
   WINDOW_SIZE = {
     menu:      [200, 75],
+    item:      [300, 300],
     yes_no:    [150, 80],
     message:   [600, 100],
     parameter: [600, 40],
@@ -52,7 +53,8 @@ module MyDungeonGame
     regular: 200,
   }
   WINDOW_POSITION = {
-    menu: [50, 80],
+    menu: [30, 50],
+    item: [240, 50],
   }
 
   HP_METER_HEIGHT = 5

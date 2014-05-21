@@ -48,3 +48,4 @@ module MyDungeonGame
 end
 
 require 'stairs'
+require 'item'

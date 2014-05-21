@@ -9,7 +9,9 @@ module MyDungeonGame
       scene.instance_eval do
         root = Event.new do |e|
           @message_window.set_ttl(0) if @message_window
-          @menu_windows.push(menu_window)
+          if !@menu_windows.include?(menu_window)
+            @menu_windows.push(menu_window)
+          end
           e.finalize
         end
 
@@ -23,6 +25,12 @@ module MyDungeonGame
             end
             e.set_next_cut_in(remove_this_window)
             e.set_next_cut_in(window.get_event)
+            e.finalize
+          elsif InputManager.push_cancel?
+            @menu_windows.delete(window)
+            if window = @menu_windows.last
+              e.set_next_cut_in(ShowMenuEvent.create(self, window))
+            end
             e.finalize
           end
         end

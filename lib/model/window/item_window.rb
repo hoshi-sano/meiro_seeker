@@ -1,10 +1,9 @@
 module MyDungeonGame
-  class MenuWindow < BaseWindow
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:menu],
+  class ItemWindow < BaseWindow
+    bg_image ViewProxy.rect(*WINDOW_SIZE[:item],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     PADDING = 10
-    CHOICE_WIDTH = 90
 
     attr_reader   :x, :y
     attr_accessor :select
@@ -19,25 +18,21 @@ module MyDungeonGame
 
     # 入力に応じてカーソルの位置を決める
     def select(x, y)
-      current_x, current_y = @select / 2, @select % 2
-      next_x = (current_x + x.abs) % 2
-      next_y = (current_y + y.abs) % 2
-      @select = next_x * 2 + next_y
+      @select += y
+      @select = @select % @choices.size
     end
 
     def get_event
-      @choices.values[@select]
+      @choices[@select].event
     end
 
     def text
       res = []
-      @choices.keys.each_with_index do |key, idx|
+      @choices.each_with_index do |item, idx|
         arrow = (@select == idx) ? '>' : ' '
-        res << [arrow, key].join(' ')
+        res << "#{arrow} #{item.name}"
       end
-
-      ["#{res[0]}  #{res[2]}",
-       "#{res[1]}  #{res[3]}"].join("\n")
+      res.join("\n")
     end
 
     def text_position

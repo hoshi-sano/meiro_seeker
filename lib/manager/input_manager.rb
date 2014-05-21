@@ -33,9 +33,9 @@ module MyDungeonGame
       end
 
       def get_push_x
-        if INPUT.key_push?(DEFAULT_KEY_CONFIG[:up])
+        if INPUT.key_push?(DEFAULT_KEY_CONFIG[:left])
           -1
-        elsif INPUT.key_push?(DEFAULT_KEY_CONFIG[:down])
+        elsif INPUT.key_push?(DEFAULT_KEY_CONFIG[:right])
           1
         else
           0
@@ -43,9 +43,9 @@ module MyDungeonGame
       end
 
       def get_push_y
-        if INPUT.key_push?(DEFAULT_KEY_CONFIG[:left])
+        if INPUT.key_push?(DEFAULT_KEY_CONFIG[:up])
           -1
-        elsif INPUT.key_push?(DEFAULT_KEY_CONFIG[:right])
+        elsif INPUT.key_push?(DEFAULT_KEY_CONFIG[:down])
           1
         else
           0

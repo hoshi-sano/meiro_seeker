@@ -35,3 +35,4 @@ end
 require 'window/message_window'
 require 'window/yes_no_window'
 require 'window/menu_window'
+require 'window/item_window'

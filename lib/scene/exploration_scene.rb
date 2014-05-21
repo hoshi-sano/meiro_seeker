@@ -261,15 +261,14 @@ module MyDungeonGame
       # TODO: 各種イベントの設定
       # TODO: 足元が階段だった場合
       # MEMO: 現状は動作テスト用
-      choices = {
-        'child_1' => Event.new {|e| e.finalize },
-        'child_2' => Event.new {|e| e.finalize },
-        'child_3' => Event.new {|e| e.finalize },
-        'child_4' => Event.new {|e| e.finalize },
-      }
-      mw = MenuWindow.new(150, 50, choices)
+      choices = [
+                 Item.new(@floor),
+                 Item.new(@floor),
+                 Item.new(@floor),
+                ]
+      iw = ItemWindow.new(*WINDOW_POSITION[:item], choices)
       {
-        MessageManager.get(:item) => ShowMenuEvent.create(self, mw),
+        MessageManager.get(:item) => ShowMenuEvent.create(self, iw),
         MessageManager.get(:underfoot) => Event.new {|e| e.finalize },
         MessageManager.get(:map) => Event.new {|e| e.finalize },
         MessageManager.get(:other) => Event.new {|e| e.finalize },
