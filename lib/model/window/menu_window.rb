@@ -26,7 +26,7 @@ module MyDungeonGame
     end
 
     def get_event
-      @choices.values[@select]
+      @choices.values[@select].call
     end
 
     def text

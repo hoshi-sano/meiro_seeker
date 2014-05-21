@@ -262,16 +262,16 @@ module MyDungeonGame
       # TODO: 足元が階段だった場合
       # MEMO: 現状は動作テスト用
       choices = [
-                 Item.new(@floor),
-                 Item.new(@floor),
-                 Item.new(@floor),
+                 Item.new(self),
+                 Item.new(self),
+                 Item.new(self),
                 ]
       iw = ItemWindow.new(*WINDOW_POSITION[:item], choices)
       {
-        MessageManager.get(:item) => ShowMenuEvent.create(self, iw),
-        MessageManager.get(:underfoot) => Event.new {|e| e.finalize },
-        MessageManager.get(:map) => Event.new {|e| e.finalize },
-        MessageManager.get(:other) => Event.new {|e| e.finalize },
+        MessageManager.get(:item) => lambda { ShowMenuEvent.create(self, iw) },
+        MessageManager.get(:underfoot) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:map) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:other) => lambda { ClearMenuWindowEvent.create(self) },
       }
     end
 

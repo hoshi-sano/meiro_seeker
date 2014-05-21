@@ -9,6 +9,9 @@ module MyDungeonGame
       scene.instance_eval do
         root = Event.new do |e|
           @message_window.set_ttl(0) if @message_window
+          # 未表示ならpush、表示済みなら何もしない。
+          # キャンセルで子のウインドウからフォーカスが返ってきたときに
+          # 「表示済み」となる
           if !@menu_windows.include?(menu_window)
             @menu_windows.push(menu_window)
           end
@@ -19,11 +22,6 @@ module MyDungeonGame
           window = @menu_windows.last
           window.select(*InputManager.get_push_xy)
           if InputManager.push_ok?
-            remove_this_window = Event.new do |e|
-              @menu_windows.delete(window)
-              e.finalize
-            end
-            e.set_next_cut_in(remove_this_window)
             e.set_next_cut_in(window.get_event)
             e.finalize
           elsif InputManager.push_cancel?

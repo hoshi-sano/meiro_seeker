@@ -15,14 +15,14 @@ module MyDungeonGame
 
     attr_reader :name
 
-    def initialize(floor)
+    def initialize(scene)
       super()
       @name = self.class.get_name
+      @scene = scene
     end
 
     def event
-      # 空イベント
-      Event.new {|e| e.finalize }
+      ClearMenuWindowEvent.create(@scene)
     end
   end
 end
