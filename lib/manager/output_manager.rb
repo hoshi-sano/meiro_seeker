@@ -148,6 +148,21 @@ module MyDungeonGame
         DISPLAYS[:window].reserve_draw_text(*args)
       end
 
+      def reserve_draw_menu_window(window)
+        # windowの表示
+        args = [window.x, window.y, window.image, :window]
+        reserve_draw_without_offset(*args)
+        # テキストの表示
+        left_text, right_text = window.text
+        font = FontProxy.get_font(window.font_type)
+        args = [*window.left_text_position, left_text, font,
+                DISPLAYS.keys.index(:window)]
+        DISPLAYS[:window].reserve_draw_text(*args)
+        args = [*window.right_text_position, right_text, font,
+                DISPLAYS.keys.index(:window)]
+        DISPLAYS[:window].reserve_draw_text(*args)
+      end
+
       def reserve_draw_without_offset(x, y, obj, type=:radar_map)
         if DISPLAYS[type]
           DISPLAYS[type].reserve_draw(x, y, obj.image, DISPLAYS.keys.index(type))

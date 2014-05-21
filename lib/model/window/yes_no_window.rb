@@ -1,29 +1,15 @@
 module MyDungeonGame
-  class YesNoWindow
-    class << self
-      def bg_image(image)
-        @image = image
-      end
-
-      def image
-        @image
-      end
-    end
+  class YesNoWindow < BaseWindow
+    bg_image ViewProxy.rect(*WINDOW_SIZE[:yes_no],
+                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     YES = -1
     NO  = 1
 
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:yes_no],
-                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
-
-    attr_reader :font_type, :image
-
-    # TODO: ベースとなるWindowクラスを作る
     def initialize(yes=nil, no=nil, font_type=:regular)
+      super(font_type)
       @yes = yes || MessageManager.get(:yes)
       @no  = no  || MessageManager.get(:no)
-      @font_type = font_type
-      @image = self.class.image
       @select = YES
     end
 

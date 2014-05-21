@@ -6,6 +6,10 @@ module MyDungeonGame
       S: K_S,
       X: K_X,
       Z: K_Z,
+      UP:    K_UP,
+      DOWN:  K_DOWN,
+      LEFT:  K_LEFT,
+      RIGHT: K_RIGHT,
     }
 
     def key(sym)

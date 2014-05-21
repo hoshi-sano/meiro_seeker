@@ -48,6 +48,8 @@ module MyDungeonGame
       set_random_position(@player)
       @floor.searched(@player.x, @player.y)
 
+      @menu_windows = []
+
       OutputManager.init(@player.x, @player.y)
       @em = EventManager.new(WaitInputEvent.create(self))
     end
@@ -208,6 +210,7 @@ module MyDungeonGame
       [
        :handle_stamp,
        :handle_ok,
+       :handle_menu,
        :handle_input_xy,
       ].each do |handle|
         break if method(handle).call
@@ -243,6 +246,34 @@ module MyDungeonGame
       else
         false
       end
+    end
+
+    # メニューボタンの入力を制御する
+    def handle_menu
+      if InputManager.push_menu?
+        mw = MenuWindow.new(*WINDOW_POSITION[:menu], make_menu_choices)
+        @em.set_cut_in_event(ShowMenuEvent.create(self, mw))
+      end
+    end
+
+    # メニューウインドウの選択肢を生成する
+    def make_menu_choices
+      # TODO: 各種イベントの設定
+      # TODO: 足元が階段だった場合
+      # MEMO: 現状は動作テスト用
+      choices = {
+        'child_1' => Event.new {|e| e.finalize },
+        'child_2' => Event.new {|e| e.finalize },
+        'child_3' => Event.new {|e| e.finalize },
+        'child_4' => Event.new {|e| e.finalize },
+      }
+      mw = MenuWindow.new(150, 50, choices)
+      {
+        MessageManager.get(:item) => ShowMenuEvent.create(self, mw),
+        MessageManager.get(:underfoot) => Event.new {|e| e.finalize },
+        MessageManager.get(:map) => Event.new {|e| e.finalize },
+        MessageManager.get(:other) => Event.new {|e| e.finalize },
+      }
     end
 
     # 十字キーの入力を制御する
@@ -348,6 +379,7 @@ module MyDungeonGame
     def display_window
       display_message_window
       display_yes_no_window
+      display_menu_window
     end
 
     def display_message_window
@@ -368,8 +400,15 @@ module MyDungeonGame
       end
     end
 
+    def display_menu_window
+      @menu_windows.each do |window|
+        OutputManager.reserve_draw_menu_window(window)
+      end
+    end
+
     def hide_radar_map?
-      !!@yes_no_window
+      !!@yes_no_window ||
+        @menu_windows.any?
     end
 
     # マップの表示

@@ -1,40 +1,20 @@
 module MyDungeonGame
-  class MessageWindow
-    class << self
-      def bg_image(image)
-        @image = image
-      end
-
-      def image
-        @image
-      end
-    end
+  class MessageWindow < BaseWindow
+    bg_image ViewProxy.rect(*WINDOW_SIZE[:message],
+                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     TTL = 100
     FULL_LINE_NUMBER = 3
     ARROW_FLASH_INTERVAL = 15
 
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:message],
-                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
-
-    attr_reader :image, :font_type
     attr_accessor :message
 
     def initialize(message, speaker=nil, font_type=:regular)
+      super(font_type)
       @message = message
       @past_messages = []
       @speaker = speaker
-      @font_type = font_type
-      @image = self.class.image
       @ttl = TTL
-    end
-
-    def width
-      @image.width
-    end
-
-    def height
-      @image.height
     end
 
     def text

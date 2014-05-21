@@ -2,7 +2,12 @@ module MyDungeonGame
   class InputManager
     INPUT = InputProxy.new
 
+    # TODO: キーコンフィグを使えるようにする
     DEFAULT_KEY_CONFIG = {
+      up:       INPUT.key(:UP),
+      down:     INPUT.key(:DOWN),
+      left:     INPUT.key(:LEFT),
+      right:    INPUT.key(:RIGHT),
       option:   INPUT.key(:A),
       diagonal: INPUT.key(:Q), # 斜め移動用
       menu:     INPUT.key(:S),
@@ -12,7 +17,7 @@ module MyDungeonGame
 
     class << self
       def get_input_xy
-        [INPUT.get_x, INPUT.get_y]
+        [get_x, get_y]
       end
 
       def get_x
@@ -23,7 +28,30 @@ module MyDungeonGame
         INPUT.get_y
       end
 
-      # TODO: キーコンフィグを使えるようにする
+      def get_push_xy
+        [get_push_x, get_push_y]
+      end
+
+      def get_push_x
+        if INPUT.key_push?(DEFAULT_KEY_CONFIG[:up])
+          -1
+        elsif INPUT.key_push?(DEFAULT_KEY_CONFIG[:down])
+          1
+        else
+          0
+        end
+      end
+
+      def get_push_y
+        if INPUT.key_push?(DEFAULT_KEY_CONFIG[:left])
+          -1
+        elsif INPUT.key_push?(DEFAULT_KEY_CONFIG[:right])
+          1
+        else
+          0
+        end
+      end
+
       DEFAULT_KEY_CONFIG.keys.each do |key_name|
         define_method("push_#{key_name}?".to_sym) do
           INPUT.key_push?(DEFAULT_KEY_CONFIG[key_name])
