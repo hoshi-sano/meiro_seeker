@@ -350,8 +350,8 @@ module MyDungeonGame
   end
 end
 
-require 'player_character'
-require 'mob_character'
-require 'intelligent_character'
-require 'follow_player_character'
-require 'enemy_character'
+require 'character/player_character'
+require 'character/mob_character'
+require 'character/intelligent_character'
+require 'character/follow_player_character'
+require 'character/enemy_character'

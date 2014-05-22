@@ -47,5 +47,5 @@ module MyDungeonGame
   end
 end
 
-require 'stairs'
-require 'item'
+require 'floor_object/stairs'
+require 'floor_object/item'
