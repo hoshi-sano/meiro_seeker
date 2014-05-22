@@ -3,7 +3,9 @@ YAML::ENGINE.yamler = 'psych'
 
 module MyDungeonGame
   module MessageManager
-    LIST = YAML.load(File.read(MESSAGE_LIST_PATH))
+    LIST =
+      YAML.load(File.read(MESSAGE_LIST_PATH)).
+      merge(YAML.load(File.read(WORD_LIST_PATH)))
 
     PLAYER = 'p'
     LEVEL = 'l'
