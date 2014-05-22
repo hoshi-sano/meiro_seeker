@@ -251,7 +251,7 @@ module MyDungeonGame
     # メニューボタンの入力を制御する
     def handle_menu
       if InputManager.push_menu?
-        mw = MenuWindow.new(*WINDOW_POSITION[:menu], make_menu_choices)
+        mw = MainMenuWindow.new(make_menu_choices)
         @em.set_cut_in_event(ShowMenuEvent.create(self, mw))
       end
     end
@@ -261,12 +261,13 @@ module MyDungeonGame
       # TODO: 各種イベントの設定
       # TODO: 足元が階段だった場合
       # MEMO: 現状は動作テスト用
+      # TODO: ItemWindowのchoicesは@playerのもつアイテムから生成する
       choices = [
                  Item.new(self),
                  Item.new(self),
                  Item.new(self),
                 ]
-      iw = ItemWindow.new(*WINDOW_POSITION[:item], choices)
+      iw = ItemWindow.new(choices)
       {
         MessageManager.get(:item) => lambda { ShowMenuEvent.create(self, iw) },
         MessageManager.get(:underfoot) => lambda { ClearMenuWindowEvent.create(self) },

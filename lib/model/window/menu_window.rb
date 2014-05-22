@@ -1,21 +1,73 @@
 module MyDungeonGame
-  class MenuWindow < BaseWindow
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:menu],
-                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
+  class BaseMenuWindow < BaseWindow
+    class << self
+      def position(val)
+        @x, @y = *val
+      end
+
+      def default_x
+        @x
+      end
+
+      def default_y
+        @y
+      end
+    end
 
     PADDING = 10
-    CHOICE_WIDTH = 90
 
     attr_reader   :x, :y
     attr_accessor :select
 
-    def initialize(x, y, choices, font_type=:regular)
+    def initialize(choices, x=nil, y=nil, font_type=:regular)
       super(font_type)
-      @x = x || 50
-      @y = y || 100
+      @x = x || self.class.default_x
+      @y = y || self.class.default_y
       @choices = choices
       @select = 0
     end
+
+    # 入力に応じてカーソルの位置を決める
+    def select(x, y)
+      @select += y
+      @select = @select % @choices.size
+    end
+
+    # @choicesのvalueにはcallするとEventが生成されるものが入っている
+    # ことを想定
+    def get_event
+      @choices.values[@select].call
+    end
+
+    def text
+      res = []
+      @choices.each_with_index do |choice, idx|
+        arrow = (@select == idx) ? '>' : ' '
+        res << "#{arrow} #{choice_to_text(choice)}"
+      end
+      join_choices(res)
+    end
+
+    # choiceをハッシュの一要素の配列[key, value]と想定
+    def choice_to_text(choice)
+      choice[0]
+    end
+
+    def join_choices(choices)
+      choices.join("\n")
+    end
+
+    def text_position
+      [self.x + PADDING, self.y + PADDING]
+    end
+  end
+
+  class MainMenuWindow < BaseMenuWindow
+    position WINDOW_POSITION[:menu]
+    bg_image ViewProxy.rect(*WINDOW_SIZE[:menu],
+                            WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
+
+    CHOICE_WIDTH = 90
 
     # 入力に応じてカーソルの位置を決める
     def select(x, y)
@@ -25,23 +77,9 @@ module MyDungeonGame
       @select = next_x * 2 + next_y
     end
 
-    def get_event
-      @choices.values[@select].call
-    end
-
-    def text
-      res = []
-      @choices.keys.each_with_index do |key, idx|
-        arrow = (@select == idx) ? '>' : ' '
-        res << [arrow, key].join(' ')
-      end
-
-      ["#{res[0]}  #{res[2]}",
-       "#{res[1]}  #{res[3]}"].join("\n")
-    end
-
-    def text_position
-      [self.x + PADDING, self.y + PADDING]
+    def join_choices(choices)
+      ["#{choices[0]}  #{choices[2]}",
+       "#{choices[1]}  #{choices[3]}"].join("\n")
     end
   end
 end
