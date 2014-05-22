@@ -9,6 +9,8 @@ module MyDungeonGame
     end
 
     def call
+      # TODO: loggerを使う
+      puts "WARN: finalized Event called - #{self}" if @finalized
       @regular_action.call(self)
     end
 

@@ -3,6 +3,7 @@ module MyDungeonGame
     position WINDOW_POSITION[:item]
     bg_image ViewProxy.rect(*WINDOW_SIZE[:item],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
+    show_status true
 
     # 入力に応じてカーソルの位置を決める
     def select(x, y)

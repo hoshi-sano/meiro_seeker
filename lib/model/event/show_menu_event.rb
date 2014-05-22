@@ -8,7 +8,11 @@ module MyDungeonGame
     def create(scene, menu_window, font_type=:regular)
       scene.instance_eval do
         root = Event.new do |e|
-          @message_window.set_ttl(0) if @message_window
+          if menu_window.show_status?
+            @message_window = StatusWindow.new(@player)
+          else
+            @message_window.set_ttl(0) if @message_window
+          end
           # 未表示ならpush、表示済みなら何もしない。
           # キャンセルで子のウインドウからフォーカスが返ってきたときに
           # 「表示済み」となる
@@ -25,6 +29,7 @@ module MyDungeonGame
             e.set_next_cut_in(window.get_event)
             e.finalize
           elsif InputManager.push_cancel?
+            @message_window.set_ttl(0) if window.show_status?
             @menu_windows.delete(window)
             if window = @menu_windows.last
               e.set_next_cut_in(ShowMenuEvent.create(self, window))

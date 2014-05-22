@@ -5,10 +5,10 @@ module MyDungeonGame
     name "PLAYER"
     level 1
     hp 15
-    power 5
+    power 8
     exp 0
 
-    attr_reader :money, :stomach, :max_stomach
+    attr_reader :money, :stomach, :max_stomach, :max_power
     attr_writer :floor
 
     HUNGER_INTERVAL = 10
@@ -21,6 +21,7 @@ module MyDungeonGame
       @self_healing_value = 0 # 自然治癒力
       @stomach = 100     # 満腹度
       @max_stomach = 100 # 最大満腹度
+      @max_power = @power # 力の最大値
       @hunger_interval = HUNGER_INTERVAL
     end
 
@@ -29,6 +30,16 @@ module MyDungeonGame
       hp_diff = randomizer.rand(HP_GAIN_AMPLITUDE + 1) + HP_GAIN_MIN # 2..7
       @max_hp += hp_diff
       @hp += hp_diff
+    end
+
+    # 武器の強さ
+    def weapon_strength
+      0
+    end
+
+    # 盾の強さ
+    def shield_strength
+      0
     end
 
     def accuracy

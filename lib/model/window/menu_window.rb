@@ -12,6 +12,14 @@ module MyDungeonGame
       def default_y
         @y
       end
+
+      def show_status(bool)
+        @show_status = bool
+      end
+
+      def show_status?
+        !!@show_status
+      end
     end
 
     PADDING = 10
@@ -60,12 +68,17 @@ module MyDungeonGame
     def text_position
       [self.x + PADDING, self.y + PADDING]
     end
+
+    def show_status?
+      self.class.show_status?
+    end
   end
 
   class MainMenuWindow < BaseMenuWindow
     position WINDOW_POSITION[:menu]
     bg_image ViewProxy.rect(*WINDOW_SIZE[:menu],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
+    show_status true
 
     CHOICE_WIDTH = 90
 

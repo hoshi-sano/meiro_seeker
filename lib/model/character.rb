@@ -114,7 +114,7 @@ module MyDungeonGame
     TRANSPARENCY = ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
-    attr_reader :level, :max_hp, :exp
+    attr_reader :level, :max_hp, :exp, :power
     attr_accessor :x, :y, :prev_x, :prev_y, :events, :name, :hp
 
     # TODO: 各インスタンスごとに画像をロードしてるのは無駄
@@ -308,21 +308,19 @@ module MyDungeonGame
 
     # ダメージ計算
     def calc_damage(attacker, target)
-      pow     = attacker.calc_attack_power
-      rand    = (rand(250) + 875) / 1000.0 # 0.875 - 1.125
-      defence = calc_defence
-      (pow * rand - defence).round
+      r = (randomizer.rand(250) + 875) / 1000.0 # 0.875 - 1.125
+      (attacker.offence * r - defence).round
     end
 
     # 攻撃力の計算
-    def calc_attack_power
+    def offence
       calc_weapon_calibration +
         calc_level_calibration +
         calc_power_calibration
     end
 
     # 防御力の計算
-    def calc_defence
+    def defence
       # TODO
       0
     end
