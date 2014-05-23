@@ -2,7 +2,7 @@ module MyDungeonGame
   class Kizugusuri < Item
     name MessageManager.get('item_names.kizugusuri')
 
-    def event
+    def use_event
       e = nil
       # 全ウインドウの消去
       e = ClearMenuWindowEvent.create(@scene)

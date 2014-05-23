@@ -14,3 +14,8 @@
 :experience: "経験値"
 :item_names:
   :kizugusuri: "傷薬"
+:item_menu:
+  :use:   "使う"
+  :throw: "投げる"
+  :put:   "置く"
+  :note:  "説明"

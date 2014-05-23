@@ -13,7 +13,7 @@ module MyDungeonGame
     end
 
     def get_event
-      @choices[@select].event
+      @choices[@select].menu_event
     end
 
     def choice_to_text(choice)
