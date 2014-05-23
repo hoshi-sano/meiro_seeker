@@ -17,9 +17,12 @@ module MyDungeonGame
       put:   MessageManager.get('items.menu.put'),
       note:  MessageManager.get('items.menu.note'),
     }
+    IMAGES = {
+      potion: FileLoadProxy.load_image(STAIRS_IMAGE_PATH),
+    }
 
     type :item
-    image FileLoadProxy.load_image(STAIRS_IMAGE_PATH) # TODO: あとで変える
+    image IMAGES[:potion]
 
     attr_reader :name
 
@@ -62,7 +65,8 @@ module MyDungeonGame
     end
 
     def use_action_event
-      Event.new {|e| e.finalize }
+      # TODO: クラス化
+      Event.new {|e| @scene.player.items.delete(self); e.finalize }
     end
 
     def effect_event

@@ -15,3 +15,6 @@
 :power_gain: "ちからの最大値がpポイント上昇した。"
 :stomach_recover: "満腹度がpポイント回復した。"
 :stomach_gain: "満腹度の最大値がpポイント上昇した。"
+:pick_up_item: "iを拾った。"
+:get_on_item: "iの上に乗った。"
+:no_item: "-アイテムを持っていません-"

@@ -17,6 +17,7 @@ module MyDungeonGame
 
     REGEXP = {
       to:            Regexp.new("#{TO}"),
+      item:          Regexp.new("#{ITEM}"),
       point:         Regexp.new("#{POINT}"),
       attacker:      Regexp.new("#{ATTACKER}"),
       from_point:    Regexp.new("[#{FROM}#{POINT}]"),
@@ -72,6 +73,14 @@ module MyDungeonGame
       def player_use_item(player, item)
         map = {PLAYER => player, ITEM => item}
         LIST[:player_use_item].gsub(REGEXP[:player_item], map)
+      end
+
+      def pick_up_item(item)
+        LIST[:pick_up_item].gsub(REGEXP[:item], item)
+      end
+
+      def get_on_item(item)
+        LIST[:get_on_item].gsub(REGEXP[:item], item)
       end
 
       [

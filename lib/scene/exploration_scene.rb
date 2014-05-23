@@ -71,8 +71,13 @@ module MyDungeonGame
     end
 
     def create_floor_objects(storey)
-      # TODO: 階に合わせた適切なフロアオブジェクト選択を行う
       res = []
+      # TODO: 階に合わせた適切なフロアオブジェクト選択を行う
+      5.times do
+        item = Kizugusuri.new(self)
+        set_random_position(item)
+        res << item
+      end
       stairs = Stairs.new(@floor)
       set_random_position(stairs)
       res << stairs
@@ -262,15 +267,7 @@ module MyDungeonGame
     def make_menu_choices
       # TODO: 各種イベントの設定
       # TODO: 足元が階段だった場合
-      # MEMO: 現状は動作テスト用
-      # TODO: ItemWindowのchoicesは@playerのもつアイテムから生成する
-      choices = [
-                 Kizugusuri.new(self),
-                 KaifukuNoKusuri.new(self),
-                 ChikaraNoKusuri.new(self),
-                 NikuMan.new(self),
-                ]
-      iw = ItemWindow.new(choices)
+      iw = ItemWindow.new(@player.items)
       {
         MessageManager.get(:item) => lambda { ShowMenuEvent.create(self, iw) },
         MessageManager.get(:underfoot) => lambda { ClearMenuWindowEvent.create(self) },
@@ -280,14 +277,12 @@ module MyDungeonGame
     end
 
     # 十字キーの入力を制御する
-    # TODO: 現状は移動のみ。カーソルの移動などについても対応する
     def handle_input_xy
       res = false
       dx, dy = InputManager.get_input_xy
       return res if dx.zero? && dy.zero?
 
       res = true
-      # TODO: ウィンドウ表示中か否かの分岐
       @player.change_direction_by_dxdy(dx, dy)
 
       return res if only_direction_change?
@@ -299,11 +294,23 @@ module MyDungeonGame
         @floor.move_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.searched(cur_x + dx, cur_y + dy)
         tick
+        underfoot = @floor[cur_x + dx, cur_y + dy]
         if dash
+          # ダッシュ中: アニメーションしない、アイテムの上に乗る
           OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
+          if underfoot.any_object? && underfoot.object.type == :item
+            msg = MessageManager.get_on_item(underfoot.object.name)
+            @em.set_cut_in_event(ShowMessageEvent.create(self, msg))
+          end
         else
+          # 歩行中: アニメーションする、アイテムを拾う
           args = [self, dx * TILE_WIDTH, dy * TILE_HEIGHT]
           move_event = MoveEvent.create(*args)
+          if underfoot.any_object? && underfoot.object.type == :item
+            @player.get(underfoot.object)
+            @floor_objects.delete(underfoot.object)
+            underfoot.clear_object
+          end
           @em.set_cut_in_event(move_event)
         end
         check_stairs(cur_x + dx, cur_y + dy)

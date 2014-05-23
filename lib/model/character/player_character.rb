@@ -8,7 +8,7 @@ module MyDungeonGame
     power 8
     exp 0
 
-    attr_accessor :floor, :stomach, :max_power, :max_stomach, :money
+    attr_accessor :floor, :stomach, :max_power, :max_stomach, :money, :items
 
     HUNGER_INTERVAL = 10
     HP_GAIN_MIN = 2
@@ -22,6 +22,7 @@ module MyDungeonGame
       @max_stomach = 100 # 最大満腹度
       @max_power = @power # 力の最大値
       @hunger_interval = HUNGER_INTERVAL
+      @items = [] # 所持アイテムリスト
     end
 
     def level_up
@@ -69,6 +70,13 @@ module MyDungeonGame
           @hunger_interval = HUNGER_INTERVAL
         end
       end
+    end
+
+    def get(item)
+      # TODO: アイテムがいっぱいの場合の処理
+      @items << item
+      msg = MessageManager.pick_up_item(item.name)
+      @events << EventPacket.new(ShowMessageEvent, msg)
     end
 
     def attack_or_check
