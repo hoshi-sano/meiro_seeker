@@ -1,4 +1,5 @@
 module MyDungeonGame
+  # アイテムの基本となるクラス
   class Item < FloorObject
     class << self
       def name(value)
@@ -11,7 +12,7 @@ module MyDungeonGame
     end
 
     type :item
-    image FileLoadProxy.load_image(STAIRS_IMAGE_PATH)
+    image FileLoadProxy.load_image(STAIRS_IMAGE_PATH) # TODO: あとで変える
 
     attr_reader :name
 
@@ -26,3 +27,4 @@ module MyDungeonGame
     end
   end
 end
+

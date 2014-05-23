@@ -114,8 +114,8 @@ module MyDungeonGame
     TRANSPARENCY = ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
-    attr_reader :level, :max_hp, :exp, :power
-    attr_accessor :x, :y, :prev_x, :prev_y, :events, :name, :hp
+    attr_reader :level, :exp, :power
+    attr_accessor :x, :y, :prev_x, :prev_y, :events, :name, :hp, :max_hp
 
     # TODO: 各インスタンスごとに画像をロードしてるのは無駄
     def initialize(img_path, floor)

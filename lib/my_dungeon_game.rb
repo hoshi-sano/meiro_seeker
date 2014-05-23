@@ -1,8 +1,8 @@
 # フレームワーク用ライブラリ
 require 'constants'
 require 'proxy'
-require 'model'
 require 'manager'
+require 'model'
 require 'scene'
 require 'helper'
 

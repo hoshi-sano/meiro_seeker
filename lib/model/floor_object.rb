@@ -49,3 +49,4 @@ end
 
 require 'floor_object/stairs'
 require 'floor_object/item'
+require 'floor_object/item/kizugusuri'

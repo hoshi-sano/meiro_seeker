@@ -12,3 +12,5 @@
 :defence: "防御力"
 :stomach: "満腹度"
 :experience: "経験値"
+:item_names:
+  :kizugusuri: "傷薬"

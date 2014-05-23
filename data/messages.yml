@@ -8,3 +8,6 @@
 :get_exp: "pポイントの経験値を得た。"
 :dodge: "aの攻撃を、かわした。"
 :go_to_next?: "次の階へ進みますか？"
+:player_use_item: "pはiを使った。"
+:hp_recover: "HPがpポイント回復した。"
+:hp_gain: "HPの最大値がpポイント上昇した。"

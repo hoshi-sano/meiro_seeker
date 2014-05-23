@@ -14,6 +14,8 @@ module MyDungeonGame
                              RADAR_MAP_COLOR[:tile], RADAR_MAP_ALPHA[:tile]),
     }.freeze
 
+    attr_reader :player
+
     def initialize(storey=1, player=nil)
       extend(HelperMethods)
       @floor = DungeonManager.create_floor
@@ -263,7 +265,7 @@ module MyDungeonGame
       # MEMO: 現状は動作テスト用
       # TODO: ItemWindowのchoicesは@playerのもつアイテムから生成する
       choices = [
-                 Item.new(self),
+                 Kizugusuri.new(self),
                  Item.new(self),
                  Item.new(self),
                 ]

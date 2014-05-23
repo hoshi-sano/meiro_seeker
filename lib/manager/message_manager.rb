@@ -9,6 +9,7 @@ module MyDungeonGame
 
     PLAYER = 'p'
     LEVEL = 'l'
+    ITEM = 'i'
     FROM = 'f'
     TO = 't'
     POINT = 'p'
@@ -19,6 +20,7 @@ module MyDungeonGame
       point:         Regexp.new("#{POINT}"),
       attacker:      Regexp.new("#{ATTACKER}"),
       from_point:    Regexp.new("[#{FROM}#{POINT}]"),
+      player_item:   Regexp.new("[#{PLAYER}#{ITEM}]"),
       player_level:  Regexp.new("[#{PLAYER}#{LEVEL}]"),
       from_to_point: Regexp.new("[#{FROM}#{TO}#{POINT}]"),
     }.freeze
@@ -26,7 +28,12 @@ module MyDungeonGame
     module_function
 
     def get(key)
-      LIST[key]
+      if key.kind_of?(Symbol)
+        LIST[key]
+      else
+        keys = key.split('.').map(&:to_sym)
+        keys.inject(LIST[keys.shift]){|list, key| list[key] }
+      end
     end
 
     def attack(from, to, damage)
@@ -58,6 +65,19 @@ module MyDungeonGame
     def level_up(player, level)
       map = {PLAYER => player, LEVEL => level.to_s}
       LIST[:level_up].gsub(REGEXP[:player_level], map)
+    end
+
+    def player_use_item(player, item)
+      map = {PLAYER => player, ITEM => item}
+      LIST[:player_use_item].gsub(REGEXP[:player_item], map)
+    end
+
+    def hp_recover(point)
+      LIST[:hp_recover].gsub(REGEXP[:point], point.to_s)
+    end
+
+    def hp_gain(point)
+      LIST[:hp_gain].gsub(REGEXP[:point], point.to_s)
     end
   end
 end
