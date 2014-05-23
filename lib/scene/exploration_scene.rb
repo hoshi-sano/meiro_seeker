@@ -266,8 +266,9 @@ module MyDungeonGame
       # TODO: ItemWindowのchoicesは@playerのもつアイテムから生成する
       choices = [
                  Kizugusuri.new(self),
-                 Item.new(self),
-                 Item.new(self),
+                 KaifukuNoKusuri.new(self),
+                 ChikaraNoKusuri.new(self),
+                 NikuMan.new(self),
                 ]
       iw = ItemWindow.new(choices)
       {

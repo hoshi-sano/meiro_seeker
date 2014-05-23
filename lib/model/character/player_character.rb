@@ -8,8 +8,7 @@ module MyDungeonGame
     power 8
     exp 0
 
-    attr_reader :money, :stomach, :max_stomach, :max_power
-    attr_writer :floor
+    attr_accessor :floor, :stomach, :max_power, :max_stomach, :money
 
     HUNGER_INTERVAL = 10
     HP_GAIN_MIN = 2

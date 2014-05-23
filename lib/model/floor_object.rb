@@ -50,3 +50,6 @@ end
 require 'floor_object/stairs'
 require 'floor_object/item'
 require 'floor_object/item/kizugusuri'
+require 'floor_object/item/kaifuku_no_kusuri'
+require 'floor_object/item/chikara_no_kusuri'
+require 'floor_object/item/niku_man'

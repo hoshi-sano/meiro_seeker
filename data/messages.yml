@@ -11,3 +11,7 @@
 :player_use_item: "pはiを使った。"
 :hp_recover: "HPがpポイント回復した。"
 :hp_gain: "HPの最大値がpポイント上昇した。"
+:power_recover: "ちからがpポイント回復した。"
+:power_gain: "ちからの最大値がpポイント上昇した。"
+:stomach_recover: "満腹度がpポイント回復した。"
+:stomach_gain: "満腹度の最大値がpポイント上昇した。"

@@ -5,7 +5,6 @@ module MyDungeonGame
 
     def create(scene, target, point, gain=nil)
       scene.instance_eval do
-        hp_diff = 0
         recover = Event.new do |e|
           hp_diff = target.max_hp - target.hp
 

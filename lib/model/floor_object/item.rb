@@ -12,10 +12,10 @@ module MyDungeonGame
     end
 
     MENU_WORDS = {
-      use:   MessageManager.get('item_menu.use'),
-      throw: MessageManager.get('item_menu.throw'),
-      put:   MessageManager.get('item_menu.put'),
-      note:  MessageManager.get('item_menu.note'),
+      use:   MessageManager.get('items.menu.use'),
+      throw: MessageManager.get('items.menu.throw'),
+      put:   MessageManager.get('items.menu.put'),
+      note:  MessageManager.get('items.menu.note'),
     }
 
     type :item
@@ -43,6 +43,30 @@ module MyDungeonGame
       }
       item_menu_window = ItemMenuWindow.new(choices)
       ShowMenuEvent.create(@scene, item_menu_window)
+    end
+
+    def use_event
+      # 全ウインドウの消去
+      e = ClearMenuWindowEvent.create(@scene)
+      # 使用した旨のメッセージの表示
+      e.set_next(ShowMessageEvent.create(@scene, use_message))
+      # アイテム使用演出
+      e.set_next(use_action_event)
+      # 効果
+      e.set_next(effect_event)
+      e
+    end
+
+    def use_message
+      MessageManager.player_use_item(@scene.player.name, @name)
+    end
+
+    def use_action_event
+      Event.new {|e| e.finalize }
+    end
+
+    def effect_event
+      Event.new {|e| e.finalize }
     end
   end
 end

@@ -1,20 +1,9 @@
 module MyDungeonGame
   class Kizugusuri < Item
-    name MessageManager.get('item_names.kizugusuri')
+    name MessageManager.get('items.name.kizugusuri')
 
-    def use_event
-      e = nil
-      # 全ウインドウの消去
-      e = ClearMenuWindowEvent.create(@scene)
-      # 使用した旨のメッセージの表示
-      msg = MessageManager.player_use_item(@scene.player.name, @name)
-      e.set_next(ShowMessageEvent.create(@scene, msg))
-
-      # TODO: アイテム使用演出
-      # HP回復の実行
-      # TODO: 数値のパラメータ化
-      e.set_next(HpRecoverEvent.create(@scene, @scene.player, 25, 2))
-      e
+    def effect_event
+      ParamRecoverEvent.create(@scene, @scene.player, :hp, 25, 2)
     end
   end
 end
