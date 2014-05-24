@@ -26,7 +26,7 @@ module MyDungeonGame
           window = @menu_windows.last
           window.select(*InputManager.get_push_xy)
           if InputManager.push_ok?
-            if ne = window.get_event
+            if ne = window.get_event(self)
               e.set_next_cut_in(ne)
             else
               @message_window.set_ttl(0) if window.show_status?

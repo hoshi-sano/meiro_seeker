@@ -4,8 +4,8 @@ module MyDungeonGame
   class NikuMan < Item
     name MessageManager.get('items.name.niku_man')
 
-    def effect_event
-      ParamRecoverEvent.create(@scene, @scene.player, :stomach, 100, 10)
+    def effect_event(scene)
+      ParamRecoverEvent.create(scene, scene.player, :stomach, 100, 10)
     end
   end
 end

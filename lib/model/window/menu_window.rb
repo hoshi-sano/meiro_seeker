@@ -43,7 +43,7 @@ module MyDungeonGame
 
     # @choicesのvalueにはcallするとEventが生成されるものが入っている
     # ことを想定
-    def get_event
+    def get_event(scene)
       @choices.values[@select].call
     end
 

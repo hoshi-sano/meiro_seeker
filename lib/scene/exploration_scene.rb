@@ -74,7 +74,7 @@ module MyDungeonGame
       res = []
       # TODO: 階に合わせた適切なフロアオブジェクト選択を行う
       5.times do
-        item = Kizugusuri.new(self)
+        item = Kizugusuri.new
         set_random_position(item)
         res << item
       end

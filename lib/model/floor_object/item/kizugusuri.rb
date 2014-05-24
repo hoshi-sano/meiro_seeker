@@ -4,8 +4,8 @@ module MyDungeonGame
     name MessageManager.get('items.name.kizugusuri')
     image IMAGES[:potion]
 
-    def effect_event
-      ParamRecoverEvent.create(@scene, @scene.player, :hp, 25, 2)
+    def effect_event(scene)
+      ParamRecoverEvent.create(scene, scene.player, :hp, 25, 2)
     end
   end
 end

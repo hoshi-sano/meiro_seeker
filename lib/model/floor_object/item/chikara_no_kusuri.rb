@@ -4,8 +4,8 @@ module MyDungeonGame
   class ChikaraNoKusuri < Item
     name MessageManager.get('items.name.chikara_no_kusuri')
 
-    def effect_event
-      ParamRecoverEvent.create(@scene, @scene.player, :power, 1, 1)
+    def effect_event(scene)
+      ParamRecoverEvent.create(scene, scene.player, :power, 1, 1)
     end
   end
 end

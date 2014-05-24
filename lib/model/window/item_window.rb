@@ -7,15 +7,15 @@ module MyDungeonGame
 
     # 入力に応じてカーソルの位置を決める
     def select(x, y)
-      return if @choices.size.zero?
+      return if @choices.size.zero? || (x + y).zero?
       # TODO: 2ページ目に対応する
       @select += y
       @select = @select % @choices.size
     end
 
-    def get_event
+    def get_event(scene)
       return if @choices.size.zero?
-      @choices[@select].menu_event
+      @choices[@select].menu_event(scene)
     end
 
     def choice_to_text(choice)
