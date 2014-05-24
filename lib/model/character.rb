@@ -194,16 +194,7 @@ module MyDungeonGame
       if @hide
         TRANSPARENCY.image
       else
-        # MEMO: 斜めの暫定処理
-        if @current_direction >= CHARACTER_DIRECTION[:NW]
-          direction = CHARACTER_DIRECTION[:N]
-        elsif @current_direction >= CHARACTER_DIRECTION[:SW]
-          direction = CHARACTER_DIRECTION[:S]
-        else
-          direction = @current_direction
-        end
-        # @images[@current_direction][@current_frame]
-          @images[direction][@current_frame]
+        @images[@current_direction][@current_frame]
       end
     end
 

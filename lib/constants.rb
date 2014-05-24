@@ -82,29 +82,29 @@ module MyDungeonGame
 
   MOVE_UNIT = 8
   CHARACTER_PATTERN_NUM_X = 4
-  CHARACTER_PATTERN_NUM_Y = 4
+  CHARACTER_PATTERN_NUM_Y = 8
   CHARACTER_WALK_PATTERN = 0..3
   CHARACTER_DEATH_ANIMATION_LENGTH = 10
   CHARACTER_DAMAGE_ANIMATION_LENGTH = 4
   CHARACTER_DIRECTION = {
-    :S => 0,
-    :W => 1,
-    :E => 2,
-    :N => 3,
-    :SW => 4,
-    :SE => 5,
-    :NW => 6,
-    :NE => 7,
+    :S => 0,  # 上
+    :W => 1,  # 下
+    :E => 2,  # 左
+    :N => 3,  # 右
+    :SW => 4, # 左上
+    :SE => 5, # 右上
+    :NW => 6, # 左下
+    :NE => 7, # 右下
   }
   CHARACTER_INPUT_DIRECTION_MAP = {
-    [ 0, -1] => :N, # 上
-    [ 0,  1] => :S, # 下
-    [-1,  0] => :W, # 左
-    [ 1,  0] => :E, # 右
-    [-1,  1] => :SW, # 左上 TODO
-    [ 1,  1] => :SE, # 右上 TODO
-    [-1, -1] => :NW, # 左下 TODO
-    [ 1, -1] => :NE, # 右下 TODO
+    [ 0, -1] => :N,
+    [ 0,  1] => :S,
+    [-1,  0] => :W,
+    [ 1,  0] => :E,
+    [-1,  1] => :SW,
+    [ 1,  1] => :SE,
+    [-1, -1] => :NW,
+    [ 1, -1] => :NE,
   }
 
   PLAYER_ATTACK_ACCURACY = 95
