@@ -40,7 +40,7 @@ module MyDungeonGame
       choices = {
         MENU_WORDS[:use]   => lambda { self.use_event(scene) },
         MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
-        MENU_WORDS[:put]   => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:put]   => lambda { PutItemEvent.create(scene, self) },
         MENU_WORDS[:note]  => lambda { ClearMenuWindowEvent.create(scene) },
       }
       item_menu_window = ItemMenuWindow.new(choices)

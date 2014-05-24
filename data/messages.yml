@@ -17,4 +17,6 @@
 :stomach_gain: "満腹度の最大値がpポイント上昇した。"
 :pick_up_item: "iを拾った。"
 :get_on_item: "iの上に乗った。"
+:put_item: "iを床に置いた。"
+:cannot_put_item: "ここには置けない。"
 :no_item: "-アイテムを持っていません-"

@@ -78,6 +78,11 @@ class Meiro::Tile::BaseTile
     !@object
   end
 
+  # オブジェクトを設置することが可能かどうか
+  def puttable?
+    no_object?
+  end
+
   def clear
     clear_object
     clear_character
