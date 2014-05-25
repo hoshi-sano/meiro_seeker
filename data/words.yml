@@ -13,11 +13,6 @@
 :stomach: "満腹度"
 :experience: "経験値"
 :items:
-  :name:
-    :kizugusuri: "傷薬"
-    :kaifuku_no_kusuri: "回復の薬"
-    :chikara_no_kusuri: "力の薬"
-    :niku_man: "肉まん"
   :menu:
     :use:   "使う"
     :throw: "投げる"

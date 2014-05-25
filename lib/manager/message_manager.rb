@@ -5,7 +5,8 @@ module MyDungeonGame
   module MessageManager
     LIST =
       YAML.load(File.read(MESSAGE_LIST_PATH)).
-      merge(YAML.load(File.read(WORD_LIST_PATH)))
+      merge(YAML.load(File.read(WORD_LIST_PATH))).
+      merge(YAML.load(File.read(DICTIONARY_PATH)))
 
     PLAYER = 'p'
     LEVEL = 'l'

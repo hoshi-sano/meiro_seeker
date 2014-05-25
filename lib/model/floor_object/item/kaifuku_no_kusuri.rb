@@ -3,7 +3,7 @@ module MyDungeonGame
   # HP回復系
   class KaifukuNoKusuri < Item
     type :item
-    name MessageManager.get('items.name.kaifuku_no_kusuri')
+    name MessageManager.get('dict.items.kaifuku_no_kusuri.name')
     image IMAGES[:potion]
 
     def effect_event(scene)

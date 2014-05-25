@@ -1,0 +1,10 @@
+:dict:
+  :items:
+    :kizugusuri:
+      :name:  "傷薬"
+    :kaifuku_no_kusuri:
+      :name:  "回復の薬"
+    :chikara_no_kusuri:
+      :name:  "力の薬"
+    :niku_man:
+      :name: "肉まん"

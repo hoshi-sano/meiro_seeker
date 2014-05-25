@@ -3,7 +3,7 @@ module MyDungeonGame
   # 満腹度回復系
   class NikuMan < Item
     type :item
-    name MessageManager.get('items.name.niku_man')
+    name MessageManager.get('dict.items.niku_man.name')
     image IMAGES[:manju]
 
     def effect_event(scene)

@@ -3,7 +3,7 @@ module MyDungeonGame
   # 力の回復・上昇系
   class ChikaraNoKusuri < Item
     type :item
-    name MessageManager.get('items.name.chikara_no_kusuri')
+    name MessageManager.get('dict.items.chikara_no_kusuri.name')
     image IMAGES[:potion]
 
     def effect_event(scene)

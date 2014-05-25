@@ -1,7 +1,7 @@
 module MyDungeonGame
   class Kizugusuri < Item
     type :item
-    name MessageManager.get('items.name.kizugusuri')
+    name MessageManager.get('dict.items.kizugusuri.name')
     image IMAGES[:potion]
 
     def effect_event(scene)
