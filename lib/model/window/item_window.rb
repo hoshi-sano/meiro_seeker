@@ -51,7 +51,6 @@ module MyDungeonGame
         else
           arrow = '<<<   '
           (PORTABLE_ITEM_NUMBER - @choices.size).times { res << ' ' }
-          #(MAX_LINE - (@choices.size % MAX_LINE)).times { res << ' ' }
         end
         res << sprintf("%28s", arrow)
       end

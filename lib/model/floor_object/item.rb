@@ -9,6 +9,14 @@ module MyDungeonGame
       def get_name
         @name || "BaseItem"
       end
+
+      def note(value)
+        @note = value
+      end
+
+      def get_note
+        @note || "note"
+      end
     end
 
     MENU_WORDS = {
@@ -25,11 +33,12 @@ module MyDungeonGame
     type :item
     image IMAGES[:potion]
 
-    attr_reader :name
+    attr_reader :name, :note
 
     def initialize
       super()
       @name = self.class.get_name
+      @note = self.class.get_note
     end
 
     def event
@@ -42,7 +51,7 @@ module MyDungeonGame
         MENU_WORDS[:use]   => lambda { self.use_event(scene) },
         MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
         MENU_WORDS[:put]   => lambda { PutItemEvent.create(scene, self) },
-        MENU_WORDS[:note]  => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
       item_menu_window = ItemMenuWindow.new(choices)
       ShowMenuEvent.create(scene, item_menu_window)

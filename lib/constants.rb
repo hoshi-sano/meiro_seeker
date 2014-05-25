@@ -43,6 +43,7 @@ module MyDungeonGame
     menu:      [200, 75],
     item:      [300, 300],
     item_menu: [120, 130],
+    item_note: [500, 200],
     yes_no:    [150, 80],
     message:   [600, 100],
     parameter: [600, 40],
@@ -52,11 +53,13 @@ module MyDungeonGame
   }
   WINDOW_ALPHA = {
     regular: 200,
+    item_note: 255,
   }
   WINDOW_POSITION = {
     menu: [30, 50],
     item: [240, 50],
     item_menu: [110, 150],
+    item_note: [60, 100],
   }
 
   HP_METER_HEIGHT = 5

@@ -4,6 +4,7 @@ module MyDungeonGame
   class NikuMan < Item
     type :item
     name MessageManager.get('dict.items.niku_man.name')
+    note MessageManager.get('dict.items.niku_man.note')
     image IMAGES[:manju]
 
     def effect_event(scene)
