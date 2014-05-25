@@ -73,8 +73,14 @@ module MyDungeonGame
     def create_floor_objects(storey)
       res = []
       # TODO: 階に合わせた適切なフロアオブジェクト選択を行う
+      items = [
+               Kizugusuri,
+               KaifukuNoKusuri,
+               ChikaraNoKusuri,
+               NikuMan,
+              ]
       5.times do
-        item = Kizugusuri.new
+        item = items[DungeonManager.randomizer.rand(4)].new
         set_random_position(item)
         res << item
       end

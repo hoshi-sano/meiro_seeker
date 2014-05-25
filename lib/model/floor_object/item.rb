@@ -18,7 +18,8 @@ module MyDungeonGame
       note:  MessageManager.get('items.menu.note'),
     }
     IMAGES = {
-      potion: FileLoadProxy.load_image(STAIRS_IMAGE_PATH),
+      potion: FileLoadProxy.load_image(POTION_IMAGE_PATH),
+      manju: FileLoadProxy.load_image(MANJU_IMAGE_PATH),
     }
 
     type :item
