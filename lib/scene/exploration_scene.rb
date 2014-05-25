@@ -435,6 +435,15 @@ module MyDungeonGame
         end
       end
 
+      # アイテム、罠、階段の表示
+      @floor_objects.each do |obj|
+        if obj.searched?
+          args = [obj.x * RADAR_MAP_UNIT_SIZE, obj.y * RADAR_MAP_UNIT_SIZE,
+                  RADAR_MAP_IMAGES[obj.type], :radar_map]
+          OutputManager.reserve_draw_without_offset(*args)
+        end
+      end
+
       # プレイヤーの表示
       args = [@player.x * RADAR_MAP_UNIT_SIZE, @player.y * RADAR_MAP_UNIT_SIZE,
               RADAR_MAP_IMAGES[:player], :radar_map]
@@ -446,15 +455,6 @@ module MyDungeonGame
         if vision.include?(mob)
           args = [mob.x * RADAR_MAP_UNIT_SIZE, mob.y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[:mob], :radar_map]
-          OutputManager.reserve_draw_without_offset(*args)
-        end
-      end
-
-      # アイテム、罠、階段の表示
-      @floor_objects.each do |obj|
-        if obj.searched?
-          args = [obj.x * RADAR_MAP_UNIT_SIZE, obj.y * RADAR_MAP_UNIT_SIZE,
-                  RADAR_MAP_IMAGES[obj.type], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
         end
       end
