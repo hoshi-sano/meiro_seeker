@@ -72,11 +72,20 @@ module MyDungeonGame
       end
     end
 
+    # アイテムの取得
     def get(item)
-      # TODO: アイテムがいっぱいの場合の処理
-      @items << item
-      msg = MessageManager.pick_up_item(item.name)
-      @events << EventPacket.new(ShowMessageEvent, msg)
+      if @items.size < PORTABLE_ITEM_NUMBER
+        @items << item
+        msg = MessageManager.pick_up_item(item.name)
+        @events << EventPacket.new(ShowMessageEvent, msg)
+        true
+      else
+        msg = MessageManager.get_on_item(item.name)
+        @events << EventPacket.new(ShowMessageEvent, msg)
+        msg = MessageManager.get(:cannot_pick_up_item)
+        @events << EventPacket.new(ShowMessageEvent, msg)
+        false
+      end
     end
 
     def attack_or_check

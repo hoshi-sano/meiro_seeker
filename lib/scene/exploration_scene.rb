@@ -307,9 +307,10 @@ module MyDungeonGame
           args = [self, dx * TILE_WIDTH, dy * TILE_HEIGHT]
           move_event = MoveEvent.create(*args)
           if underfoot.any_object? && underfoot.object.type == :item
-            @player.get(underfoot.object)
-            @floor_objects.delete(underfoot.object)
-            underfoot.clear_object
+            if @player.get(underfoot.object)
+              @floor_objects.delete(underfoot.object)
+              underfoot.clear_object
+            end
           end
           @em.set_cut_in_event(move_event)
         end

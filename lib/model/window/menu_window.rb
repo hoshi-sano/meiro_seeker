@@ -37,6 +37,7 @@ module MyDungeonGame
 
     # 入力に応じてカーソルの位置を決める
     def select(x, y)
+      return if (x + y).zero?
       @select += y
       @select = @select % @choices.size
     end

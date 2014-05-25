@@ -5,10 +5,19 @@ module MyDungeonGame
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
     show_status true
 
+    MAX_LINE = 10
+
     # 入力に応じてカーソルの位置を決める
     def select(x, y)
       return if @choices.size.zero? || (x + y).zero?
-      # TODO: 2ページ目に対応する
+      if !x.zero? && @choices.size > MAX_LINE
+        if @select < MAX_LINE
+          @select += x.abs * MAX_LINE
+          @select = (@choices.size - 1) if @select > @choices.size
+        else
+          @select -= x.abs * MAX_LINE
+        end
+      end
       @select += y
       @select = @select % @choices.size
     end
@@ -24,7 +33,29 @@ module MyDungeonGame
 
     def text
       return MessageManager.get(:no_item) if @choices.size.zero?
-      super
+      res = []
+      if @select < MAX_LINE
+        @choices[0..(MAX_LINE-1)].each_with_index do |choice, idx|
+          arrow = (@select == idx) ? '>' : ' '
+          res << "#{arrow} #{choice_to_text(choice)}"
+        end
+      else
+        @choices[MAX_LINE..-1].each_with_index do |choice, idx|
+          arrow = (@select == (idx + MAX_LINE)) ? '>' : ' '
+          res << "#{arrow} #{choice_to_text(choice)}"
+        end
+      end
+      if @choices.size > MAX_LINE
+        if @select < MAX_LINE
+          arrow = '   >>>'
+        else
+          arrow = '<<<   '
+          (PORTABLE_ITEM_NUMBER - @choices.size).times { res << ' ' }
+          #(MAX_LINE - (@choices.size % MAX_LINE)).times { res << ' ' }
+        end
+        res << sprintf("%28s", arrow)
+      end
+      join_choices(res)
     end
   end
 end

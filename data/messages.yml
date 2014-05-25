@@ -16,6 +16,7 @@
 :stomach_recover: "満腹度がpポイント回復した。"
 :stomach_gain: "満腹度の最大値がpポイント上昇した。"
 :pick_up_item: "iを拾った。"
+:cannot_pick_up_item: "これ以上アイテムを持てない。"
 :get_on_item: "iの上に乗った。"
 :put_item: "iを床に置いた。"
 :cannot_put_item: "ここには置けない。"
