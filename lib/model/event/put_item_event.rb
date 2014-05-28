@@ -8,12 +8,14 @@ module MyDungeonGame
 
         put_item = Event.new do |e|
           if @floor[@player.x, @player.y].puttable?
+            item.removed! if item.equipped?
             @player.items.delete(item)
             item.x = @player.x
             item.y = @player.y
             @floor[@player.x, @player.y].object = item
             @floor_objects << item
             put = true
+            tick # 置ける場合は1ターン消費
           end
 
           if put

@@ -28,7 +28,7 @@ module MyDungeonGame
     end
 
     def choice_to_text(choice)
-      choice.name
+      choice.display_name
     end
 
     def text

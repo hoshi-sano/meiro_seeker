@@ -1,5 +1,11 @@
 :dict:
   :items:
+    :sabel:
+      :name: "サーベル"
+      :note: |-
+        サーベル【さーべる】
+        西洋の片刃の刀。湾曲した刀身が特徴。
+        基本攻撃力: 5
     :kizugusuri:
       :name: "傷薬"
       :note: |-

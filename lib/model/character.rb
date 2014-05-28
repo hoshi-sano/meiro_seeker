@@ -322,7 +322,6 @@ module MyDungeonGame
 
     # 武器補正の計算
     def calc_weapon_calibration
-      # TODO
       0
     end
 

@@ -14,7 +14,9 @@
 :experience: "経験値"
 :items:
   :menu:
-    :use:   "使う"
-    :throw: "投げる"
-    :put:   "置く"
-    :note:  "説明"
+    :use:    "使う"
+    :equip:  "装備"
+    :remove: "外す"
+    :throw:  "投げる"
+    :put:    "置く"
+    :note:   "説明"

@@ -78,9 +78,10 @@ module MyDungeonGame
                KaifukuNoKusuri,
                ChikaraNoKusuri,
                NikuMan,
+               Sabel,
               ]
       5.times do
-        item = items[DungeonManager.randomizer.rand(4)].new
+        item = items[DungeonManager.randomizer.rand(items.size)].new
         set_random_position(item)
         res << item
       end

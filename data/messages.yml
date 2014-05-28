@@ -21,3 +21,5 @@
 :put_item: "iを床に置いた。"
 :cannot_put_item: "ここには置けない。"
 :no_item: "-アイテムを持っていません-"
+:equip_item: "iを装備した。"
+:remove_item: "iを装備から外した。"

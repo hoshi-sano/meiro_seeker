@@ -23,6 +23,9 @@ module MyDungeonGame
       @max_power = @power # 力の最大値
       @hunger_interval = HUNGER_INTERVAL
       @items = [] # 所持アイテムリスト
+      @weapon = nil # 装備武器
+      @shield = nil # 装備盾
+      @ring   = nil # 装備指輪
     end
 
     def level_up
@@ -34,7 +37,7 @@ module MyDungeonGame
 
     # 武器の強さ
     def weapon_strength
-      0
+      @weapon ? @weapon.strength : 0
     end
 
     # 盾の強さ
@@ -86,6 +89,24 @@ module MyDungeonGame
         @events << EventPacket.new(ShowMessageEvent, msg)
         false
       end
+    end
+
+    # アイテムの装備
+    def equip(equipment)
+      self.instance_variable_set("@#{equipment.equipment_type}", equipment)
+      equipment.equipped_by = self
+    end
+
+    def equip?(type)
+      !!self.instance_variable_get("@#{type}")
+    end
+
+    def get_equipment(type)
+      self.instance_variable_get("@#{type}")
+    end
+
+    def remove_equipment(type)
+      self.instance_variable_set("@#{type}", nil)
     end
 
     def attack_or_check
@@ -184,6 +205,13 @@ module MyDungeonGame
     def killed_by(attacker)
       super
       # TODO: ゲームオーバーイベント
+    end
+
+    private
+
+    # 武器補正の計算
+    def calc_weapon_calibration
+      @weapon ? @weapon.offence : 0
     end
   end
 end

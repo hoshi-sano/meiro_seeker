@@ -88,6 +88,14 @@ module MyDungeonGame
         LIST[:put_item].gsub(REGEXP[:item], item)
       end
 
+      def equip_item(item)
+        LIST[:equip_item].gsub(REGEXP[:item], item)
+      end
+
+      def remove_item(item)
+        LIST[:remove_item].gsub(REGEXP[:item], item)
+      end
+
       [
        :hp,
        :power,
