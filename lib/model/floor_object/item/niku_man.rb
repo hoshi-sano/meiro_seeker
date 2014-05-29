@@ -10,5 +10,9 @@ module MyDungeonGame
     def effect_event(scene)
       ParamRecoverEvent.create(scene, scene.player, :stomach, 100, 5)
     end
+
+    def order
+      ORDER[:manju]
+    end
   end
 end

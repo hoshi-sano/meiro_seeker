@@ -43,6 +43,9 @@ module MyDungeonGame
               e.set_next_cut_in(ShowMenuEvent.create(self, window))
             end
             e.finalize
+          elsif window.is_a?(ItemWindow) && InputManager.push_sort?
+            @player.items.sort!
+            window.instance_variable_set(:@choices, @player.items)
           end
         end
         root.set_next(wait_input)

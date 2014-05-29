@@ -3,6 +3,14 @@ module MyDungeonGame
   class Weapon < Equipment
     TYPE = :weapon
 
+    def order
+      if self.equipped?
+        ORDER[:equipped_weapon]
+      else
+        ORDER[:weapon]
+      end
+    end
+
     # 基本性能
     # 見た目上の強さで、あくまで目安
     def strength

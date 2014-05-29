@@ -8,5 +8,9 @@ module MyDungeonGame
     def effect_event(scene)
       ParamRecoverEvent.create(scene, scene.player, :hp, 25, 2)
     end
+
+    def order
+      ORDER[:potion]
+    end
   end
 end

@@ -74,6 +74,10 @@ module MyDungeonGame
         res
       end
 
+      def push_sort?
+        INPUT.key_down?(DEFAULT_KEY_CONFIG[:option])
+      end
+
       def down_dash?
         INPUT.key_down?(DEFAULT_KEY_CONFIG[:cancel])
       end

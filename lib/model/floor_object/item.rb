@@ -32,6 +32,20 @@ module MyDungeonGame
       potion: FileLoadProxy.load_image(POTION_IMAGE_PATH),
       manju: FileLoadProxy.load_image(MANJU_IMAGE_PATH),
     }
+    ORDER = {
+      equipped_weapon: -400,
+      equipped_shield: -300,
+      equipped_ring:   -200,
+      equipped_gun:    -100,
+      weapon: 100,
+      shield: 200,
+      ring:   300,
+      gun:    400,
+      manju:  500,
+      potion: 600,
+      other:  999,
+    }
+
 
     type :item
     image IMAGES[:potion]
@@ -94,6 +108,18 @@ module MyDungeonGame
 
     def effect_event(scene)
       Event.new {|e| e.finalize }
+    end
+
+    def order
+      ORDER[:other]
+    end
+
+    def <=>(other)
+      res = self.order <=> other.order
+      if res.zero?
+        res = self.class.to_s <=> other.class.to_s
+      end
+      res
     end
   end
 end
