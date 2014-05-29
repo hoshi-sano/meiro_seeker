@@ -150,9 +150,14 @@ module MyDungeonGame
     end
 
     # 話す、調べるなどの対象を返す
+    # 壁を挟んだナナメ位置の相手は対象にならない
     def check_target
       _x, _y = DIRECTION_STEP_MAP[@current_direction][:forward]
-      @floor[self.x + _x, self.y + _y].character
+      if self.throughable?(_x, _y)
+        @floor[self.x + _x, self.y + _y].character
+      else
+        nil
+      end
     end
 
     # 素振り

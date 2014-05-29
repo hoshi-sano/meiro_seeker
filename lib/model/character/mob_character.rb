@@ -51,14 +51,6 @@ module MyDungeonGame
       end
     end
 
-    def throughable?(dx, dy)
-      @floor.throughable?(self.x, self.y, self.x + dx, self.y + dy)
-    end
-
-    def movable?(dx, dy)
-      @floor.movable?(self.x, self.y, self.x + dx, self.y + dy)
-    end
-
     def update
       @disp_x = nil
       @disp_y = nil

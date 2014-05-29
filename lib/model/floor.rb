@@ -18,8 +18,8 @@ module MyDungeonGame
       [x, y]
    end
 
-    # (x1, y1)座標にいるキャラクターが
-    # (x2, y2)座標へ通過可能かどうかを返す
+    # (x2, y2)座標にキャラクターが不在の場合に、(x1, y1)座標にいるキャ
+    # ラクターが(x2, y2)座標へ通過可能かどうかを返す
     def throughable?(x1, y1, x2, y2)
       # 角での斜め移動を禁止する
       @base_map[x1, y2].walkable? &&

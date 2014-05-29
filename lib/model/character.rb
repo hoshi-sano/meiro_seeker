@@ -259,6 +259,20 @@ module MyDungeonGame
       false
     end
 
+    # (self.x + dx, self.y + dy)座標にキャラクターが不在の場合に、
+    # (self.x + dx, self.y + dy)座標へ通過可能かどうかを返す
+    def throughable?(dx, dy)
+      @floor.throughable?(self.x, self.y, self.x + dx, self.y + dy)
+    end
+
+    # (self.x + dx, self.y + dy)座標へ移動可能かどうかを返す
+    # 既にその座標にキャラクターが居る場合はfalseを返す
+    # MEMO: 内部で#throughable?が呼ばれているため、#movable?と
+    #       #throughable?は同時に呼ばなくてよい
+    def movable?(dx, dy)
+      @floor.movable?(self.x, self.y, self.x + dx, self.y + dy)
+    end
+
     def width
       @images.first.first.width
     end
