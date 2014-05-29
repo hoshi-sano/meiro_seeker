@@ -9,11 +9,19 @@ module MyDungeonGame
       def get_base_strength
         @base_strength || 0
       end
+
+      def equipped_image_path(value)
+        @equipped_image_path = value
+      end
+
+      def get_equipped_image_path
+        @equipped_image_path
+      end
     end
 
     EQUIPPED_SIGN = 'E'
 
-    attr_reader   :base_strength
+    attr_reader   :base_strength, :equipped_image_path
     attr_accessor :equipped_by, :calibration
 
     def initialize
@@ -21,6 +29,7 @@ module MyDungeonGame
       @equipped_by = nil
       @calibration = 0
       @base_strength = self.class.get_base_strength
+      @equipped_image_path = self.class.get_equipped_image_path
     end
 
     # 補正値付きの名前の文字列を返す

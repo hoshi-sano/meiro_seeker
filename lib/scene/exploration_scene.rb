@@ -368,6 +368,12 @@ module MyDungeonGame
 
     def display_palyer
       OutputManager.reserve_draw_center(@player)
+      [@player.weapon, @player.shield].compact.each do |equipment|
+        equipment.x, equipment.y = @player.x, @player.y
+        equipment.current_direction = @player.current_direction
+        equipment.current_frame = @player.current_frame
+        OutputManager.reserve_draw_center(equipment)
+      end
     end
 
     def display_mobs

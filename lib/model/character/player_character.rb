@@ -8,6 +8,7 @@ module MyDungeonGame
     power 8
     exp 0
 
+    attr_reader   :weapon, :shield, :ring, :current_direction, :current_frame
     attr_accessor :floor, :stomach, :max_power, :max_stomach, :money, :items
 
     HUNGER_INTERVAL = 10
@@ -93,7 +94,9 @@ module MyDungeonGame
 
     # アイテムの装備
     def equip(equipment)
-      self.instance_variable_set("@#{equipment.equipment_type}", equipment)
+      eq_type = equipment.equipment_type
+      eq_obj = self.class.const_get(eq_type.capitalize).new(self, equipment)
+      self.instance_variable_set("@#{eq_type}", eq_obj)
       equipment.equipped_by = self
     end
 
@@ -102,7 +105,7 @@ module MyDungeonGame
     end
 
     def get_equipment(type)
-      self.instance_variable_get("@#{type}")
+      self.instance_variable_get("@#{type}").origin
     end
 
     def remove_equipment(type)
@@ -217,6 +220,35 @@ module MyDungeonGame
     # 武器補正の計算
     def calc_weapon_calibration
       @weapon ? @weapon.offence : 0
+    end
+
+    # 装備に関する内部クラス
+    # 主にプレーヤーキャラに重ねる装備品の画像のために使う
+    class Equipment < Character
+      attr_reader :origin
+      attr_accessor :current_direction, :current_frame
+
+      def initialize(player, origin)
+        @player = player
+        @origin = origin
+        super(origin.equipped_image_path, nil)
+      end
+
+      def strength
+        @origin.strength
+      end
+    end
+
+    class Weapon < Equipment
+      def offence
+        @origin.offence
+      end
+    end
+
+    class Shield < Equipment
+      def defence
+        @origin.defence
+      end
     end
   end
 end

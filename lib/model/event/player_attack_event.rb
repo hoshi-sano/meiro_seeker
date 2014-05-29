@@ -10,17 +10,29 @@ module MyDungeonGame
           step.map{|v| i * v }
         end.map do |cx, cy|
           Event.new do |e|
+            # プレイヤー本体
             @player.hide
             @waiting_update_complete = true
             args = [@player.display_dummy, cx, cy]
             OutputManager.reserve_draw_center_with_calibration(*args)
+            # 装備品
+            [@player.weapon, @player.shield].compact.map do |equipment|
+              equipment.hide
+              args = [equipment.display_dummy, cx, cy]
+              OutputManager.reserve_draw_center_with_calibration(*args)
+            end
             e.finalize
           end
         end
 
         last_event = Event.new do |e|
           @waiting_update_complete = true
+          # プレイヤー本体
           @player.show
+          # 装備品
+          [@player.weapon, @player.shield].compact.each do |equipment|
+            equipment.show
+          end
           e.finalize
         end
         events.push(last_event)
