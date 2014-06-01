@@ -84,9 +84,10 @@ module MyDungeonGame
   MESSAGE_SPEED = 4
 
   MOVE_UNIT = 8
-  CHARACTER_PATTERN_NUM_X = 4
+  CHARACTER_PATTERN_NUM_X = 8
   CHARACTER_PATTERN_NUM_Y = 8
   CHARACTER_WALK_PATTERN = 0..3
+  CHARACTER_ATTACK_PATTERN = 4..7
   CHARACTER_DEATH_ANIMATION_LENGTH = 10
   CHARACTER_DAMAGE_ANIMATION_LENGTH = 4
   CHARACTER_DIRECTION = {
@@ -109,6 +110,12 @@ module MyDungeonGame
     [-1, -1] => :NW,
     [ 1, -1] => :NE,
   }
+  CHARACTER_ATTACK_MOVE_AND_FRAMES = [
+                                      [0,  0], [0,  0],
+                                      [5,  1], [10, 1],
+                                      [15, 2], [12, 2],
+                                      [9,  3], [6,  3], [3, 3],
+                                     ]
 
   PORTABLE_ITEM_NUMBER = 20
   PLAYER_ATTACK_ACCURACY = 95

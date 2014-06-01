@@ -6,19 +6,23 @@ module MyDungeonGame
     def create(scene)
       scene.instance_eval do
         step = @player.get_forward_step
-        events = [10, 15, 12, 9, 6, 3, 1].map do |i|
-          step.map{|v| i * v }
-        end.map do |cx, cy|
+        events = CHARACTER_ATTACK_MOVE_AND_FRAMES.map do |i, frame|
+          [step[0] * i, step[1] * i, frame]
+        end.map do |cx, cy, frame|
           Event.new do |e|
             # プレイヤー本体
             @player.hide
             @waiting_update_complete = true
-            args = [@player.display_dummy, cx, cy]
+            dummy = @player.display_dummy
+            dummy.attack_frame(frame)
+            args = [dummy, cx, cy]
             OutputManager.reserve_draw_center_with_calibration(*args)
             # 装備品
             [@player.weapon, @player.shield].compact.map do |equipment|
               equipment.hide
-              args = [equipment.display_dummy, cx, cy]
+              dummy = equipment.display_dummy
+              dummy.attack_frame(frame)
+              args = [dummy, cx, cy]
               OutputManager.reserve_draw_center_with_calibration(*args)
             end
             e.finalize

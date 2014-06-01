@@ -6,15 +6,17 @@ module MyDungeonGame
     def create(scene, attacker)
       scene.instance_eval do
         step = attacker.get_forward_step
-        events = [10, 15, 12, 9, 6, 3, 1].map do |i|
-          step.map{|v| i * v }
-        end.map do |cx, cy|
+        events = CHARACTER_ATTACK_MOVE_AND_FRAMES.map do |i, frame|
+          [step[0] * i, step[1] * i, frame]
+        end.map do |cx, cy, frame|
           Event.new do |e|
             attacker.hide
             @waiting_update_complete = true
+            dummy = attacker.display_dummy
+            dummy.attack_frame(frame)
             args = [(attacker.x * TILE_WIDTH) + cx,
                     (attacker.y * TILE_HEIGHT) + cy,
-                    attacker.display_dummy, :character]
+                    dummy, :character]
             OutputManager.reserve_draw(*args)
             e.finalize
           end

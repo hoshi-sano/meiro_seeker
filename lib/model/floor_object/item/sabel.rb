@@ -6,7 +6,7 @@ module MyDungeonGame
     note MessageManager.get('dict.items.sabel.note')
     image IMAGES[:weapon]
     # equipped_image_pathは暫定
-    equipped_image_path File.join(ROOT, 'data', 'weapon_animation_test.png')
+    equipped_image_path File.join(ROOT, 'data', 'weapon_effect.png')
     base_strength 5
   end
 end

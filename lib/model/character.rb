@@ -228,6 +228,12 @@ module MyDungeonGame
       end
     end
 
+    def attack_frame(df)
+      frame = CHARACTER_ATTACK_PATTERN.to_a[df]
+      return if frame.nil?
+      @current_frame = frame
+    end
+
     # 見た目上の更新を行う
     def update
       if update?
