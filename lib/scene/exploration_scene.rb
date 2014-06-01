@@ -272,12 +272,11 @@ module MyDungeonGame
 
     # メニューウインドウの選択肢を生成する
     def make_menu_choices
-      # TODO: 各種イベントの設定
-      # TODO: 足元が階段だった場合
+      # TODO: 「その他」イベントの設定
       iw = ItemWindow.new(@player.items)
       {
         MessageManager.get(:item) => lambda { ShowMenuEvent.create(self, iw) },
-        MessageManager.get(:underfoot) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:underfoot) => lambda { UnderfootEvent.create(self) },
         MessageManager.get(:map) => lambda { ClearMenuWindowEvent.create(self) },
         MessageManager.get(:other) => lambda { ClearMenuWindowEvent.create(self) },
       }

@@ -20,6 +20,7 @@ module MyDungeonGame
     end
 
     MENU_WORDS = {
+      get:    MessageManager.get('items.menu.get'),
       use:    MessageManager.get('items.menu.use'),
       equip:  MessageManager.get('items.menu.equip'),
       remove: MessageManager.get('items.menu.remove'),
@@ -73,16 +74,48 @@ module MyDungeonGame
       ClearMenuWindowEvent.create(@scene)
     end
 
+    def show_item_menu_event(scene, choices)
+      item_menu_window = ItemMenuWindow.new(choices)
+      ShowMenuEvent.create(scene, item_menu_window)
+    end
+
     # アイテム欄から選択された際に表示するメニュー
     def menu_event(scene)
-      choices = {
+      choices = item_menu_choices(scene)
+      show_item_menu_event(scene, choices)
+    end
+
+    def item_menu_choices(scene)
+      {
         MENU_WORDS[:use]   => lambda { self.use_event(scene) },
         MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
         MENU_WORDS[:put]   => lambda { PutItemEvent.create(scene, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
-      item_menu_window = ItemMenuWindow.new(choices)
-      ShowMenuEvent.create(scene, item_menu_window)
+    end
+
+    # 足元から選択された際に表示するメニュー
+    def underfoot_event(scene)
+      choices = underfoot_menu_choices(scene)
+      show_item_menu_event(scene, choices)
+    end
+
+    def underfoot_menu_choices(scene)
+      {
+        MENU_WORDS[:get]   => lambda {
+          scene.instance_eval do
+            underfoot = @floor[@player.x, @player.y]
+            if @player.get(underfoot.object)
+              @floor_objects.delete(underfoot.object)
+              underfoot.clear_object
+            end
+          end
+          ClearMenuWindowEvent.create(scene)
+        },
+        MENU_WORDS[:use]   => lambda { self.use_event(scene) },
+        MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
+      }
     end
 
     def use_event(scene)
@@ -102,8 +135,19 @@ module MyDungeonGame
     end
 
     def use_action_event(scene)
-      # TODO: クラス化
-      Event.new {|e| scene.player.items.delete(self); e.finalize }
+      item = self
+      scene.instance_eval do
+        Event.new do |e|
+          # プレイヤーのアイテム欄にある場合
+          deleted = @player.items.delete(item)
+          if deleted.nil?
+            # プレイヤーの足元にある場合
+            @floor_objects.delete(@floor[@player.x, @player.y].object)
+            @floor[@player.x, @player.y].clear_object
+          end
+          e.finalize
+        end
+      end
     end
 
     def effect_event(scene)

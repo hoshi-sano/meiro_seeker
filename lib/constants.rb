@@ -47,6 +47,7 @@ module MyDungeonGame
     yes_no:    [150, 80],
     message:   [600, 100],
     parameter: [600, 40],
+    underfoot_item: [300, 40],
   }
   WINDOW_COLOR = {
     regular: [0, 30, 30],

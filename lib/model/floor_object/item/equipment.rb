@@ -64,7 +64,7 @@ module MyDungeonGame
       @equipped_by = nil
     end
 
-    def menu_event(scene)
+    def item_menu_choices(scene)
       if self.equipped?
         choices = {MENU_WORDS[:remove] => lambda { self.remove_event(scene) }}
       else
@@ -76,9 +76,24 @@ module MyDungeonGame
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
       choices.merge!(rest)
+      choices
+    end
 
-      item_menu_window = ItemMenuWindow.new(choices)
-      ShowMenuEvent.create(scene, item_menu_window)
+    def underfoot_menu_choices(scene)
+      {
+        MENU_WORDS[:get]   => lambda {
+          scene.instance_eval do
+            underfoot = @floor[@player.x, @player.y]
+            if @player.get(underfoot.object)
+              @floor_objects.delete(underfoot.object)
+              underfoot.clear_object
+            end
+          end
+          ClearMenuWindowEvent.create(scene)
+        },
+        MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
+      }
     end
 
     def equip_event(scene)
