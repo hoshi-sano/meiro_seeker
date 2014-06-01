@@ -6,7 +6,7 @@ module MyDungeonGame
     image IMAGES[:potion]
 
     def effect_event(scene)
-      ParamRecoverEvent.create(scene, scene.player, :hp, 25, 2)
+      ParamRecoverEvent.create(scene, scene.player, :hp, 25, 1)
     end
 
     def order
