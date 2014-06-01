@@ -24,3 +24,8 @@
 :equip_item: "iを装備した。"
 :remove_item: "iを装備から外した。"
 :no_item_underfoot: "足元には何も落ちていない。"
+:little_hunger: "少しお腹が減ってきた...。"
+:quite_hunger: "かなりハラペコだ...。"
+:before_starve_1: "ハラが減りすぎて..."
+:before_starve_2: "体力を消耗してしまう..."
+:starve: "もう餓死寸前だ！"

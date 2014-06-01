@@ -66,14 +66,41 @@ module MyDungeonGame
     # 毎ターンの満腹度の現象
     def hunger
       if @stomach <= 0
-        # TODO: 空腹によるHP減少
+        @hp -= 1 if @hp > 0
       else
-        @hunger_interval -= 1
+        subtrace_hunger_interval(1)
         if @hunger_interval <= 0
-          @stomach -= 1
+          subtrace_stomach(1)
           @hunger_interval = HUNGER_INTERVAL
         end
       end
+    end
+
+    def subtrace_hunger_interval(v)
+      before = @hunger_interval
+      @hunger_interval -= v
+      if @stomach == 1
+        if before == 3
+          msg = MessageManager.get(:before_starve_1)
+        elsif before == 2
+          msg = MessageManager.get(:before_starve_2)
+        end
+      end
+      @events << EventPacket.new(ShowMessageEvent, msg) if msg
+    end
+
+    def subtrace_stomach(v)
+      before = @stomach
+      @stomach -= v
+      @stomach = 0 if @stomach < 0
+      if before >= 1 && @stomach == 0
+        msg = MessageManager.get(:starve)
+      elsif before >= 10 && @stomach < 10
+        msg = MessageManager.get(:quite_hunger)
+      elsif before >= 20 && @stomach < 20
+        msg = MessageManager.get(:little_hunger)
+      end
+      @events << EventPacket.new(ShowMessageEvent, msg) if msg
     end
 
     # アイテムの取得
