@@ -80,7 +80,7 @@ class Meiro::Tile::BaseTile
 
   # オブジェクトを設置することが可能かどうか
   def puttable?
-    no_object?
+    self.walkable? && no_object?
   end
 
   def clear

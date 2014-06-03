@@ -128,6 +128,43 @@ module MyDungeonGame
       true
     end
 
+    # アイテムの落下位置を決める。
+    # 指定した座標に既に何かが落ちている場合は、周囲8マスのどこかに落下
+    # させる。周囲8マスのどこにも落下候補がない場合はさらにその周囲のマ
+    # スのどこかに落下させる。当初の指定座標から距離3マス以内に落下候補
+    # がない場合は消える。
+    def drop(item, x, y, dist=3)
+      succeed = false
+      return succeed if dist.zero?
+
+      [y, (y-1), (y+1)].each do |cand_y|
+        [x, (x-1), (x+1)].each do |cand_x|
+          if @floor[cand_x, cand_y].puttable?
+            item.x, item.y = cand_x, cand_y
+            item.searched!
+            @floor_objects << item
+            @floor[item.x, item.y].object = item
+            succeed = true
+            break
+          end
+        end
+        break if succeed
+      end
+
+      if !succeed
+        [y, (y-1), (y+1)].each do |cand_y|
+          [x, (x-1), (x+1)].each do |cand_x|
+            if @floor[cand_x, cand_y].walkable?
+              succeed = drop(item, cand_x, cand_y, dist-1)
+            end
+            break if succeed
+          end
+          break if succeed
+        end
+      end
+      succeed
+    end
+
     # 基本のループ処理
     def update
       # 条件・状態によって変化するイベントを処理

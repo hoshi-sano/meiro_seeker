@@ -337,7 +337,6 @@ module MyDungeonGame
       0
     end
 
-    private
     # 各種計算式は http://asuka.lsx3.net/ を参照
 
     # 武器補正の計算

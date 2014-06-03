@@ -88,7 +88,7 @@ module MyDungeonGame
     def item_menu_choices(scene)
       {
         MENU_WORDS[:use]   => lambda { self.use_event(scene) },
-        MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:throw] => lambda { ItemThrowEvent.create(scene, scene.player, self) },
         MENU_WORDS[:put]   => lambda { PutItemEvent.create(scene, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
@@ -113,7 +113,7 @@ module MyDungeonGame
           ClearMenuWindowEvent.create(scene)
         },
         MENU_WORDS[:use]   => lambda { self.use_event(scene) },
-        MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:throw] => lambda { ItemThrowEvent.create(scene, scene.player, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
     end
@@ -152,6 +152,14 @@ module MyDungeonGame
 
     def effect_event(scene)
       Event.new {|e| e.finalize }
+    end
+
+    def hit_event(scene, thrower, target)
+      item = self
+      scene.instance_eval do
+        msg = MessageManager.item_hit_to(item.name, target.name)
+        ShowMessageEvent.create(self, msg)
+      end
     end
 
     def order

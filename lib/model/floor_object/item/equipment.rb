@@ -71,7 +71,7 @@ module MyDungeonGame
         choices = {MENU_WORDS[:equip] => lambda { self.equip_event(scene) }}
       end
       rest = {
-        MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:throw] => lambda { ItemThrowEvent.create(scene, scene.player, self) },
         MENU_WORDS[:put]   => lambda { PutItemEvent.create(scene, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
@@ -91,7 +91,7 @@ module MyDungeonGame
           end
           ClearMenuWindowEvent.create(scene)
         },
-        MENU_WORDS[:throw] => lambda { ClearMenuWindowEvent.create(scene) },
+        MENU_WORDS[:throw] => lambda { ItemThrowEvent.create(scene, scene.player, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }
     end

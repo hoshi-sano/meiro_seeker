@@ -21,6 +21,7 @@ module MyDungeonGame
       item:          Regexp.new("#{ITEM}"),
       point:         Regexp.new("#{POINT}"),
       attacker:      Regexp.new("#{ATTACKER}"),
+      item_to:       Regexp.new("[#{ITEM}#{TO}]"),
       from_point:    Regexp.new("[#{FROM}#{POINT}]"),
       player_item:   Regexp.new("[#{PLAYER}#{ITEM}]"),
       player_level:  Regexp.new("[#{PLAYER}#{LEVEL}]"),
@@ -52,6 +53,10 @@ module MyDungeonGame
       def from_damage(from, damage)
         map = {FROM => from, POINT => damage}
         LIST[:from_damage].gsub(REGEXP[:from_point], map)
+      end
+
+      def to_damage(damage)
+        LIST[:to_damage].gsub(REGEXP[:point], damage.to_s)
       end
 
       def kill(target)
@@ -88,12 +93,25 @@ module MyDungeonGame
         LIST[:put_item].gsub(REGEXP[:item], item)
       end
 
+      def drop_item(item)
+        LIST[:drop_item].gsub(REGEXP[:item], item)
+      end
+
+      def lost_item(item)
+        LIST[:lost_item].gsub(REGEXP[:item], item)
+      end
+
       def equip_item(item)
         LIST[:equip_item].gsub(REGEXP[:item], item)
       end
 
       def remove_item(item)
         LIST[:remove_item].gsub(REGEXP[:item], item)
+      end
+
+      def item_hit_to(item, to)
+        map = {ITEM => item, TO => to}
+        LIST[:item_hit_to].gsub(REGEXP[:item_to], map)
       end
 
       [
