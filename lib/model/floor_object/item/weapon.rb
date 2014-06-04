@@ -41,6 +41,7 @@ module MyDungeonGame
       damage = ((self.offence / 2) +
                 thrower.calc_level_calibration +
                 thrower.calc_power_calibration).round
+      # TODO: targetの防御力を加味する
       target.hp -= damage
       e.set_next(DamageEvent.create(scene, target, damage))
       msg = MessageManager.to_damage(damage)
