@@ -51,8 +51,14 @@ require 'floor_object/stairs'
 require 'floor_object/item'
 require 'floor_object/item/equipment'
 require 'floor_object/item/weapon'
+require 'floor_object/item/bullet'
+# 武器
 require 'floor_object/item/sabel'
+# 弾
+require 'floor_object/item/normal_bullet'
+# 薬
 require 'floor_object/item/kizugusuri'
 require 'floor_object/item/kaifuku_no_kusuri'
 require 'floor_object/item/chikara_no_kusuri'
+# まんじゅう
 require 'floor_object/item/niku_man'

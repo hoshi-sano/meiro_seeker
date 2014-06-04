@@ -81,16 +81,7 @@ module MyDungeonGame
 
     def underfoot_menu_choices(scene)
       {
-        MENU_WORDS[:get]   => lambda {
-          scene.instance_eval do
-            underfoot = @floor[@player.x, @player.y]
-            if @player.get(underfoot.object)
-              @floor_objects.delete(underfoot.object)
-              underfoot.clear_object
-            end
-          end
-          ClearMenuWindowEvent.create(scene)
-        },
+        MENU_WORDS[:get]   => get_from_underfoot_proc(scene),
         MENU_WORDS[:throw] => lambda { ItemThrowEvent.create(scene, scene.player, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
       }

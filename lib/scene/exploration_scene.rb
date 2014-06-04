@@ -133,7 +133,7 @@ module MyDungeonGame
     # させる。周囲8マスのどこにも落下候補がない場合はさらにその周囲のマ
     # スのどこかに落下させる。当初の指定座標から距離3マス以内に落下候補
     # がない場合は消える。
-    def drop(item, x, y, dist=3)
+    def drop(item, x, y, dist=2)
       succeed = false
       return succeed if dist.zero?
 
@@ -261,6 +261,7 @@ module MyDungeonGame
       [
        :handle_stamp,
        :handle_ok,
+       :handle_shot,
        :handle_menu,
        :handle_input_xy,
       ].each do |handle|
@@ -296,6 +297,18 @@ module MyDungeonGame
         true
       else
         false
+      end
+    end
+
+    # 射撃ボタンの入力を制御する
+    def handle_shot
+      return if !InputManager.push_shot?
+      if @player.equip?(:bullet)
+        args = [self, @player, @player.get_equipment(:bullet)]
+        @em.set_cut_in_event(ShotEvent.create(*args))
+      else
+        msg = MessageManager.get(:no_bullet)
+        @em.set_cut_in_event(ShowMessageEvent.create(self, msg))
       end
     end
 

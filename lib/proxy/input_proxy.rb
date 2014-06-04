@@ -4,6 +4,7 @@ module MyDungeonGame
       A: K_A,
       Q: K_Q,
       S: K_S,
+      W: K_W,
       X: K_X,
       Z: K_Z,
       UP:    K_UP,

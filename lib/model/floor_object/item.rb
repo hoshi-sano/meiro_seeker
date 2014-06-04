@@ -25,6 +25,7 @@ module MyDungeonGame
       equip:  MessageManager.get('items.menu.equip'),
       remove: MessageManager.get('items.menu.remove'),
       throw:  MessageManager.get('items.menu.throw'),
+      shot:   MessageManager.get('items.menu.shot'),
       put:    MessageManager.get('items.menu.put'),
       note:   MessageManager.get('items.menu.note'),
     }
@@ -37,11 +38,11 @@ module MyDungeonGame
       equipped_weapon: -400,
       equipped_shield: -300,
       equipped_ring:   -200,
-      equipped_gun:    -100,
+      equipped_bullet: -100,
       weapon: 100,
       shield: 200,
       ring:   300,
-      gun:    400,
+      bullet: 400,
       manju:  500,
       potion: 600,
       other:  999,
@@ -57,6 +58,12 @@ module MyDungeonGame
       super()
       @name = self.class.get_name
       @note = self.class.get_note
+    end
+
+    # アイテムによって取得時の挙動が変わるため(弾丸やお金はまとめあげら
+    # れる)、取得処理をアイテム側に持たせる
+    def got_by(getter)
+      getter.items << self
     end
 
     # アイテムウインドウ内での表示名
@@ -102,19 +109,24 @@ module MyDungeonGame
 
     def underfoot_menu_choices(scene)
       {
-        MENU_WORDS[:get]   => lambda {
-          scene.instance_eval do
-            underfoot = @floor[@player.x, @player.y]
-            if @player.get(underfoot.object)
-              @floor_objects.delete(underfoot.object)
-              underfoot.clear_object
-            end
-          end
-          ClearMenuWindowEvent.create(scene)
-        },
+        MENU_WORDS[:get]   => get_from_underfoot_proc(scene),
         MENU_WORDS[:use]   => lambda { self.use_event(scene) },
         MENU_WORDS[:throw] => lambda { ItemThrowEvent.create(scene, scene.player, self) },
         MENU_WORDS[:note]  => lambda { ShowItemNoteEvent.create(scene, self) },
+      }
+    end
+
+    # TODO: scene側のメソッドにする
+    def get_from_underfoot_proc(scene)
+      lambda {
+        scene.instance_eval do
+          underfoot = @floor[@player.x, @player.y]
+          if @player.get(underfoot.object)
+            @floor_objects.delete(underfoot.object)
+            underfoot.clear_object
+          end
+        end
+        ClearMenuWindowEvent.create(scene)
       }
     end
 

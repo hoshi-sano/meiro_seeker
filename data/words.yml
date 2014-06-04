@@ -19,5 +19,6 @@
     :equip:  "装備"
     :remove: "外す"
     :throw:  "投げる"
+    :shot:   "射つ"
     :put:    "置く"
     :note:   "説明"

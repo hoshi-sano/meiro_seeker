@@ -8,7 +8,8 @@ module MyDungeonGame
     power 8
     exp 0
 
-    attr_reader   :weapon, :shield, :ring, :current_direction, :current_frame
+    attr_reader   :weapon, :shield, :ring, :bullet,
+                  :current_direction, :current_frame
     attr_accessor :floor, :stomach, :max_power, :max_stomach, :money, :items
 
     HUNGER_INTERVAL = 10
@@ -27,6 +28,7 @@ module MyDungeonGame
       @weapon = nil # 装備武器
       @shield = nil # 装備盾
       @ring   = nil # 装備指輪
+      @bullet = nil # 装備弾丸
     end
 
     def level_up
@@ -106,7 +108,8 @@ module MyDungeonGame
     # アイテムの取得
     def get(item)
       if @items.size < PORTABLE_ITEM_NUMBER
-        @items << item
+        # @items << item
+        item.got_by(self)
         msg = MessageManager.pick_up_item(item.name)
         @events << EventPacket.new(ShowMessageEvent, msg)
         true
@@ -275,6 +278,14 @@ module MyDungeonGame
     class Shield < Equipment
       def defence
         @origin.defence
+      end
+    end
+
+    class Bullet < Equipment
+      # 装備しても見た目に変わりはない
+      def initialize(player, origin)
+        @player = player
+        @origin = origin
       end
     end
   end

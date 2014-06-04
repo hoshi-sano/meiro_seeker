@@ -33,3 +33,4 @@
 :before_starve_1: "ハラが減りすぎて..."
 :before_starve_2: "体力を消耗してしまう..."
 :starve: "もう餓死寸前だ！"
+:no_bullet: "弾丸を装備していない。"

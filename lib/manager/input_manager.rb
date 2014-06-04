@@ -11,6 +11,7 @@ module MyDungeonGame
       option:   INPUT.key(:A),
       diagonal: INPUT.key(:Q), # 斜め移動用
       menu:     INPUT.key(:S),
+      shot:     INPUT.key(:W),
       cancel:   INPUT.key(:X),
       ok:       INPUT.key(:Z),
     }

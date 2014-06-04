@@ -124,6 +124,7 @@ module MyDungeonGame
   PLAYER_ATTACK_ACCURACY = 95
   MOB_ATTACK_ACCURACY = 85
   THROW_ACCURACY = 85
+  MAX_CALIBRATION = 99
 
   PLAYER_IMAGE_PATH = File.join(ROOT, 'data', 'uno.png')
   ENEMY_IMAGE_PATH  = File.join(ROOT, 'data', 'uno2.png')
