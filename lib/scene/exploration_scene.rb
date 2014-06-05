@@ -444,7 +444,7 @@ module MyDungeonGame
     end
 
     def display_base_map
-      @floor.each_tile do |x, y, tile|
+      @floor.each_tile_for_display(@player.x, @player.y) do |x, y, tile|
         OutputManager.reserve_draw(x * TILE_WIDTH, y * TILE_HEIGHT, tile, :map)
       end
     end

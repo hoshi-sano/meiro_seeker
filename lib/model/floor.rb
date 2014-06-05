@@ -3,8 +3,21 @@ module MyDungeonGame
   module Floor
     attr_reader :storey
 
+    # 階層
     def set_storey(num)
       @storey = num
+    end
+
+    # 表示範囲のxy座標でeachをまわす
+    def each_tile_for_display(center_x, center_y, &block)
+      range_y = (center_y - DISPLAY_RANGE_Y)..(center_y + DISPLAY_RANGE_Y)
+      range_x = (center_x - DISPLAY_RANGE_X)..(center_x + DISPLAY_RANGE_X)
+      range_y.each do |y|
+        range_x.each do |x|
+          next if @base_map[x, y].nil?
+          yield(x, y, @base_map[x, y])
+        end
+      end
     end
 
     # キャラクターが不在のマスの座標を返す
