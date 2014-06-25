@@ -45,12 +45,14 @@ module MyDungeonGame
 
   WINDOW_SIZE = {
     menu:      [200, 75],
+    sub_menu:  [120, 100],
     item:      [300, 300],
     item_menu: [120, 130],
     item_note: [500, 200],
     yes_no:    [150, 80],
     message:   [600, 100],
     parameter: [600, 40],
+    key_config: [380, 300],
     underfoot_item: [300, 40],
   }
   WINDOW_COLOR = {
@@ -63,8 +65,10 @@ module MyDungeonGame
   WINDOW_POSITION = {
     menu: [30, 50],
     item: [240, 50],
+    sub_menu: [110, 130],
     item_menu: [110, 150],
     item_note: [60, 100],
+    key_config: [240, 50],
   }
 
   HP_METER_HEIGHT = 5

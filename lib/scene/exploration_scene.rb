@@ -322,13 +322,26 @@ module MyDungeonGame
 
     # メニューウインドウの選択肢を生成する
     def make_menu_choices
-      # TODO: 「その他」イベントの設定
       iw = ItemWindow.new(@player.items)
+      smw = SubMenuWindow.new(make_sub_menu_choices)
       {
         MessageManager.get(:item) => lambda { ShowMenuEvent.create(self, iw) },
         MessageManager.get(:underfoot) => lambda { UnderfootEvent.create(self) },
         MessageManager.get(:map) => lambda { ClearMenuWindowEvent.create(self) },
-        MessageManager.get(:other) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:other) => lambda { ShowMenuEvent.create(self, smw) },
+      }
+    end
+
+    # サブメニューウインドウの選択肢を生成する
+    def make_sub_menu_choices
+      # TODO: 中断、セーブなどの実装
+      kcw = KeyConfigWindow.new(self)
+      {
+        MessageManager.get(:key_config) => lambda {
+          ShowKeyConfigWindowEvent.create(self, kcw)
+        },
+        MessageManager.get(:save) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:break) => lambda { ClearMenuWindowEvent.create(self) },
       }
     end
 
