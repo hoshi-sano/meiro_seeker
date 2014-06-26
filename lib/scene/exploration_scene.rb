@@ -327,7 +327,10 @@ module MyDungeonGame
       {
         MessageManager.get(:item) => lambda { ShowMenuEvent.create(self, iw) },
         MessageManager.get(:underfoot) => lambda { UnderfootEvent.create(self) },
-        MessageManager.get(:map) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:map) => lambda {
+          switch_radar_map
+          ClearMenuWindowEvent.create(self)
+        },
         MessageManager.get(:other) => lambda { ShowMenuEvent.create(self, smw) },
       }
     end
@@ -492,8 +495,13 @@ module MyDungeonGame
       end
     end
 
+    def switch_radar_map
+      @hide_radar_map = !@hide_radar_map
+    end
+
     def hide_radar_map?
-      !!@yes_no_window ||
+      @hide_radar_map ||
+        !!@yes_no_window ||
         @menu_windows.any?
     end
 
