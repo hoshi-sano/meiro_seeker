@@ -64,25 +64,11 @@ module MyDungeonGame
   end
 end
 
-require 'event/wait_input_event'
-require 'event/attack_event'
-require 'event/player_attack_event'
-require 'event/move_event'
-require 'event/damage_event'
-require 'event/dead_event'
-require 'event/show_message_event'
-require 'event/player_level_up_event'
-require 'event/yes_no_event'
-require 'event/go_to_next_floor_event'
-require 'event/show_menu_event'
-require 'event/clear_menu_window_event'
-require 'event/hp_recover_event'
-require 'event/param_recover_event'
-require 'event/put_item_event'
-require 'event/show_item_note_event'
-require 'event/equip_event'
-require 'event/remove_equipment_event'
-require 'event/underfoot_event'
-require 'event/item_throw_event'
-require 'event/shot_event'
-require 'event/show_key_config_window_event'
+# load event dir
+here = File.dirname(File.expand_path(__FILE__))
+event_dir = File.join(here, "event")
+Dir.entries(event_dir).each do |fname|
+  if fname =~ /\.rb$/
+    require File.join(event_dir, fname)
+  end
+end
