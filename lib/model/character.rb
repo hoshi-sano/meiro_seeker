@@ -190,6 +190,10 @@ module MyDungeonGame
       @events.shift
     end
 
+    def pop_event
+      @events.pop
+    end
+
     def image
       if @hide
         TRANSPARENCY.image

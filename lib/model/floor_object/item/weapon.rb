@@ -57,7 +57,7 @@ module MyDungeonGame
         judge = Event.new do |e|
           # killメソッドによってthrowerの@eventsにpackしたイベントが登
           # 録されるため、それを直ちに実行すべく展開してcut_inする
-          while event_packet = thrower.shift_event
+          while event_packet = thrower.pop_event
             e.set_next_cut_in(event_packet.unpack(self))
           end
           e.finalize
