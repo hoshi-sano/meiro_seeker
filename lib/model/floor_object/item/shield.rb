@@ -1,43 +1,44 @@
 module MyDungeonGame
-  # 武器の基本となるクラス
-  class Weapon < Equipment
-    TYPE = :weapon
+  # 盾の基本となるクラス
+  class Shield < Equipment
+    TYPE = :shield
 
     def order
       if self.equipped?
-        ORDER[:equipped_weapon]
+        ORDER[:equipped_shield]
       else
-        ORDER[:weapon]
+        ORDER[:shield]
       end
     end
 
     # 基本性能
-    # 見た目上の強さで、あくまで目安
     def strength
       @base_strength + @calibration
     end
 
     # 実際にダメージ計算などに使われる値
-    def offence
+    def defence
       if @calibration_cache == @calibration
         @strength_cache
       else
         @calibration_cache = @calibration
         c = @calibration
         base = @base_strength
-        inclination = ((Math.log(base + 1) / Math.log(1.6)) ** 2) / 50
-        intercept   = (Math.log((base / 5) + 1) / Math.log(1.6)) ** 2
+        inclination = (((Math.log(base + 1) / Math.log(1.6)) ** 2) / 50) + 0.5
+        intercept   = (Math.log((base / 3) + 1) / Math.log(1.6)) ** 2
         if c >= 0
-          @strength_cache = c * inclination + intercept
+          fraction = (c * inclination) + intercept
+          @strength_cache = (c.even?) ? fraction.round : fraction.to_i
+
         else
-          @strength_cache = intercept * (base * c) / base
+          @strength_cache = (intercept * (base + c) / base).round
         end
-        @strength_cache
       end
     end
 
     def calc_base_hit_damage
-      (self.offence / 2)
+      # TODO:
+      0
     end
   end
 end

@@ -45,7 +45,7 @@ module MyDungeonGame
 
     # 盾の強さ
     def shield_strength
-      0
+      @shield ? @shield.strength : 0
     end
 
     def accuracy
@@ -243,6 +243,10 @@ module MyDungeonGame
     def killed_by(attacker)
       super
       # TODO: ゲームオーバーイベント
+    end
+
+    def defence
+      @shield ? @shield.defence : 0
     end
 
     private

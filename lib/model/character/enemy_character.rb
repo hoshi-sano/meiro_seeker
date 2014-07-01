@@ -6,10 +6,11 @@ module MyDungeonGame
     image_path ENEMY_IMAGE_PATH
     hate true
     name "ENEMY"
-    level 1
-    hp    10
-    power 2
-    exp   4
+    level   1
+    hp     10
+    power   2
+    defence 1
+    exp     4
 
     def attackable?(target)
       self.hate? != !!target.hate?

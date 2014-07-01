@@ -68,38 +68,8 @@ module MyDungeonGame
       }
     end
 
-    # Weaponの同名メソッドとほぼ同じ
-    def hit_event(scene, thrower, target)
-      e = super
-      damage = (self.strength +
-                thrower.calc_level_calibration +
-                thrower.calc_power_calibration).round
-      # TODO: targetの防御力を加味する
-      target.hp -= damage
-      e.set_next(DamageEvent.create(scene, target, damage))
-      msg = MessageManager.to_damage(damage)
-      e.set_next(ShowMessageEvent.create(scene, msg))
-
-      # アイテムヒットによって対象のHPが0になった場合
-      scene.instance_eval do
-        if target.dead?
-          thrower.kill(target)
-          @floor.remove_character(target.x, target.y)
-        end
-
-        judge = Event.new do |e|
-          # killメソッドによってthrowerの@eventsにpackしたイベントが登
-          # 録されるため、それを直ちに実行すべく展開してcut_inする
-          # MEMO: cut_inするとイベント処理が逆順になるためpopしている
-          while event_packet = thrower.pop_event
-            e.set_next_cut_in(event_packet.unpack(self))
-          end
-          e.finalize
-        end
-        e.set_next(judge)
-      end
-
-      e
+    def calc_base_hit_damage
+      self.strength
     end
   end
 end

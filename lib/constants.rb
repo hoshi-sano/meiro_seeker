@@ -21,6 +21,7 @@ module MyDungeonGame
   RADAR_MAP_UNIT_SIZE = 5
   THROW_RANGE = 10
   THROW_ALTITUDE = 10
+  MINIMUM_DAMAGES = [0, 1]
 
   RADAR_MAP_COLOR = {
     player: [255, 255, 0],

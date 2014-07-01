@@ -51,9 +51,12 @@ require 'floor_object/stairs'
 require 'floor_object/item'
 require 'floor_object/item/equipment'
 require 'floor_object/item/weapon'
+require 'floor_object/item/shield'
 require 'floor_object/item/bullet'
 # 武器
 require 'floor_object/item/sabel'
+# 盾
+require 'floor_object/item/iron_shield'
 # 弾
 require 'floor_object/item/normal_bullet'
 # 薬

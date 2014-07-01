@@ -29,6 +29,7 @@ module MyDungeonGame
        :hp,
        :level,
        :power,
+       :defence,
        :exp,
       ].each do |param_name|
         define_method(param_name) do |value|
@@ -116,7 +117,7 @@ module MyDungeonGame
 
     attr_reader :level, :exp
     attr_accessor :x, :y, :prev_x, :prev_y, :events, :name, :hp, :max_hp,
-                  :power
+                  :power, :defence
 
     # TODO: 各インスタンスごとに画像をロードしてるのは無駄
     def initialize(img_path, floor)
@@ -135,6 +136,7 @@ module MyDungeonGame
       @hp = self.class.default_hp
       @level = self.class.default_level
       @power = self.class.default_power
+      @defence = self.class.default_defence
       @exp =   self.class.default_exp
     end
 
@@ -325,7 +327,12 @@ module MyDungeonGame
     # ダメージ計算
     def calc_damage(attacker, target)
       r = (randomizer.rand(250) + 875) / 1000.0 # 0.875 - 1.125
-      (attacker.offence * r - defence).round
+      damage = (attacker.offence * r - target.defence).round
+      if damage > 0
+        damage
+      else
+        MINIMUM_DAMAGES[randomizer.rand(MINIMUM_DAMAGES.size)]
+      end
     end
 
     # 攻撃力の計算
@@ -333,12 +340,6 @@ module MyDungeonGame
       calc_weapon_calibration +
         calc_level_calibration +
         calc_power_calibration
-    end
-
-    # 防御力の計算
-    def defence
-      # TODO
-      0
     end
 
     # 各種計算式は http://asuka.lsx3.net/ を参照
