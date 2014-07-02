@@ -18,7 +18,11 @@ module MyDungeonGame
 
     def initialize(storey=1, player=nil)
       extend(HelperMethods)
-      @floor = DungeonManager.create_floor
+      begin
+        @floor = DungeonManager.create_floor
+      rescue Meiro::TrySeparateLimitError
+        retry
+      end
       @floor.set_storey(storey)
 
       # 消費ターン数
