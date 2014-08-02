@@ -32,6 +32,7 @@ module MyDungeonGame
     IMAGES = {
       weapon: FileLoadProxy.load_image(WEAPON_IMAGE_PATH),
       shield: FileLoadProxy.load_image(SHIELD_IMAGE_PATH),
+      bullet: FileLoadProxy.load_image(BULLET_IMAGE_PATH),
       potion: FileLoadProxy.load_image(POTION_IMAGE_PATH),
       manju: FileLoadProxy.load_image(MANJU_IMAGE_PATH),
     }

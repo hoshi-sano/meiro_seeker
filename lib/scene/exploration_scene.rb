@@ -84,6 +84,7 @@ module MyDungeonGame
                NikuMan,
                Sabel,
                IronShield,
+               NormalBullet,
               ]
       5.times do
         item = items[DungeonManager.randomizer.rand(items.size)].new
