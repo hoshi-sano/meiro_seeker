@@ -106,7 +106,7 @@ module MyDungeonGame
                  thrower.calc_level_calibration +
                  thrower.calc_power_calibration).round
       # TODO: 乱数を使う
-      damage = [offence - defence, 1].max
+      damage = [offence - target.defence, 1].max
       target.hp -= damage
       e.set_next(DamageEvent.create(scene, target, damage))
       msg = MessageManager.to_damage(damage)
