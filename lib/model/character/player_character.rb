@@ -108,12 +108,20 @@ module MyDungeonGame
     # アイテムの取得
     def get(item)
       if @items.size < PORTABLE_ITEM_NUMBER
-        # @items << item
+        # アイテム欄に余裕がある場合
         item.got_by(self)
         msg = MessageManager.pick_up_item(item.name)
         @events << EventPacket.new(ShowMessageEvent, msg)
         true
+      elsif item.kind_of?(MyDungeonGame::Bullet) && # TODO: 条件の再検討
+            (idx = @items.map(&:class).index(item.class))
+        # アイテム欄に余裕はないが数を統合して所持できる物の場合
+        @items[idx].merge(item)
+        msg = MessageManager.pick_up_item(item.name)
+        @events << EventPacket.new(ShowMessageEvent, msg)
+        true
       else
+        # 上記いずれにも当てはまらず、拾えない場合
         msg = MessageManager.get_on_item(item.name)
         @events << EventPacket.new(ShowMessageEvent, msg)
         msg = MessageManager.get(:cannot_pick_up_item)
