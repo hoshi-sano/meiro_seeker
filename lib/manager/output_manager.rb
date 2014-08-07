@@ -185,6 +185,7 @@ module MyDungeonGame
           case type
           when :radar_map
             x = (DISPLAY_WIDTH / 2) - (display.width / 2)
+            # TODO: メッセージウィンドウと重ならないよう調整する
             y = (DISPLAY_HEIGHT / 2) - (display.height / 2)
             display.exec_draw(x, y)
           else

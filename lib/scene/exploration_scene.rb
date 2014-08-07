@@ -64,6 +64,7 @@ module MyDungeonGame
       # TODO: 階に合わせた適切なNPC選択を行う
       res = []
       room_num = @floor.all_rooms.size
+      # TODO: 敵の数再考
       mob_num = DungeonManager.randomizer.rand(room_num) * 2
       mob_num = [room_num + 1, mob_num].max
       mob_num.times do

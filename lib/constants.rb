@@ -2,6 +2,7 @@ module MyDungeonGame
   ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
   # 共通定数の定義
+  # TODO: 調整
   WIDTH_TILE_NUM = 70
   HEIGHT_TILE_NUM = 40
   DEFAULT_MIN_ROOM_NUM = 5
