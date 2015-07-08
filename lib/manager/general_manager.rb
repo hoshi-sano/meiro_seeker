@@ -8,14 +8,14 @@ module MyDungeonGame
 
       def initialize_game
         @dungeon = DungeonManager.create_dungeon
-        @current_scene = ExplorationScene.new
+        @current_scene = TownScene.new
         @initialized = true
       end
 
       def next_floor(floor, player)
         floor_num = floor.storey + 1
         player.events = []
-        @current_scene = ExplorationScene.new(floor_num, player)
+        @current_scene = @current_scene.next_scene.new(floor_num, player)
       end
     end
   end

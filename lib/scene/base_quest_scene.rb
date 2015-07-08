@@ -1,6 +1,6 @@
 module MyDungeonGame
-  # 探索モードのシーン
-  class ExplorationScene
+  # 探索モードのベース
+  class BaseQuestScene
     RADAR_MAP_IMAGES = {
       player: ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
                              RADAR_MAP_COLOR[:player], RADAR_MAP_ALPHA[:player]),
@@ -19,7 +19,7 @@ module MyDungeonGame
     def initialize(storey=1, player=nil)
       extend(HelperMethods)
       begin
-        @floor = DungeonManager.create_floor
+        @floor = create_floor
       rescue Meiro::TrySeparateLimitError
         retry
       end
@@ -51,6 +51,7 @@ module MyDungeonGame
       else
         @player = PlayerCharacter.new(@floor)
       end
+      # TODO: ランダムではなく初期位置を定める
       set_random_position(@player)
       @floor.searched(@player.x, @player.y)
 
@@ -60,42 +61,20 @@ module MyDungeonGame
       @em = EventManager.new(WaitInputEvent.create(self))
     end
 
-    def create_mobs(storey)
-      # TODO: 階に合わせた適切なNPC選択を行う
-      res = []
-      room_num = @floor.all_rooms.size
-      # TODO: 敵の数再考
-      mob_num = DungeonManager.randomizer.rand(room_num) * 2
-      mob_num = [room_num + 1, mob_num].max
-      mob_num.times do
-        mob = EnemyCharacter.new(@floor)
-        set_random_position(mob)
-        res << mob
-      end
-      res
+    # フロアを生成するためのメソッド
+    # このメソッドは必ずoverrideすること
+    def create_floor
+      raise NotImplementedError
     end
 
+    # フロアにプレーヤー以外のキャラクターを配置する場合はここをoverrideする
+    def create_mobs(storey)
+      []
+    end
+
+    # フロアにオブジェクトを配置する場合はここをoverrideする
     def create_floor_objects(storey)
-      res = []
-      # TODO: 階に合わせた適切なフロアオブジェクト選択を行う
-      items = [
-               Kizugusuri,
-               KaifukuNoKusuri,
-               ChikaraNoKusuri,
-               NikuMan,
-               Sabel,
-               IronShield,
-               NormalBullet,
-              ]
-      5.times do
-        item = items[DungeonManager.randomizer.rand(items.size)].new
-        set_random_position(item)
-        res << item
-      end
-      stairs = Stairs.new(@floor)
-      set_random_position(stairs)
-      res << stairs
-      res
+      []
     end
 
     def set_random_position(obj)
@@ -183,7 +162,6 @@ module MyDungeonGame
       display_mobs
       display_floor_objects
       display_parameter
-      display_radar_map
       display_window
       OutputManager.update
     end
@@ -191,16 +169,7 @@ module MyDungeonGame
     # ターンを消費する
     def tick
       @turn += 1
-      @player.self_healing
-      @player.hunger
-      # TODO: 状態異常からの復帰など
       @do_action = true
-      # 敵の増加
-      if (@turn % RESPAWN_INTERVAL).zero?
-        mob = EnemyCharacter.new(@floor)
-        set_random_position(mob)
-        @mobs << mob
-      end
     end
 
     def activate_mobs
@@ -244,23 +213,6 @@ module MyDungeonGame
       end
       @waiting_update_complete = !all_updated
     end
-
-    #def update_mobs
-    #  all_updated = true
-    #  dash = InputManager.down_dash?
-    #  @mobs.each do |mob|
-    #    if !display_target?(mob) || dash
-    #      mob.do_not_animation_move
-    #    else
-    #      mob.update
-    #      mob.move
-    #    end
-    #    # 画面に含まれないモブは1フレームで移動を完了させる
-    #    display_target?(mob) ? mob.update : mob.do_not_animation_move
-    #    all_updated &= !mob.updating?
-    #  end
-    #  @waiting_update_complete = !all_updated
-    #end
 
     def handle_input
       # 以下のキーハンドリングは上から順に優先度が高い。
@@ -407,6 +359,11 @@ module MyDungeonGame
       end
     end
 
+    # 次のシーンを決める
+    def next_scene
+      DungeonScene
+    end
+
     def go_to_next_floor
       GeneralManager.next_floor(@floor, @player)
     end
@@ -438,14 +395,10 @@ module MyDungeonGame
       OutputManager.display_target?(*args)
     end
 
+    # プレーヤーの表示を行う
+    # 武器防具などのオプションを表示したい場合はoverrideする
     def display_palyer
       OutputManager.reserve_draw_center(@player)
-      [@player.weapon, @player.shield].compact.each do |equipment|
-        equipment.x, equipment.y = @player.x, @player.y
-        equipment.current_direction = @player.current_direction
-        equipment.current_frame = @player.current_frame
-        OutputManager.reserve_draw_center(equipment)
-      end
     end
 
     def display_mobs
