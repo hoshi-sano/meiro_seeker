@@ -51,6 +51,13 @@ module MyDungeonGame
         end
       end
 
+      def reserve_draw_fixed_map_image(image, x = 0, y = 0)
+        x += @map_offset_x
+        y += @map_offset_y
+        DISPLAYS[:map].reserve_draw(x, y, image, DISPLAYS.keys.index(:map))
+        true
+      end
+
       def reserve_draw_parameter(floor_number=1, player)
         # パラメータの背景を表示
         args = [PARAMETER_BACK, 0, -215, :parameter]

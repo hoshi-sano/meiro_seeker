@@ -77,6 +77,30 @@ module MyDungeonGame
       []
     end
 
+    def set_position(obj, x, y)
+      if obj.kind_of?(Character)
+        set_character_position(obj, x, y)
+      else
+        set_floor_object_position(obj, x, y)
+      end
+    end
+
+    def set_character_position(character, x, y)
+      character.x = x
+      character.y = y
+      character.prev_x = x
+      character.prev_y = y
+      @floor[character.x, character.y].character = character
+      true
+    end
+
+    def set_floor_object_position(fobj, x, y)
+      fobj.x = x
+      fobj.y = y
+      @floor[fobj.x, fobj.y].object = fobj
+      true
+    end
+
     def set_random_position(obj)
       if obj.kind_of?(Character)
         set_character_random_position(obj)
@@ -85,6 +109,7 @@ module MyDungeonGame
       end
     end
 
+    # TODO: リファクタリング
     def set_character_random_position(character)
       x, y = @floor.get_no_one_xy(DungeonManager.randomizer)
       character.x = x
@@ -108,10 +133,7 @@ module MyDungeonGame
 
     def set_floor_object_random_position(fobj)
       x, y = @floor.get_no_one_xy(DungeonManager.randomizer)
-      fobj.x = x
-      fobj.y = y
-      @floor[fobj.x, fobj.y].object = fobj
-      true
+      set_floor_object_position(fobj, x, y)
     end
 
     # アイテムの落下位置を決める。
