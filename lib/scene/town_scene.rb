@@ -14,7 +14,10 @@ module MyDungeonGame
 
     def create_mobs(storey)
       res = []
-      # TODO: モブの生成
+      # TODO: 階に合わせた適切なモブの生成
+      mob = IntelligentCharacter.new(@floor)
+      set_position(mob, 5, 4)
+      res << mob
       res
     end
 
