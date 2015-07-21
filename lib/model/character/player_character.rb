@@ -224,6 +224,12 @@ module MyDungeonGame
       end
     end
 
+    # 対象を調べる、または対象と会話する
+    # 攻撃時とは異なり対象は単体
+    def check_on(target)
+      @events << target.checked_events(self)
+    end
+
     def attacked_by(attacker)
       damage = calc_damage(attacker, self)
       msg = MessageManager.damage(damage)

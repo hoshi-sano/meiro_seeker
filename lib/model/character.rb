@@ -228,6 +228,17 @@ module MyDungeonGame
       change_direction(direction)
     end
 
+    # objの方向に向きを変える
+    def change_direction_to_object(obj)
+      if obj
+        dx = obj.x - x
+        dy = obj.y - y
+      else
+        dx, dy = 0, 0
+      end
+      change_direction_by_dxdy(dx, dy)
+    end
+
     def change_direction(direction)
       if CHARACTER_DIRECTION.keys.include?(direction)
         @current_direction = CHARACTER_DIRECTION[direction]

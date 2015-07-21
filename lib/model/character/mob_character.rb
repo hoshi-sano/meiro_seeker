@@ -29,6 +29,11 @@ module MyDungeonGame
       @next_xy.push(xy)
     end
 
+    def checked_events(checker)
+      # TODO: 柔軟なイベント発生ができるようにする
+      EventPacket.new(TalkEvent, self, "これはメッセージだよ", checker)
+    end
+
     def action
       return if @hp <= 0
       random_walk

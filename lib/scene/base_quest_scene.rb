@@ -269,6 +269,9 @@ module MyDungeonGame
           end
           tick
         when :check
+          # 対象を調べる、または対象との会話の発生
+          target = @player.attack_target[:main]
+          @player.check_on(target)
         else
           # 素振り
           @player.swing
