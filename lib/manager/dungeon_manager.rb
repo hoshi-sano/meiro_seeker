@@ -23,12 +23,24 @@ module MyDungeonGame
         @current_floor
       end
 
-      # TODO: ここを yaml などから生成できるようにする
       def create_town_floor
+        # TODO: map_data を yaml などから取得する
+        map_data =
+          "#######\n" \
+          "#     #\n" \
+          "# #   #\n" \
+          "#     #\n" \
+          "#     #\n" \
+          "#     #\n" \
+          "#######".split("\n")
+        width_tile_num = map_data.map(&:size).max
+        height_tile_num = map_data.size
+
         # まっさらなフロアの生成
-        args = [@current_dungeon, WIDTH_TILE_NUM, HEIGHT_TILE_NUM,
-                WIDTH_TILE_NUM - 2, HEIGHT_TILE_NUM - 2,
-                WIDTH_TILE_NUM - 2, HEIGHT_TILE_NUM - 2,]
+        args = [@current_dungeon,
+                width_tile_num,     height_tile_num,
+                width_tile_num - 2, height_tile_num - 2,
+                width_tile_num - 2, height_tile_num - 2,]
         f = Meiro::Floor.new(*args)
         f.extend(Meiro::Dungeon::FloorInitializer)
         f.extend(Floor)
@@ -37,15 +49,24 @@ module MyDungeonGame
 
         # 一つの区画と部屋を生成
         root_block = f.instance_variable_get(:@root_block)
-        room = root_block.send(:create_room, 5, 5)
+        room = root_block.send(:create_room,
+                               width_tile_num  - 2,
+                               height_tile_num - 2)
         root_block.put_room(room)
-        room.relative_x = Meiro::Block::MARGIN
+        room.relative_x = Meiro::Block::MARGIN # = 1
         room.relative_y = Meiro::Block::MARGIN
         f.apply_rooms_to_map
 
         # 障害物を配置
         base_map = f.instance_variable_get(:@base_map)
-        base_map[2, 2] = Meiro::Tile::Wall.new
+        map_data.each_with_index do |row, y|
+          # フロアのヘリは必ず壁なのでスキップ
+          next if y == 0
+          row.each_char.with_index do |cell, x|
+            next if (x == 0) || cell == " "
+            base_map[x, y] = Meiro::Tile::Wall.new
+          end
+        end
 
         f.classify!(:detail)
         @current_floor = f
