@@ -1,4 +1,5 @@
 module MyDungeonGame
+  # キャラクターのレベル管理をするクラス
   module LevelManager
     module_function
 

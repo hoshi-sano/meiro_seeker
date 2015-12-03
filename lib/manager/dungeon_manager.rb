@@ -1,4 +1,5 @@
 module MyDungeonGame
+  # ダンジョン生成を管理するクラス
   class DungeonManager
     DUNGEON_DEFAULT_OPTS = {
       width:           WIDTH_TILE_NUM,

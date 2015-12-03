@@ -2,6 +2,7 @@ require 'yaml'
 YAML::ENGINE.yamler = 'psych'
 
 module MyDungeonGame
+  # メッセージを管理するクラス
   module MessageManager
     LIST =
       YAML.load(File.read(MESSAGE_LIST_PATH)).

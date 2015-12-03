@@ -1,4 +1,5 @@
 module MyDungeonGame
+  # ゲーム全体を管理するクラス
   class GeneralManager
     class << self
       def play

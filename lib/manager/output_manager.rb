@@ -1,4 +1,5 @@
 module MyDungeonGame
+  # 描画まわりを担うクラス
   class OutputManager
     DISPLAYS = {
       map:       ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),

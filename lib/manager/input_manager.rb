@@ -1,4 +1,5 @@
 module MyDungeonGame
+  # キー入力を管理するクラス
   class InputManager
     INPUT = InputProxy.new
 
