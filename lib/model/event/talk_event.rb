@@ -32,6 +32,19 @@ module MyDungeonGame
           first.set_next(follow_event)
         end
 
+        # 入力があるまでその他の操作を受け付けず、
+        # メッセージも表示したままとする
+        check_input = Event.new do |e|
+          @message_window.newline!
+          @message_window.permanence!
+          @message_window.display_next_arrow
+          if InputManager.any_key?
+            @message_window.set_ttl(0)
+            e.finalize
+          end
+        end
+        first.set_next(check_input)
+
         first
       end
     end
