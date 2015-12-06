@@ -1,15 +1,8 @@
 module MyDungeonGame
   # 街モードのシーン
   class TownScene < BaseQuestScene
-    def initialize
-      # TODO: yaml などから path を取ってこれるようにする
-      path = File.join(ROOT, 'data', 'town00.png')
-      @bg_map_image = FileLoadProxy.load_image(path)
-      super
-    end
-
     def create_floor
-      DungeonManager.create_town_floor
+      DungeonManager.create_town_floor(@map_info[:map_data])
     end
 
     def create_mobs(storey)
@@ -34,11 +27,6 @@ module MyDungeonGame
     def next_scene
       # TODO: ダンジョンの構成によって分岐できるようにする
       DungeonScene
-    end
-
-    # 1枚の画像でマップを表示する
-    def display_base_map
-      OutputManager.reserve_draw_fixed_map_image(@bg_map_image)
     end
   end
 end

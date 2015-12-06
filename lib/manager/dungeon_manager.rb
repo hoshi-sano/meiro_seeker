@@ -24,16 +24,8 @@ module MyDungeonGame
         @current_floor
       end
 
-      def create_town_floor
-        # TODO: map_data を yaml などから取得する
-        map_data =
-          "#######\n" \
-          "#     #\n" \
-          "# #   #\n" \
-          "#     #\n" \
-          "#     #\n" \
-          "#     #\n" \
-          "#######".split("\n")
+      def create_town_floor(map_data)
+        map_data = map_data.split("\n")
         width_tile_num = map_data.map(&:size).max
         height_tile_num = map_data.size
 

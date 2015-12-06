@@ -16,8 +16,17 @@ module MyDungeonGame
 
     attr_reader :player
 
-    def initialize(storey=1, player=nil)
-      extend(HelperMethods)
+    def initialize(storey=1, player=nil, scene_info=nil)
+      extend(HelperMethods) # see: lib/helper.rb
+      @scene_info = scene_info
+      if @scene_info
+        @map_info = GeneralManager.map_data[@scene_info[:map_data_id]]
+        if @map_info[:map_image_path]
+          path = File.join(ROOT, 'data', @map_info[:map_image_path])
+          @bg_map_image = FileLoadProxy.load_image(path)
+        end
+      end
+
       begin
         @floor = create_floor
       rescue Meiro::TrySeparateLimitError
@@ -51,8 +60,13 @@ module MyDungeonGame
       else
         @player = PlayerCharacter.new(@floor)
       end
-      # TODO: ランダムではなく初期位置を定める
-      set_random_position(@player)
+      if @map_info && (initial_xy = @map_info[:player_initial_xy])
+        # TODO: xy座標のバリデーション
+        x, y = initial_xy[:x], initial_xy[:y]
+        set_character_position(@player, x, y)
+      else
+        set_random_position(@player)
+      end
       @floor.searched(@player.x, @player.y)
 
       @menu_windows = []
@@ -444,9 +458,15 @@ module MyDungeonGame
       OutputManager.reserve_draw_parameter(@floor.storey, @player)
     end
 
+    # 背景画像が決まっている場合はそれを、決まっていない場合はマップのタイルに応
+    # じた画像を描画する
     def display_base_map
-      @floor.each_tile_for_display(@player.x, @player.y) do |x, y, tile|
-        OutputManager.reserve_draw(x * TILE_WIDTH, y * TILE_HEIGHT, tile, :map)
+      if @bg_map_image
+        OutputManager.reserve_draw_fixed_map_image(@bg_map_image)
+      else
+        @floor.each_tile_for_display(@player.x, @player.y) do |x, y, tile|
+          OutputManager.reserve_draw(x * TILE_WIDTH, y * TILE_HEIGHT, tile, :map)
+        end
       end
     end
 

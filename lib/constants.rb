@@ -145,4 +145,6 @@ module MyDungeonGame
   WORD_LIST_PATH    = File.join(ROOT, 'data', 'words.yml')
   MESSAGE_LIST_PATH = File.join(ROOT, 'data', 'messages.yml')
   DICTIONARY_PATH   = File.join(ROOT, 'data', 'dictionary.yml')
+  SCENES_PATH       = File.join(ROOT, 'data', 'scenes.yml')
+  MAP_DATA_PATH     = File.join(ROOT, 'data', 'map_data.yml')
 end

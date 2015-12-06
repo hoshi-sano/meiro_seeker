@@ -1,0 +1,4 @@
+:initial_scene:
+  :scene_class:      TownScene
+  :map_data_id:      :town_00
+  :next_scene_class: DungeonScene

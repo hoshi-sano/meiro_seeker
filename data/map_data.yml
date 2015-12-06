@@ -1,0 +1,15 @@
+:town_00:
+  :map_image_path: town00.png
+  :map_data: |
+    #######
+    #     #
+    # #   #
+    #     #
+    #     #
+    #     #
+    #######
+  :player_initial_xy:
+    :x: 3
+    :y: 3
+  :characters:
+  :objects:

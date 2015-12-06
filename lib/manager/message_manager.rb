@@ -5,9 +5,9 @@ module MyDungeonGame
   # メッセージを管理するクラス
   module MessageManager
     LIST =
-      YAML.load(File.read(MESSAGE_LIST_PATH)).
-      merge(YAML.load(File.read(WORD_LIST_PATH))).
-      merge(YAML.load(File.read(DICTIONARY_PATH)))
+      YAML.load_file(MESSAGE_LIST_PATH).
+      merge(YAML.load_file(WORD_LIST_PATH)).
+      merge(YAML.load_file(DICTIONARY_PATH))
 
     PLAYER = 'p'
     LEVEL = 'l'
