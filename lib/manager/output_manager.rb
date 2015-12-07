@@ -103,8 +103,9 @@ module MyDungeonGame
          [:hp, :current]].each_with_index do |method_key, i|
           next if res[i]
           method, key = *method_key
-          args = [player.send(method), HP_METER_HEIGHT,
-                  HP_METER_COLOR[key], HP_METER_ALPHA[key]]
+          v = player.send(method)
+          v, key = 1, :zero if v <= 0
+          args = [v, HP_METER_HEIGHT, HP_METER_COLOR[key], HP_METER_ALPHA[key]]
           res[i] = ViewProxy.rect(*args)
         end
         res

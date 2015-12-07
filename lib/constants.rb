@@ -77,10 +77,12 @@ module MyDungeonGame
   HP_METER_COLOR = {
     current: [0, 255, 0],
     max:     [255, 0, 0],
+    zero:    [0, 0, 0],
   }
   HP_METER_ALPHA = {
     current: 255,
     max:     255,
+    zero:    0,
   }
   STOMACH_METER_HEIGHT = 3
   STOMACH_METER_COLOR = {
