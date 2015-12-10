@@ -1,8 +1,11 @@
 module MyDungeonGame
   class FontProxy
+    FONT_PATHES.each do |path|
+      Font.install(path)
+    end
+
     FONTS = {
-      # TODO: パラメータ調整
-      regular: Font.new(20),
+      regular: Font.new(22, 'PixelMplus12'),
     }
 
     class << self

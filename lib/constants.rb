@@ -149,4 +149,8 @@ module MyDungeonGame
   DICTIONARY_PATH   = File.join(ROOT, 'data', 'dictionary.yml')
   SCENES_PATH       = File.join(ROOT, 'data', 'scenes.yml')
   MAP_DATA_PATH     = File.join(ROOT, 'data', 'map_data.yml')
+  FONT_BASE_DIR     = File.join(ROOT, 'data', 'fonts')
+  FONT_PATHES       = [
+    File.join('PixelMplus', 'PixelMplus12-Regular.ttf'),
+  ].map { |path| File.join(FONT_BASE_DIR, path) }
 end
