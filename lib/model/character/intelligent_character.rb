@@ -6,9 +6,9 @@ module MyDungeonGame
     update_interval 10
     image_path ENEMY_IMAGE_PATH
     name "MOB"
+    speed 0.5
 
-    # TODO: N倍速対応
-    def action
+    def _action
       return if @hp <= 0
       # 現状把握
       dx, dy = analyse

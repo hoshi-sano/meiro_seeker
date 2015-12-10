@@ -3,13 +3,28 @@ module MyDungeonGame
   module AttackEvent
     module_function
 
-    def create(scene, attacker)
+    def create(scene, attacker, target)
       scene.instance_eval do
-        step = attacker.get_forward_step
+        # 攻撃者自身を含むすべてのモブが移動等の動作を完了するまで
+        # 攻撃演出を開始しない
+        first_event = Event.new do |e|
+          if @mobs.any? { |mob| mob.updating? }
+            @player.update
+            update_mobs
+            move_mobs
+          else
+            e.finalize
+          end
+        end
+
+        step = [target.x - attacker.x, target.y - attacker.y]
+        # 攻撃演出をフレーム毎のイベントに細分化したもの
         events = CHARACTER_ATTACK_MOVE_AND_FRAMES.map do |i, frame|
           [step[0] * i, step[1] * i, frame]
         end.map do |cx, cy, frame|
           Event.new do |e|
+            attacker.change_direction_to_object(target) if frame.zero?
+            # 攻撃時のエフェクトはダミーを使って描画するため本体は非表示にする
             attacker.hide
             @waiting_update_complete = true
             dummy = attacker.display_dummy
@@ -24,12 +39,12 @@ module MyDungeonGame
 
         last_event = Event.new do |e|
           @waiting_update_complete = true
+          # 攻撃演出終了時に本体を再表示
           attacker.show
           e.finalize
         end
         events.push(last_event)
 
-        first_event = events.shift
         events.each {|e| first_event.set_next(e) }
         first_event
       end

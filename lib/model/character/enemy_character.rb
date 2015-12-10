@@ -11,6 +11,7 @@ module MyDungeonGame
     power   2
     defence 1
     exp     4
+    speed   1
 
     def attackable?(target)
       self.hate? != !!target.hate?

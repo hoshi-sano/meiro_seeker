@@ -31,6 +31,7 @@ module MyDungeonGame
        :power,
        :defence,
        :exp,
+       :speed,
       ].each do |param_name|
         define_method(param_name) do |value|
           self.instance_variable_set("@default_#{param_name}", value)
@@ -116,7 +117,7 @@ module MyDungeonGame
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
     attr_reader :level, :exp
-    attr_accessor :x, :y, :prev_x, :prev_y, :events, :name, :hp, :max_hp,
+    attr_accessor :x, :y, :prev_xy, :events, :name, :hp, :max_hp,
                   :power, :defence
 
     # TODO: 各インスタンスごとに画像をロードしてるのは無駄
@@ -130,14 +131,16 @@ module MyDungeonGame
       @current_frame = 0
       @hide = false
       @events = []
+      @prev_xy = []
 
       # ステータス
-      @max_hp = self.class.default_hp
-      @hp = self.class.default_hp
-      @level = self.class.default_level
-      @power = self.class.default_power
+      @max_hp  = self.class.default_hp
+      @hp      = self.class.default_hp
+      @level   = self.class.default_level
+      @power   = self.class.default_power
       @defence = self.class.default_defence
-      @exp =   self.class.default_exp
+      @exp     = self.class.default_exp
+      @speed   = self.class.default_speed
     end
 
     def type
@@ -145,7 +148,7 @@ module MyDungeonGame
     end
 
     def update_interval
-      self.class.get_update_interval
+      self.class.get_update_interval / @speed
     end
 
     def name
@@ -159,6 +162,10 @@ module MyDungeonGame
 
     def hate?
       self.class.hate?
+    end
+
+    def alive?
+      @hp > 0
     end
 
     def dead?
@@ -305,7 +312,7 @@ module MyDungeonGame
     end
 
     def attack_to(target)
-      @events << EventPacket.new(AttackEvent, self)
+      @events << EventPacket.new(AttackEvent, self, target)
       if randomizer.rand(100)  < self.accuracy
         damage = target.attacked_by(self)
         @events << EventPacket.new(DamageEvent, target, damage)
@@ -371,6 +378,30 @@ module MyDungeonGame
         ((Math.log(3.0) / Math.log(1.6)) ** 2) * (@power / 8.0)
       else
         ((Math.log((@power / 2.0) - 1) / Math.log(1.6)) ** 2)
+      end
+    end
+
+    def prev_x(idx=-1)
+      (@prev_xy[idx] || [])[0]
+    end
+
+    def prev_y(idx=-1)
+      (@prev_xy[idx] || [])[1]
+    end
+
+    def prev_x=(prev_x)
+      if @prev_xy.any? && @prev_xy[-1][0].nil?
+        @prev_xy[-1][0] = prev_x
+      else
+        @prev_xy << [prev_x, nil]
+      end
+    end
+
+    def prev_y=(prev_y)
+      if @prev_xy.any? && @prev_xy[-1][1].nil?
+        @prev_xy[-1][1] = prev_y
+      else
+        @prev_xy << [nil, prev_y]
       end
     end
   end

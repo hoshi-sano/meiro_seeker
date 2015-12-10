@@ -6,7 +6,7 @@ module MyDungeonGame
     update_interval 10
     image_path ENEMY_IMAGE_PATH
 
-    def action
+    def _action
       super
 
       # 行動後プレイヤーを感知している場合、アタリをつけておく
