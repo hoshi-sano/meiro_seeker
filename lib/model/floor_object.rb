@@ -25,16 +25,19 @@ module MyDungeonGame
 
     def initialize
       @type = self.class.get_type
-      @image = self.class.default_image
       @searched = false
     end
 
+    def image
+      self.class.default_image
+    end
+
     def width
-      @image.width
+      image.width
     end
 
     def height
-      @image.height
+      image.height
     end
 
     def searched?

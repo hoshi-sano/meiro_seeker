@@ -1,19 +1,13 @@
 module MyDungeonGame
   # プレイヤー以外のキャラクターのベースとなるクラス
   class MobCharacter < Character
-    class << self
-      def image_path(val)
-        @image_path = val
-      end
-    end
-
     type :mob
     update_interval 10
     image_path ENEMY_IMAGE_PATH
     name "MOB"
 
     def initialize(floor)
-      super(image_path, floor)
+      super(floor)
       @next_xy = []
       @active_gauge = 0
     end

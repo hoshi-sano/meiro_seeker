@@ -12,10 +12,13 @@ module MyDungeonGame
 
       def equipped_image_path(value)
         @equipped_image_path = value
+        args = [@equipped_image_path,
+                CHARACTER_PATTERN_NUM_X, CHARACTER_PATTERN_NUM_Y]
+        @equipped_images = FileLoadProxy.load_image_tiles(*args)
       end
 
-      def get_equipped_image_path
-        @equipped_image_path
+      def equipped_images
+        @equipped_images
       end
     end
 
@@ -29,7 +32,6 @@ module MyDungeonGame
       @equipped_by = nil
       @calibration = 0
       @base_strength = self.class.get_base_strength
-      @equipped_image_path = self.class.get_equipped_image_path
     end
 
     # 補正値付きの名前の文字列を返す
@@ -51,6 +53,10 @@ module MyDungeonGame
 
     def equipment_type
       self.class::TYPE
+    end
+
+    def equipped_images
+      self.class.equipped_images
     end
 
     # 誰かに装備されているか否か

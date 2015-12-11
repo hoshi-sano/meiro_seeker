@@ -141,6 +141,9 @@ module MyDungeonGame
   THROW_ACCURACY = 85
   MAX_CALIBRATION = 99
 
+  SAVE_FILE_PATH     = File.join(ROOT, 'data', 'save.dat')
+  OLD_SAVE_FILE_PATH = File.join(ROOT, 'data', 'save.dat.old')
+
   PLAYER_IMAGE_PATH = File.join(ROOT, 'data', 'uno.png')
   ENEMY_IMAGE_PATH  = File.join(ROOT, 'data', 'uno2.png')
   STAIRS_IMAGE_PATH = File.join(ROOT, 'data', 'stairs.png')

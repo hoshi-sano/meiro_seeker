@@ -1,6 +1,7 @@
 module MyDungeonGame
   class PlayerCharacter < Character
     type :player
+    image_path PLAYER_IMAGE_PATH
     update_interval 10
     name "PLAYER"
     level 1
@@ -17,7 +18,7 @@ module MyDungeonGame
     HP_GAIN_AMPLITUDE = 5
 
     def initialize(floor)
-      super(PLAYER_IMAGE_PATH, floor)
+      super(floor)
       @money = 0
       @self_healing_value = 0 # 自然治癒力
       @stomach = 100     # 満腹度
@@ -279,7 +280,23 @@ module MyDungeonGame
       def initialize(player, origin)
         @player = player
         @origin = origin
-        super(origin.equipped_image_path, nil)
+        super(nil)
+      end
+
+      def width
+        @origin.equipped_images.first.first.width
+      end
+
+      def height
+        @origin.equipped_images.first.first.height
+      end
+
+      def image
+        if @hide
+          TRANSPARENCY.image
+        else
+          @origin.equipped_images[@current_direction][@current_frame]
+        end
       end
 
       def strength

@@ -9,6 +9,16 @@ module MyDungeonGame
         @type || :mob
       end
 
+      def image_path(value)
+        @image_path = value
+        args = [@image_path, CHARACTER_PATTERN_NUM_X, CHARACTER_PATTERN_NUM_Y]
+        @images = FileLoadProxy.load_image_tiles(*args)
+      end
+
+      def images
+        @images
+      end
+
       def update_interval(value)
         @update_interval = value
       end
@@ -129,12 +139,8 @@ module MyDungeonGame
     attr_accessor :x, :y, :prev_xy, :events, :name, :hp, :max_hp,
                   :power, :defence
 
-    # TODO: 各インスタンスごとに画像をロードしてるのは無駄
-    def initialize(img_path, floor)
+    def initialize(floor)
       self.extend(HelperMethods)
-      @images = FileLoadProxy.load_image_tiles(img_path,
-                                               CHARACTER_PATTERN_NUM_X,
-                                               CHARACTER_PATTERN_NUM_Y)
       @floor = floor
       @current_direction = CHARACTER_DIRECTION[:S]
       @current_frame = 0
@@ -220,7 +226,7 @@ module MyDungeonGame
       if @hide
         TRANSPARENCY.image
       else
-        @images[@current_direction][@current_frame]
+        self.class.images[@current_direction][@current_frame]
       end
     end
 
@@ -317,11 +323,11 @@ module MyDungeonGame
     end
 
     def width
-      @images.first.first.width
+      self.class.images.first.first.width
     end
 
     def height
-      @images.first.first.height
+      self.class.images.first.first.height
     end
 
     def attack_to(target)

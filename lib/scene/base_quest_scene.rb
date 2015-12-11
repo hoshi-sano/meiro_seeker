@@ -570,5 +570,26 @@ module MyDungeonGame
         end
       end
     end
+
+    # Marshal.dump 不可能な要素を省く
+    def before_save
+      @bg_map_image = nil
+      @em = nil
+    end
+
+    # Marshal.dump 後に必要な要素を再構築する
+    def after_save
+      if (@map_info || {})[:map_image_path]
+        path = File.join(ROOT, 'data', @map_info[:map_image_path])
+        @bg_map_image = FileLoadProxy.load_image(path)
+      end
+      @em = EventManager.new(WaitInputEvent.create(self))
+    end
+
+    # Marshal.load 後に必要な要素を再構築する
+    def after_load
+      after_save
+      OutputManager.init(@player.x, @player.y)
+    end
   end
 end
