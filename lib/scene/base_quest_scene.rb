@@ -34,6 +34,14 @@ module MyDungeonGame
       end
       @floor.set_storey(storey)
 
+      # マップ名称
+      if @map_info && @map_info[:name]
+        @map_name = "#{storey} #{@map_info[:name]}"
+      end
+
+      # シーン切り替わり時の暗転継続時間
+      @starting_break_time = STARTING_BREAK_TIME
+
       # 消費ターン数
       @turn = 0
 
@@ -189,8 +197,11 @@ module MyDungeonGame
 
     # 基本のループ処理
     def update
-      # 条件・状態によって変化するイベントを処理
-      @em.do_event
+      # 暗転中はイベント処理しない
+      if starting_break
+        # 条件・状態によって変化するイベントを処理
+        @em.do_event
+      end
 
       # 毎フレームの必須イベントを処理
       display_base_map
@@ -206,6 +217,18 @@ module MyDungeonGame
     def tick
       @turn += 1
       @do_action = true
+    end
+
+    # シーン切り替わり時の暗転 + マップ名表示
+    def starting_break
+      # TODO: 定数を使う
+      if @starting_break_time >= 0
+        t = @starting_break_time * 4
+        alpha = ((t / 255) > 0) ? 255 : t
+        OutputManager.blackout(alpha: alpha, map_name: @map_name)
+        @starting_break_time -= 1
+      end
+      @starting_break_time < 40
     end
 
     def activate_mobs

@@ -10,6 +10,7 @@ module MyDungeonGame
       parameter: ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
       radar_map: ViewProxy.new(RADAR_MAP_UNIT_SIZE * WIDTH_TILE_NUM,
                                RADAR_MAP_UNIT_SIZE * HEIGHT_TILE_NUM),
+      other:     ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
     }.freeze
     PARAMETER_BACK = ViewProxy.rect(*WINDOW_SIZE[:parameter],
                                     WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
@@ -187,6 +188,18 @@ module MyDungeonGame
         x = (DISPLAY_WIDTH / 2) - (obj.width / 2) + cx
         y = (DISPLAY_HEIGHT / 2) - (obj.height / 2) + cy
         DISPLAYS[type].reserve_draw(x, y, obj.image, DISPLAYS.keys.index(type))
+      end
+
+      # 暗転
+      def blackout(opts={})
+        alpha = opts[:alpha] || 0
+        black = ViewProxy.rect(DISPLAY_WIDTH, DISPLAY_HEIGHT, [0, 0, 0], alpha)
+        DISPLAYS[:other].reserve_draw(0, 0, black.image)
+        if opts[:map_name]
+          font = FontProxy.get_font(:map_name)
+          DISPLAYS[:other].reserve_draw_text(*MAP_NAME_POSITION,
+                                             opts[:map_name], font)
+        end
       end
 
       def update

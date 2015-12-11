@@ -6,6 +6,7 @@ module MyDungeonGame
 
     FONTS = {
       regular: Font.new(22, 'PixelMplus12'),
+      map_name: Font.new(30, 'PixelMplus12'),
     }
 
     class << self

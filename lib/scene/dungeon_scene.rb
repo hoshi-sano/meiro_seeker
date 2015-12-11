@@ -45,8 +45,11 @@ module MyDungeonGame
 
     # 基本のループ処理
     def update
-      # 条件・状態によって変化するイベントを処理
-      @em.do_event
+      # 暗転中はイベント処理しない
+      if starting_break
+        # 条件・状態によって変化するイベントを処理
+        @em.do_event
+      end
 
       # 毎フレームの必須イベントを処理
       display_base_map

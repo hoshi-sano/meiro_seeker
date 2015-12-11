@@ -72,6 +72,7 @@ module MyDungeonGame
     item_note: [60, 100],
     key_config: [240, 50],
   }
+  MAP_NAME_POSITION = [30, 200]
 
   HP_METER_HEIGHT = 5
   HP_METER_COLOR = {
@@ -94,6 +95,7 @@ module MyDungeonGame
     max:     255,
   }
 
+  STARTING_BREAK_TIME = 85
   MESSAGE_SPEED = 4
 
   MOVE_UNIT = 8
