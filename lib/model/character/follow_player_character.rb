@@ -25,21 +25,6 @@ module MyDungeonGame
 
     private
 
-    # プレイヤーが隣接している場合、その座標を返す
-    def neighboring_player_xy
-      res = nil
-      ((self.y - 1)..(self.y + 1)).each do |cand_y|
-        ((self.x - 1)..(self.x + 1)).each do |cand_x|
-          target = @floor[cand_x, cand_y]
-          if target.any_one? && target.character.type == :player
-            res = [cand_x, cand_y]
-            break
-          end
-        end
-      end
-      res
-    end
-
     # 自身が部屋内にいる場合の移動先決定
     def analyse_in_room
       @reserve_xy = nil

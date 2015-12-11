@@ -12,6 +12,7 @@ module MyDungeonGame
     defence 1
     exp     4
     speed   1
+    skill WaitAndSee, 50
 
     def attackable?(target)
       self.hate? != !!target.hate?

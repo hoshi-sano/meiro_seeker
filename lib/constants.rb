@@ -129,6 +129,9 @@ module MyDungeonGame
                                       [15, 2], [12, 2],
                                       [9,  3], [6,  3], [3, 3],
                                      ]
+  AROUND_CELL_DXDY = [
+    [1, 0], [-1, 0], [0, -1], [1, -1], [-1, -1], [0, 1], [1, 1], [-1, 1],
+  ]
 
   PORTABLE_ITEM_NUMBER = 20
   PLAYER_ATTACK_ACCURACY = 95

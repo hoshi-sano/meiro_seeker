@@ -115,6 +115,10 @@ module MyDungeonGame
         LIST[:item_hit_to].gsub(REGEXP[:item_to], map)
       end
 
+      def wait_and_see(attacker)
+        LIST[:wait_and_see].gsub(REGEXP[:attacker], attacker)
+      end
+
       [
        :hp,
        :power,

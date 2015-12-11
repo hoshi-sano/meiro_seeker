@@ -50,6 +50,15 @@ module MyDungeonGame
         @hate
       end
 
+      def skill(skill_klass, invocation_rate)
+        @skills ||= {}
+        @skills[skill_klass] = invocation_rate
+      end
+
+      def get_skills
+        @skills ||= {}
+      end
+
       # 表示用のダミーを返す
       # ダミーはクラスで使いまわす
       def display_dummy(instance)
@@ -153,6 +162,10 @@ module MyDungeonGame
 
     def name
       self.class.get_name
+    end
+
+    def skill_to_rates
+      self.class.get_skills
     end
 
     def accuracy
@@ -407,6 +420,7 @@ module MyDungeonGame
   end
 end
 
+require 'character/skill'
 require 'character/player_character'
 require 'character/mob_character'
 require 'character/intelligent_character'

@@ -9,7 +9,10 @@ module MyDungeonGame
     speed 0.5
 
     def _action
-      return if @hp <= 0
+      # 可能であれば確率でスキル発動
+      return if do_skill
+
+      # スキルを発動しない場合は移動または通常攻撃
       # 現状把握
       dx, dy = analyse
       if dx && dy
@@ -28,6 +31,33 @@ module MyDungeonGame
       end
     end
 
+    def do_skill
+      # keyがSkill、valueがRangeのハッシュを作る
+      # 例: { Skill1 => 0...30, Skill2 => 31...50 }
+      usable_skills = skill_to_rates.keys.select { |s| s.usable?(self) }
+      rate_counter = 0
+      usable_skill_to_rate = Hash[
+        usable_skills.map { |skill|
+          res = [skill, (rate_counter...skill_to_rates[skill])]
+          rate_counter += skill_to_rates[skill]
+          res
+        }
+      ]
+      return if usable_skills.empty?
+
+      # 確率でスキルの発動を判定
+      invoke_skill = nil
+      c = randomizer.rand(100)
+      usable_skill_to_rate.each do |skill, rate|
+        if rate.include?(c)
+          invoke_skill = skill
+          break
+        end
+      end
+      invoke_skill.invoke(self) if invoke_skill
+      !!invoke_skill
+    end
+
     # 攻撃可能かどうかの判定
     def attackable?(target)
       false
@@ -41,6 +71,25 @@ module MyDungeonGame
       else
         false
       end
+    end
+
+    # プレイヤーと隣接しているか否かを返す
+    def adjoin_player?
+      !!neighboring_player_xy
+    end
+
+    # プレイヤーが隣接している場合、その座標を返す
+    def neighboring_player_xy
+      res = nil
+      AROUND_CELL_DXDY.each do |dx, dy|
+        cand_x, cand_y = self.x + dx, self.y + dy
+        target = @floor[cand_x, cand_y]
+        if target.any_one? && target.character.type == :player
+          res = [cand_x, cand_y]
+          break
+        end
+      end
+      res
     end
 
     private
