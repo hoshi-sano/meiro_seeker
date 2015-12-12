@@ -364,8 +364,12 @@ module MyDungeonGame
         MessageManager.get(:key_config) => lambda {
           ShowKeyConfigWindowEvent.create(self, kcw)
         },
-        MessageManager.get(:save) => lambda { ClearMenuWindowEvent.create(self) },
-        MessageManager.get(:break) => lambda { ClearMenuWindowEvent.create(self) },
+        MessageManager.get(:save) => lambda {
+          SaveEvent.create(self)
+        },
+        MessageManager.get(:break) => lambda {
+          SaveEvent.create(self, true)
+        },
       }
     end
 

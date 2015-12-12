@@ -35,3 +35,6 @@
 :starve: "もう餓死寸前だ！"
 :no_bullet: "手裏剣を装備していない。"
 :wait_and_see: "aは様子を見ている。"
+:data_saving: "データをセーブします..."
+:break_playing: "データをセーブし、ゲームを中断します..."
+:dont_power_off: "ゲームを終了したりPCの電源を落としたりしないでください。"

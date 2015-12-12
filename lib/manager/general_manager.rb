@@ -59,6 +59,12 @@ module MyDungeonGame
         end
         @current_scene.after_save
       end
+
+      # ゲームデータを保存し、ゲームを中断する
+      def save_and_break
+        save
+        # TODO: オープニングのシーンに戻る
+      end
     end
   end
 end
