@@ -14,7 +14,7 @@ module MyDungeonGame
                              RADAR_MAP_COLOR[:tile], RADAR_MAP_ALPHA[:tile]),
     }.freeze
 
-    attr_reader :player
+    attr_reader :player, :map_info, :floor
 
     def initialize(storey=1, player=nil, scene_info=nil)
       extend(HelperMethods) # see: lib/helper.rb
@@ -594,6 +594,7 @@ module MyDungeonGame
     def after_load
       after_save
       OutputManager.init(@player.x, @player.y)
+      @starting_break_time = STARTING_BREAK_TIME
     end
   end
 end

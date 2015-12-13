@@ -2,7 +2,7 @@ module MyDungeonGame
   module ShowMessageEvent
     module_function
 
-    def create(scene, message='')
+    def create(scene, message='', options={})
       scene.instance_eval do
 
         first = Event.new do |e|
@@ -41,6 +41,21 @@ module MyDungeonGame
             e.finalize
           end
           first.set_next(follow_event)
+        end
+
+        # 入力があるまでその他の操作を受け付けず、
+        # メッセージも表示したままとする
+        if options[:force_wait_input]
+          wait_input = Event.new do |e|
+            @message_window.newline!
+            @message_window.permanence!
+            @message_window.display_next_arrow
+            if InputManager.any_key?
+              @message_window.set_ttl(0)
+              e.finalize
+            end
+          end
+          first.set_next(wait_input)
         end
 
         first

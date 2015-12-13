@@ -131,6 +131,19 @@ module MyDungeonGame
         res
       end
 
+      # ゲームデータ用ウインドウの表示
+      def reserve_draw_game_data_window(window)
+        # TODO: リファクタリング
+        # windowの表示
+        args = [40, 100, window.image, :window]
+        reserve_draw_without_offset(*args)
+
+        # テキストの表示
+        font = FontProxy.get_font(window.font_type)
+        args = [50, 110, window.text, font, DISPLAYS.keys.index(:window)]
+        DISPLAYS[:window].reserve_draw_text(*args)
+      end
+
       # メッセージ用ウインドウの表示
       def reserve_draw_message_window(window)
         # TODO: 数値の定数化

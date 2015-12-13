@@ -9,15 +9,28 @@ module MyDungeonGame
         @current_scene.update
       end
 
+      # ゲーム開始時に1回だけ呼ばれる
       def initialize_game
         @scenes = YAML.load_file(SCENES_PATH)
-        if !load
-          @dungeon  = DungeonManager.create_dungeon
-          scene_info = @scenes[:initial_scene]
-          scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
-          @current_scene = scene_klass.new(1, nil, scene_info)
-        end
+        scene_info = @scenes[:initial_scene]
+        scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
+        @current_scene = scene_klass.new
         @initialized = true
+      end
+
+      def create_new_game_data
+        @dungeon = DungeonManager.create_dungeon
+        next_scene_id = @scenes[:initial_scene][:next_scene_id]
+        scene_info = @scenes[next_scene_id]
+        scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
+        @current_scene = scene_klass.new(1, nil, scene_info)
+      end
+
+      def set_game_data(game_data)
+        @dungeon       = game_data[:dungeon]
+        @current_scene = game_data[:current_scene]
+        DungeonManager.instance_variable_set(:@current_dungeon, @dungeon)
+        @current_scene.after_load
       end
 
       def map_data
@@ -33,16 +46,11 @@ module MyDungeonGame
 
       # ゲームデータをロードする
       def load
-        res = false
+        game_data = nil
         if File.exist?(SAVE_FILE_PATH)
-          game_data      = Marshal.load(File.binread(SAVE_FILE_PATH))
-          @dungeon       = game_data[:dungeon]
-          @current_scene = game_data[:current_scene]
-          DungeonManager.instance_variable_set(:@current_dungeon, @dungeon)
-          @current_scene.after_load
-          res = true
+          game_data = Marshal.load(File.binread(SAVE_FILE_PATH))
         end
-        res
+        game_data
       end
 
       # ゲームデータを保存する

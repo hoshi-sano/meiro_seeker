@@ -46,6 +46,8 @@ module MyDungeonGame
   }
 
   WINDOW_SIZE = {
+    title_menu: [190, 65],
+    game_data:  [400, 200],
     menu:      [200, 75],
     sub_menu:  [120, 100],
     item:      [300, 300],
@@ -65,6 +67,7 @@ module MyDungeonGame
     item_note: 255,
   }
   WINDOW_POSITION = {
+    title_menu: [30, 30],
     menu: [30, 50],
     item: [240, 50],
     sub_menu: [110, 130],

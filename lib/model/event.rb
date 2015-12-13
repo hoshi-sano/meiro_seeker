@@ -14,8 +14,12 @@ module MyDungeonGame
       @regular_action.call(self)
     end
 
-    def set_finalize_action(&block)
-      @finalize_action = block
+    def set_finalize_action(idx=nil, &block)
+      if idx
+        @next_events[idx].instance_variable_set(:@finalize_action, block)
+      else
+        @finalize_action = block
+      end
     end
 
     def finalize
