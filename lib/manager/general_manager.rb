@@ -71,7 +71,9 @@ module MyDungeonGame
       # ゲームデータを保存し、ゲームを中断する
       def save_and_break
         save
-        # TODO: オープニングのシーンに戻る
+        scene_info = @scenes[:initial_scene]
+        scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
+        @current_scene = scene_klass.new
       end
     end
   end
