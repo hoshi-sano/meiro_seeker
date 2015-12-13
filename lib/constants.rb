@@ -92,10 +92,12 @@ module MyDungeonGame
   STOMACH_METER_COLOR = {
     current: [0, 150, 200],
     max:     [0,  80, 130],
+    zero:    [0, 0, 0],
   }
   STOMACH_METER_ALPHA = {
     current: 255,
     max:     255,
+    zero:    0,
   }
 
   STARTING_BREAK_TIME = 85

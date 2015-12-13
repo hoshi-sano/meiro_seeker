@@ -124,7 +124,9 @@ module MyDungeonGame
          [:stomach, :current]].each_with_index do |method_key, i|
           next if res[i]
           method, key = *method_key
-          args = [player.send(method), STOMACH_METER_HEIGHT,
+          v = player.send(method)
+          v, key = 1, :zero if v <= 0
+          args = [v, STOMACH_METER_HEIGHT,
                   STOMACH_METER_COLOR[key], STOMACH_METER_ALPHA[key]]
           res[i] = ViewProxy.rect(*args)
         end
