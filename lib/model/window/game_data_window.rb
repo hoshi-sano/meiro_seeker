@@ -18,11 +18,13 @@ module MyDungeonGame
 
     def generate_text
       # TODO: 最深到達度等の取得と表示
-      storey = @scene.floor.storey
       player = @scene.player
       map_info = @scene.map_info || {}
+      storey = @scene.floor.storey
+      map_name = map_info[:name]
+      map_name = map_info[:name][storey] if map_name.is_a?(Hash)
       "#{player.name} \n\n" \
-      "#{storey}F  #{map_info[:name]}\n" \
+      "#{storey}F  #{map_name}\n" \
       "Lv#{player.level}  HP #{player.hp}/#{player.max_hp}\n\n" \
       "#{MessageManager.get(:reached_floor)}: **F"
     end

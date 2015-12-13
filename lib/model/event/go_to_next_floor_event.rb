@@ -2,13 +2,13 @@ module MyDungeonGame
   module GoToNextFloorEvent
     module_function
 
-    def create(scene)
+    def create(scene, stairs)
       scene.instance_eval do
         letter = {
           question: MessageManager.get(:go_to_next?),
         }
         events = {
-          yes: lambda {|e| go_to_next_floor; e.finalize },
+          yes: lambda {|e| go_to_next_floor(stairs); e.finalize },
           no:  lambda {|e| e.finalize },
         }
         YesNoEvent.create(scene, letter, events)

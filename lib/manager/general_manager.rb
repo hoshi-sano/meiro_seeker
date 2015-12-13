@@ -12,6 +12,7 @@ module MyDungeonGame
       # ゲーム開始時に1回だけ呼ばれる
       def initialize_game
         @scenes = YAML.load_file(SCENES_PATH)
+        @scenes.each { |key, scene_info| scene_info[:id] = key }
         scene_info = @scenes[:initial_scene]
         scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
         @current_scene = scene_klass.new
@@ -20,8 +21,8 @@ module MyDungeonGame
 
       def create_new_game_data
         @dungeon = DungeonManager.create_dungeon
-        next_scene_id = @scenes[:initial_scene][:next_scene_id]
-        scene_info = @scenes[next_scene_id]
+        @next_scene_id = @scenes[:initial_scene][:next_scene_id]
+        scene_info = @scenes[@next_scene_id]
         scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
         @current_scene = scene_klass.new(1, nil, scene_info)
       end
@@ -37,10 +38,16 @@ module MyDungeonGame
         @map_data ||= YAML.load_file(MAP_DATA_PATH)
       end
 
-      def next_floor(floor, player)
-        floor_num = floor.storey + 1
+      def next_floor(floor, player, stairs)
+        storey = floor.storey + stairs.storey_add_value
         player.events = []
-        @current_scene = @current_scene.next_scene.new(floor_num, player)
+        # @current_sceneがnext_scene_idを返す場合はそのシーンに切り替え
+        # そうでない場合はシーンは変えず、階層だけ変更する
+        @next_scene_id = @current_scene.next_scene_id || @current_scene.scene_id
+        next_scene_info = @scenes[@next_scene_id]
+        storey = next_scene_info[:storey] if next_scene_info[:storey]
+        scene_klass = MyDungeonGame.const_get(next_scene_info[:scene_class])
+        @current_scene = scene_klass.new(storey, player, next_scene_info)
         save
       end
 

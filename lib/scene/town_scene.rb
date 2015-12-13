@@ -25,10 +25,5 @@ module MyDungeonGame
       end
       res
     end
-
-    def next_scene
-      # TODO: ダンジョンの構成によって分岐できるようにする
-      DungeonScene
-    end
   end
 end

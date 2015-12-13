@@ -77,11 +77,6 @@ module MyDungeonGame
       end
     end
 
-    def next_scene
-      # TODO: 分岐する
-      DungeonScene
-    end
-
     def display_palyer
       OutputManager.reserve_draw_center(@player)
       [@player.weapon, @player.shield].compact.each do |equipment|

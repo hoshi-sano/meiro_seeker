@@ -36,7 +36,12 @@ module MyDungeonGame
 
       # マップ名称
       if @map_info && @map_info[:name]
-        @map_name = "#{storey} #{@map_info[:name]}"
+        case @map_info[:name]
+        when String
+          @map_name = "#{storey} #{@map_info[:name]}"
+        when Hash
+          @map_name = "#{storey} #{@map_info[:name][storey]}"
+        end
       end
 
       # シーン切り替わり時の暗転継続時間
@@ -416,13 +421,22 @@ module MyDungeonGame
       res
     end
 
-    # 足元が階段の場合、降りるかどうかの判断を下す
+    # 足元が階段(出口)の場合、進むかどうかの判断を下す
     def check_stairs(x, y)
       underfoot = @floor[x, y]
       return if underfoot.no_object?
       if underfoot.object.type == :stairs
-        @em.set_cut_in_event(GoToNextFloorEvent.create(self))
+        @em.set_cut_in_event(GoToNextFloorEvent.create(self, underfoot.object))
       end
+    end
+
+    def scene_id
+      @scene_info[:id]
+    end
+
+    def next_scene_id
+      @scene_info[:next_scene_id] ||
+        (@map_info[:scene_change] || {})[@floor.storey]
     end
 
     # 次のシーンを決める
@@ -430,8 +444,8 @@ module MyDungeonGame
       DungeonScene
     end
 
-    def go_to_next_floor
-      GeneralManager.next_floor(@floor, @player)
+    def go_to_next_floor(stairs)
+      GeneralManager.next_floor(@floor, @player, stairs)
     end
 
     # 斜め移動かどうか

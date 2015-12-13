@@ -6,5 +6,10 @@ module MyDungeonGame
     type :stairs
     image ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
                          TRANSPARENT[:color], TRANSPARENT[:alpha]).image
+
+    def initialize(floor)
+      super
+      @storey_add_value = 0
+    end
   end
 end
