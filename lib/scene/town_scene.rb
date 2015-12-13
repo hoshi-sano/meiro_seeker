@@ -21,6 +21,9 @@ module MyDungeonGame
       @map_info[:objects].each do |obj_info|
         obj = MyDungeonGame.const_get(obj_info[:class]).new(@floor)
         set_position(obj, obj_info[:x], obj_info[:y])
+        if (obj.type == :stairs) && (obj_info[:next_scene_id])
+          obj.next_scene_id = obj_info[:next_scene_id]
+        end
         res << obj
       end
       res

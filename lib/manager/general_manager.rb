@@ -42,8 +42,12 @@ module MyDungeonGame
         storey = floor.storey + stairs.storey_add_value
         player.events = []
         # @current_sceneがnext_scene_idを返す場合はそのシーンに切り替え
-        # そうでない場合はシーンは変えず、階層だけ変更する
-        @next_scene_id = @current_scene.next_scene_id || @current_scene.scene_id
+        # そうでなくstairsがnext_scene_idを返す場合はそのシーンに切り替え
+        # いずれでもない場合はシーンは変えず、階層だけ変更する
+        @next_scene_id =
+          @current_scene.next_scene_id ||
+          stairs.next_scene_id ||
+          @current_scene.scene_id
         next_scene_info = @scenes[@next_scene_id]
         storey = next_scene_info[:storey] if next_scene_info[:storey]
         scene_klass = MyDungeonGame.const_get(next_scene_info[:scene_class])

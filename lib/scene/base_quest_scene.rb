@@ -439,11 +439,6 @@ module MyDungeonGame
         (@map_info[:scene_change] || {})[@floor.storey]
     end
 
-    # 次のシーンを決める
-    def next_scene
-      DungeonScene
-    end
-
     def go_to_next_floor(stairs)
       GeneralManager.next_floor(@floor, @player, stairs)
     end
