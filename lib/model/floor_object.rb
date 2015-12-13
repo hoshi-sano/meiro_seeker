@@ -51,6 +51,7 @@ module MyDungeonGame
 end
 
 require 'floor_object/stairs'
+require 'floor_object/transparent_stairs'
 require 'floor_object/item'
 require 'floor_object/item/equipment'
 require 'floor_object/item/weapon'

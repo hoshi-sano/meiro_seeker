@@ -6,10 +6,13 @@ module MyDungeonGame
     image_path ENEMY_IMAGE_PATH
     name "MOB"
 
+    attr_accessor :messages
+
     def initialize(floor)
       super(floor)
       @next_xy = []
       @active_gauge = 0
+      @messages = []
     end
 
     def disp_x
@@ -26,7 +29,9 @@ module MyDungeonGame
 
     def checked_events(checker)
       # TODO: 柔軟なイベント発生ができるようにする
-      EventPacket.new(TalkEvent, self, "これはメッセージだよ", checker)
+      @messages.map do |msg|
+        EventPacket.new(TalkEvent, self, msg, checker)
+      end
     end
 
     # actionが可能か否か

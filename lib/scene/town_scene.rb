@@ -7,20 +7,22 @@ module MyDungeonGame
 
     def create_mobs(storey)
       res = []
-      # TODO: 階に合わせた適切なモブの生成
-      mob = IntelligentCharacter.new(@floor)
-      set_position(mob, 5, 4)
-      res << mob
+      @map_info[:characters].each do |mob_info|
+        mob = MyDungeonGame.const_get(mob_info[:class]).new(@floor)
+        set_position(mob, mob_info[:x], mob_info[:y])
+        mob.messages = mob_info[:messages] if mob_info[:messages]
+        res << mob
+      end
       res
     end
 
     def create_floor_objects(storey)
       res = []
-      # TODO: 画像なしの階段を使えるようにする
-      stairs = Stairs.new(@floor)
-      # TODO: 街の適切な階段の座標を利用する
-      set_position(stairs, 5, 3)
-      res << stairs
+      @map_info[:objects].each do |obj_info|
+        obj = MyDungeonGame.const_get(obj_info[:class]).new(@floor)
+        set_position(obj, obj_info[:x], obj_info[:y])
+        res << obj
+      end
       res
     end
 

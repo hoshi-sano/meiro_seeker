@@ -228,7 +228,9 @@ module MyDungeonGame
     # 対象を調べる、または対象と会話する
     # 攻撃時とは異なり対象は単体
     def check_on(target)
-      @events << target.checked_events(self)
+      target.checked_events(self).each do |e|
+        @events << e
+      end
     end
 
     def attacked_by(attacker)
