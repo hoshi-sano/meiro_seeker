@@ -32,6 +32,10 @@ module MyDungeonGame
       @bullet = nil # 装備弾丸
     end
 
+    def name
+      GeneralManager.player_name
+    end
+
     def level_up
       @level += 1
       hp_diff = randomizer.rand(HP_GAIN_AMPLITUDE + 1) + HP_GAIN_MIN # 2..7

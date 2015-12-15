@@ -23,10 +23,11 @@ module MyDungeonGame
       storey = @scene.floor.storey
       map_name = map_info[:name]
       map_name = map_info[:name][storey] if map_name.is_a?(Hash)
+      reached_floor_num = GeneralManager.reached_floor_num
       "#{player.name} \n\n" \
       "#{storey}F  #{map_name}\n" \
       "Lv#{player.level}  HP #{player.hp}/#{player.max_hp}\n\n" \
-      "#{MessageManager.get(:reached_floor)}: **F"
+      "#{MessageManager.get(:reached_floor)}: #{reached_floor_num}F"
     end
 
     def hide

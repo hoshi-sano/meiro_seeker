@@ -3,6 +3,12 @@ require 'yaml'
 module MyDungeonGame
   # ゲーム全体を管理するクラス
   class GeneralManager
+    DEFAULT_PLAYER_DATA = {
+      name:              '＊＊＊＊',
+      reached_floor_num: 1,
+      stocked_items:     [],
+    }
+
     class << self
       def play
         initialize_game if !@initialized
@@ -20,6 +26,7 @@ module MyDungeonGame
       end
 
       def create_new_game_data
+        @player_data = DEFAULT_PLAYER_DATA.dup
         @dungeon = DungeonManager.create_dungeon
         @next_scene_id = @scenes[:initial_scene][:next_scene_id]
         scene_info = @scenes[@next_scene_id]
@@ -38,6 +45,25 @@ module MyDungeonGame
         @map_data ||= YAML.load_file(MAP_DATA_PATH)
       end
 
+      def player_data
+        @player_data || {}
+      end
+
+      def player_name
+        player_data[:name]
+      end
+
+      def reached_floor_num
+        player_data[:reached_floor_num]
+      end
+
+      # 最深到達度の更新
+      def reached_floor(storey)
+        if player_data[:reached_floor_num].to_i < storey
+          @player_data[:reached_floor_num] = storey
+        end
+      end
+
       def next_floor(floor, player, stairs)
         storey = floor.storey + stairs.storey_add_value
         player.events = []
@@ -52,6 +78,7 @@ module MyDungeonGame
         storey = next_scene_info[:storey] if next_scene_info[:storey]
         scene_klass = MyDungeonGame.const_get(next_scene_info[:scene_class])
         @current_scene = scene_klass.new(storey, player, next_scene_info)
+        reached_floor(storey)
         save
       end
 
@@ -61,6 +88,7 @@ module MyDungeonGame
         if File.exist?(SAVE_FILE_PATH)
           game_data = Marshal.load(File.binread(SAVE_FILE_PATH))
         end
+        @player_data = DEFAULT_PLAYER_DATA.dup.merge(game_data[:player_data])
         game_data
       end
 
@@ -72,7 +100,11 @@ module MyDungeonGame
 
         # Marshal.dump 不可能な要素をいったん省く
         @current_scene.before_save
-        game_data = { dungeon: @dungeon, current_scene: @current_scene }
+        game_data = {
+          player_data:   @player_data,
+          dungeon:       @dungeon,
+          current_scene: @current_scene,
+        }
         File.open(SAVE_FILE_PATH, 'wb') do |f|
           f.write(Marshal.dump(game_data))
         end
