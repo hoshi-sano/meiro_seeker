@@ -32,12 +32,11 @@ module MyDungeonGame
       end
     end
 
-    class Rect
+    class ImageObject
       attr_reader :image
 
-      def initialize(width, height, color, alpha)
-        _color = [alpha, *color]
-        @image = Image.new(width, height, _color)
+      def initialize(path)
+        @image = FileLoadProxy.load_image(path)
       end
 
       def width
@@ -46,6 +45,13 @@ module MyDungeonGame
 
       def height
         @image.height
+      end
+    end
+
+    class Rect < ImageObject
+      def initialize(width, height, color, alpha)
+        _color = [alpha, *color]
+        @image = Image.new(width, height, _color)
       end
     end
 

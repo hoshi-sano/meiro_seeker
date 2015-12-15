@@ -3,6 +3,7 @@ module MyDungeonGame
   class TitleScene
     # NOTE: 引数は不要かも(ダックタイピイング的に必要かも)
     def initialize(_=nil, _=nil, _=nil)
+      @bg_image = ViewProxy::ImageObject.new(TITLE_BG_IMAGE_PATH)
       @menu_windows = []
 
       game_data = GeneralManager.load
@@ -58,6 +59,7 @@ module MyDungeonGame
     # 基本のループ処理
     def update
       @em.do_event
+      display_bg_image
       display_window
       OutputManager.update
     end
@@ -65,6 +67,10 @@ module MyDungeonGame
     def refresh
       @data_window.hide if @data_window
       @menu_windows = []
+    end
+
+    def display_bg_image
+      OutputManager.reserve_draw_without_offset(0, 0, @bg_image, :map)
     end
 
     def display_window

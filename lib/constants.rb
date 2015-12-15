@@ -149,6 +149,7 @@ module MyDungeonGame
   SAVE_FILE_PATH     = File.join(ROOT, 'data', 'save.dat')
   OLD_SAVE_FILE_PATH = File.join(ROOT, 'data', 'save.dat.old')
 
+  TITLE_BG_IMAGE_PATH = File.join(ROOT, 'data', 'title.png')
   PLAYER_IMAGE_PATH = File.join(ROOT, 'data', 'uno.png')
   ENEMY_IMAGE_PATH  = File.join(ROOT, 'data', 'uno2.png')
   STAIRS_IMAGE_PATH = File.join(ROOT, 'data', 'stairs.png')
