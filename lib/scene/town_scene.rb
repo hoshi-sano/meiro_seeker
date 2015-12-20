@@ -7,7 +7,7 @@ module MyDungeonGame
 
     def create_mobs(storey)
       res = []
-      @map_info[:characters].each do |mob_info|
+      (@map_info[:characters] || []).each do |mob_info|
         mob = MyDungeonGame.const_get(mob_info[:class]).new(@floor)
         set_position(mob, mob_info[:x], mob_info[:y])
         mob.messages = mob_info[:messages] if mob_info[:messages]
@@ -18,7 +18,7 @@ module MyDungeonGame
 
     def create_floor_objects(storey)
       res = []
-      @map_info[:objects].each do |obj_info|
+      (@map_info[:objects] || []).each do |obj_info|
         obj = MyDungeonGame.const_get(obj_info[:class]).new(@floor)
         set_position(obj, obj_info[:x], obj_info[:y])
         if (obj.type == :stairs) && (obj_info[:next_scene_id])
