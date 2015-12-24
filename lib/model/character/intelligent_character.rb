@@ -81,13 +81,26 @@ module MyDungeonGame
     # プレイヤーが隣接している場合、その座標を返す
     def neighboring_player_xy
       res = nil
-      AROUND_CELL_DXDY.each do |dx, dy|
-        cand_x, cand_y = self.x + dx, self.y + dy
-        target = @floor[cand_x, cand_y]
-        if target.any_one? && target.character.type == :player
-          res = [cand_x, cand_y]
-          break
-        end
+      player = GeneralManager.current_scene.player
+      if (self.x - player.x).abs <= 1 && (self.y - player.y).abs <= 1
+        res = [player.x, player.y]
+      end
+      res
+    end
+
+    # 直線上にプレイヤーがいるか否かを返す
+    def alignment_with_player?
+      !!straight_player_xy
+    end
+
+    # 直線上にプレイヤーがいる場合、その座標を返す
+    def straight_player_xy
+      res = nil
+      player = GeneralManager.current_scene.player
+      if self.x == player.x ||
+         self.y == player.y ||
+         (self.x - player.x).abs == (self.y - player.y).abs
+        res = [player.x, player.y]
       end
       res
     end

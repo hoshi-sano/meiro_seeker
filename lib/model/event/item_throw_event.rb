@@ -4,15 +4,29 @@ module MyDungeonGame
 
     def create(scene, thrower, item)
       scene.instance_eval do
-        clear_menu = ClearMenuWindowEvent.create(scene)
+        player = (thrower.type == :player)
+        if player
+          first_event = ClearMenuWindowEvent.create(scene)
+        else
+          # 投擲者自身を含むすべてのモブが移動等の動作を完了するまで
+          # 投擲演出を開始しない
+          first_event = Event.new do |e|
+            if @mobs.any? { |mob| mob.updating? }
+              @player.update
+              update_mobs
+              move_mobs
+            else
+              e.finalize
+            end
+          end
+        end
 
         throw_item = Event.new do |e|
-          if @player.items.delete(item)
+          if player && thrower.items.delete(item)
             # プレイヤーのアイテム一覧から投げる場合
             item.removed! if item.equipped?
-          else
+          elsif @floor_objects.delete(item)
             # 落ちているアイテムから投げる場合
-            @floor_objects.delete(item)
             @floor[item.x, item.y].clear_object
           end
 
@@ -40,8 +54,9 @@ module MyDungeonGame
           end
 
           # TODO: アイテム投げ専用の演出イベントを作る(?)
+          # TODO: 敵の投げ演出イベントを使う
           # 投げ演出
-          e.set_next(PlayerAttackEvent.create(self))
+          e.set_next(PlayerAttackEvent.create(self)) if player
           # アイテム飛び演出
           dist.times do |i|
             fly_e = Event.new do |e|
@@ -75,20 +90,22 @@ module MyDungeonGame
 
           e.finalize
         end
-        clear_menu.set_next(throw_item)
+        first_event.set_next(throw_item)
 
-        # ターンの消費とモブのアクション
-        tick_event = Event.new do |e|
-          tick
-          activate_mobs
-          update_mobs
-          move_mobs
-          @do_action = false
-          e.finalize
+        if player
+          # ターンの消費とモブのアクション
+          tick_event = Event.new do |e|
+            tick
+            activate_mobs
+            update_mobs
+            move_mobs
+            @do_action = false
+            e.finalize
+          end
+          first_event.set_next(tick_event)
         end
-        clear_menu.set_next(tick_event)
 
-        clear_menu
+        first_event
       end
     end
   end

@@ -15,6 +15,10 @@ module MyDungeonGame
         @current_scene.update
       end
 
+      def current_scene
+        @current_scene
+      end
+
       # ゲーム開始時に1回だけ呼ばれる
       def initialize_game
         @scenes = YAML.load_file(SCENES_PATH)

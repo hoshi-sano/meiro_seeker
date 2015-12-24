@@ -113,7 +113,9 @@ module MyDungeonGame
                  thrower.calc_power_calibration).round
       # TODO: 乱数を使う
       damage = [offence - target.defence, 1].max
-      target.hp -= damage
+      # プレーヤーへのダメージの場合、画面に表示する残りHPと被ダ
+      # メージ演出をシンクロさせるため、ここではHPの計算を行わない
+      target.hp -= damage if target.type != :player
       e.set_next(DamageEvent.create(scene, target, damage))
       msg = MessageManager.to_damage(damage)
       e.set_next(ShowMessageEvent.create(scene, msg))
@@ -122,7 +124,10 @@ module MyDungeonGame
       scene.instance_eval do
         if target.dead?
           thrower.kill(target)
-          @floor.remove_character(target.x, target.y)
+          # TODO: プレイヤーの死を実装したら以下のif文を削る
+          if target.type != :player
+            @floor.remove_character(target.x, target.y)
+          end
         end
 
         judge = Event.new do |e|
