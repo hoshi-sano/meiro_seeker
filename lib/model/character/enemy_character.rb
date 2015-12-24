@@ -12,8 +12,8 @@ module MyDungeonGame
     defence 1
     exp     4
     speed   1
-    skill WaitAndSee, 30
-    skill ItemThrowSkill, 30
+    skill WaitAndSee, 20
+    skill ItemThrowSkill, rate: 40, item: NormalBullet
 
     def attackable?(target)
       self.hate? != !!target.hate?

@@ -4,7 +4,7 @@ $LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), 'model'))
 require 'floor'
 require 'room'
 
-require 'character'
 require 'floor_object'
+require 'character'
 require 'event'
 require 'base_window'

@@ -19,8 +19,7 @@ module MyDungeonGame
         end
 
         def event_args(user)
-          # TODO: 任意の投げ物を使えるようにする
-          [user, NormalBullet.new(1)]
+          [user, user.throw_item]
         end
 
         # プレイヤーの方向を見る

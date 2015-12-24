@@ -60,9 +60,19 @@ module MyDungeonGame
         @hate
       end
 
-      def skill(skill_klass, invocation_rate)
+      def skill(skill_klass, params)
         @skills ||= {}
-        @skills[skill_klass] = invocation_rate
+        if params.is_a?(Integer)
+          invocation_rate = params
+          @skills[skill_klass] = {
+            rate: invocation_rate,
+          }
+        else
+          skill_params = params.select do |k, _|
+            %i(rate item).include?(k)
+          end
+          @skills[skill_klass] = skill_params
+        end
       end
 
       def get_skills
@@ -171,7 +181,15 @@ module MyDungeonGame
     end
 
     def skill_to_rates
-      self.class.get_skills
+      self.class.get_skills.map { |skill_klass, params|
+        [skill_klass, params[:rate]]
+      }.to_h
+    end
+
+    # ItemThrowSkillによって投擲されるアイテムを返す
+    def throw_item
+      item = (self.class.get_skills[ItemThrowSkill] || {})[:item]
+      item.ancestors.include?(Bullet) ? item.new(1) : item.new
     end
 
     def accuracy
