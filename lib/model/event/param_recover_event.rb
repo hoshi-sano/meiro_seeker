@@ -25,9 +25,8 @@ module MyDungeonGame
             end
             msg = MessageManager.send("#{param}_recover", diff)
           end
-          e.set_next(ShowMessageEvent.create(self, msg))
+          e.set_next_cut_in(ShowMessageEvent.create(self, msg))
 
-          tick
           e.finalize
         end
       end

@@ -132,6 +132,7 @@ module MyDungeonGame
       }
     end
 
+    # アイテム欄から選択して「使う」を実行した場合のイベント
     def use_event(scene)
       # 全ウインドウの消去
       e = ClearMenuWindowEvent.create(scene)
@@ -141,6 +142,8 @@ module MyDungeonGame
       e.set_next(use_action_event(scene))
       # 効果
       e.set_next(effect_event(scene))
+      # ターン経過
+      e.set_next(Event.new { |e| scene.instance_eval { tick; e.finalize } })
       e
     end
 
