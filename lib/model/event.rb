@@ -2,7 +2,8 @@ module MyDungeonGame
   class Event
     attr_reader :next_events, :finalized
 
-    def initialize(&block)
+    def initialize(options={}, &block)
+      @options = options
       @regular_action = block
       @next_events = []
       @finalized = false
@@ -11,6 +12,10 @@ module MyDungeonGame
     def call
       # TODO: loggerを使う
       puts "WARN: finalized Event called - #{self}" if @finalized
+      if @options[:if_alive] && !@options[:if_alive].alive?
+        finalize
+        return
+      end
       @regular_action.call(self)
     end
 

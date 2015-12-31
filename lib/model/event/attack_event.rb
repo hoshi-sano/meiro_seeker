@@ -5,9 +5,10 @@ module MyDungeonGame
 
     def create(scene, attacker, target)
       scene.instance_eval do
-        # 攻撃者自身を含むすべてのモブが移動等の動作を完了するまで
-        # 攻撃演出を開始しない
-        first_event = Event.new do |e|
+        # attackerが既に死んでいる場合はこのイベントを実行しない
+        first_event = Event.new(if_alive: attacker) do |e|
+          # 攻撃者自身を含むすべてのモブが移動等の動作を完了するまで
+          # 攻撃演出を開始しない
           if @mobs.any? { |mob| mob.updating? }
             @player.update
             update_mobs

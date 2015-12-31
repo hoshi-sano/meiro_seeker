@@ -8,9 +8,10 @@ module MyDungeonGame
         if player
           first_event = ClearMenuWindowEvent.create(scene)
         else
-          # 投擲者自身を含むすべてのモブが移動等の動作を完了するまで
-          # 投擲演出を開始しない
-          first_event = Event.new do |e|
+          # throwerが既に死んでいる場合はこのイベントを実行しない
+          first_event = Event.new(if_alive: thrower) do |e|
+            # 投擲者自身を含むすべてのモブが移動等の動作を完了するまで
+            # 投擲演出を開始しない
             if @mobs.any? { |mob| mob.updating? }
               @player.update
               update_mobs

@@ -11,7 +11,7 @@ module MyDungeonGame
       set_max_param = "max_#{param}="
 
       scene.instance_eval do
-        Event.new do |e|
+        Event.new(if_alive: target) do |e|
           diff = target.send(max_param) - target.send(param)
 
           if diff.zero? && gain
