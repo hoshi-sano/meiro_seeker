@@ -1,5 +1,6 @@
 # フレームワーク用ライブラリ
 require 'constants'
+require 'error'
 require 'proxy'
 require 'manager'
 require 'model'

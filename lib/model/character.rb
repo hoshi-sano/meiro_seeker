@@ -35,6 +35,19 @@ module MyDungeonGame
         @name
       end
 
+      def group(*values)
+        raise MustNotHappen, self unless (ENEMY_GROUPS & values) == values
+        @groups = values
+      end
+
+      def groups
+        @groups || [:normal]
+      end
+
+      def included?(group_sym)
+        groups.include?(group_sym)
+      end
+
       [
        :hp,
        :level,
@@ -207,6 +220,10 @@ module MyDungeonGame
 
     def dead?
       @hp <= 0
+    end
+
+    def included?(group_sym)
+      self.class.included?(group_sym)
     end
 
     def hide

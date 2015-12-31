@@ -146,6 +146,11 @@ module MyDungeonGame
   THROW_ACCURACY = 85
   MAX_CALIBRATION = 99
 
+  ENEMY_GROUPS = [
+    :normal, # ノーマル系
+    :undead, # アンデッド系
+  ]
+
   SAVE_FILE_PATH     = File.join(ROOT, 'data', 'save.dat')
   OLD_SAVE_FILE_PATH = File.join(ROOT, 'data', 'save.dat.old')
 
