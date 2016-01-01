@@ -107,41 +107,21 @@ module MyDungeonGame
 
     # 投擲した場合のイベント
     def hit_event(scene, thrower, target)
-      e = super
-      offence = (calc_base_hit_damage +
-                 thrower.calc_level_calibration +
-                 thrower.calc_power_calibration).round
-      # TODO: 乱数を使う
-      damage = [offence - target.defence, 1].max
-      # プレーヤーへのダメージの場合、画面に表示する残りHPと被ダ
-      # メージ演出をシンクロさせるため、ここではHPの計算を行わない
-      target.hp -= damage if target.type != :player
-      e.set_next(DamageEvent.create(scene, target, damage))
-      msg = MessageManager.to_damage(damage)
-      e.set_next(ShowMessageEvent.create(scene, msg))
-
-      # アイテムヒットによって対象のHPが0になった場合
-      scene.instance_eval do
-        if target.dead?
-          thrower.kill(target)
-          # TODO: プレイヤーの死を実装したら以下のif文を削る
-          if target.type != :player
-            @floor.remove_character(target.x, target.y)
-          end
-        end
-
-        judge = Event.new do |e|
-          # killメソッドによってthrowerの@eventsにpackしたイベントが登
-          # 録されるため、それを直ちに実行すべく展開してcut_inする
-          while event_packet = thrower.pop_event
-            e.set_next_cut_in(event_packet.unpack(self))
-          end
-          e.finalize
-        end
-        e.set_next(judge)
+      with_death_check(scene, thrower, target) do |scene, thrower, target|
+        e = super
+        offence = (calc_base_hit_damage +
+                   thrower.calc_level_calibration +
+                   thrower.calc_power_calibration).round
+        # TODO: 乱数を使う
+        damage = [offence - target.defence, 1].max
+        # プレーヤーへのダメージの場合、画面に表示する残りHPと被ダ
+        # メージ演出をシンクロさせるため、ここではHPの計算を行わない
+        target.hp -= damage if target.type != :player
+        e.set_next(DamageEvent.create(scene, target, damage))
+        msg = MessageManager.to_damage(damage)
+        e.set_next(ShowMessageEvent.create(scene, msg))
+        e
       end
-
-      e
     end
   end
 end

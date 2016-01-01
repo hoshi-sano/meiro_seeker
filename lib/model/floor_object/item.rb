@@ -172,11 +172,32 @@ module MyDungeonGame
     end
 
     def hit_event(scene, thrower, target)
-      item = self
+      msg = MessageManager.item_hit_to(self.name, target.name)
+      ShowMessageEvent.create(scene, msg)
+    end
+
+    def with_death_check(scene, thrower, target, &block)
+      e = yield(scene, thrower, target)
       scene.instance_eval do
-        msg = MessageManager.item_hit_to(item.name, target.name)
-        ShowMessageEvent.create(self, msg)
+        if target.dead?
+          thrower.kill(target)
+          # TODO: プレイヤーの死を実装したら以下のif文を削る
+          if target.type != :player
+            @floor.remove_character(target.x, target.y)
+          end
+        end
+
+        judge = Event.new do |e|
+          # killメソッドによってthrowerの@eventsにpackしたイベントが登
+          # 録されるため、それを直ちに実行すべく展開してcut_inする
+          while event_packet = thrower.pop_event
+            e.set_next_cut_in(event_packet.unpack(self))
+          end
+          e.finalize
+        end
+        e.set_next(judge)
       end
+      e
     end
 
     def order
