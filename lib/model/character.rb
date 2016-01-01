@@ -160,7 +160,7 @@ module MyDungeonGame
 
     attr_reader :level, :exp
     attr_accessor :x, :y, :prev_xy, :events, :name, :hp, :max_hp,
-                  :power, :defence
+                  :power, :defence, :death_animating
 
     def initialize(floor)
       self.extend(HelperMethods)
@@ -220,6 +220,10 @@ module MyDungeonGame
 
     def dead?
       @hp <= 0
+    end
+
+    def completely_removed?
+      dead? && !death_animating?
     end
 
     def included?(group_sym)
@@ -343,6 +347,10 @@ module MyDungeonGame
       false
     end
 
+    def death_animating?
+      !!@death_animating
+    end
+
     # (self.x + dx, self.y + dy)座標にキャラクターが不在の場合に、
     # (self.x + dx, self.y + dy)座標へ通過可能かどうかを返す
     def throughable?(dx, dy)
@@ -393,6 +401,7 @@ module MyDungeonGame
     end
 
     def killed_by(attacker)
+      @death_animating = true
       # TODO: やられ画像に変更し、全ての活動を停止する
     end
 

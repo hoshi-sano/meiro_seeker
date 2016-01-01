@@ -14,7 +14,7 @@ module MyDungeonGame
           anime_length.times do |i|
             if i < anime_length - 1
               ev = i.even? ? Event.new {|e| target.show_switch; e.finalize } :
-                Event.new {|e| e.finalize }
+                Event.new {|e| target.death_animating = false; e.finalize }
             else
               ev = Event.new {|e| @mobs.delete(target); e.finalize }
             end
