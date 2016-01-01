@@ -295,6 +295,10 @@ module MyDungeonGame
       DIRECTION_STEP_MAP[@current_direction][:forward]
     end
 
+    def get_forward_step_to_target(target)
+      [normalize(target.x - self.x), normalize(target.y - self.y)]
+    end
+
     def change_direction_by_dxdy(dx, dy)
       if dx.zero? && dy.zero?
         return

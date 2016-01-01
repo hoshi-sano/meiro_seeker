@@ -18,7 +18,10 @@ module MyDungeonGame
           end
         end
 
-        step = [target.x - attacker.x, target.y - attacker.y]
+
+        # step = [target.x - attacker.x, target.y - attacker.y]
+        step = attacker.get_forward_step_to_target(target)
+
         # 攻撃演出をフレーム毎のイベントに細分化したもの
         events = CHARACTER_ATTACK_MOVE_AND_FRAMES.map do |i, frame|
           [step[0] * i, step[1] * i, frame]

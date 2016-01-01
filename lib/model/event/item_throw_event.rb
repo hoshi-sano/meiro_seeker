@@ -57,7 +57,11 @@ module MyDungeonGame
           # TODO: アイテム投げ専用の演出イベントを作る(?)
           # TODO: 敵の投げ演出イベントを使う
           # 投げ演出
-          e.set_next(PlayerAttackEvent.create(self)) if player
+          if player
+            e.set_next(PlayerAttackEvent.create(self))
+          else
+            e.set_next(AttackEvent.create(self, thrower, target))
+          end
           # アイテム飛び演出
           dist.times do |i|
             fly_e = Event.new do |e|
