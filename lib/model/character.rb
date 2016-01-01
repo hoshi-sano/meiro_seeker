@@ -355,7 +355,7 @@ module MyDungeonGame
 
     # 何らかの動作中かどうかを返す
     def updating?
-      dead? || moving?
+      moving?
     end
 
     # 移動処理の途中かどうかを返す
