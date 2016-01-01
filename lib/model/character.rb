@@ -181,6 +181,18 @@ module MyDungeonGame
       @speed   = self.class.default_speed
     end
 
+    def inspect
+      {
+        name:              name,
+        type:              type,
+        hp:                "#{@hp}/#{@max_hp}",
+        xy:                [@x, @y],
+        hide:              @hide,
+        current_direction: @current_direction,
+        death_animating:   @death_animating,
+      }
+    end
+
     def type
       self.class.get_type
     end
