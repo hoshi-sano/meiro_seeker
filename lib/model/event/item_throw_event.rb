@@ -84,7 +84,7 @@ module MyDungeonGame
               else
                 msg = MessageManager.lost_item(item.name)
               end
-              e.set_next(ShowMessageEvent.create(self, msg))
+              e.set_next_cut_in(ShowMessageEvent.create(self, msg))
               e.finalize
             end
             e.set_next(drop_e)
