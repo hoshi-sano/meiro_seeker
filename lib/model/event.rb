@@ -13,7 +13,6 @@ module MyDungeonGame
       # TODO: loggerを使う
       puts "WARN: finalized Event called - #{self}" if @finalized
       if @options[:if_alive] && @options[:if_alive].completely_removed?
-        @next_events = []
         finalize
         return
       end

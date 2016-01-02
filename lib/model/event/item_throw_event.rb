@@ -22,7 +22,7 @@ module MyDungeonGame
           end
         end
 
-        throw_item = Event.new do |e|
+        throw_item = Event.new(if_alive: thrower) do |e|
           if player && thrower.items.delete(item)
             # プレイヤーのアイテム一覧から投げる場合
             item.removed! if item.equipped?
@@ -64,7 +64,7 @@ module MyDungeonGame
           end
           # アイテム飛び演出
           dist.times do |i|
-            fly_e = Event.new do |e|
+            fly_e = Event.new(if_alive: thrower) do |e|
               x = thrower.x + step[0] * i
               y = thrower.y + step[1] * i
               args = [x * TILE_WIDTH,
@@ -78,7 +78,7 @@ module MyDungeonGame
           hit = DungeonManager.randomizer.rand(100) < THROW_ACCURACY
           if target.nil? || !hit
             # アイテム落下処理
-            drop_e = Event.new do |e|
+            drop_e = Event.new(if_alive: thrower) do |e|
               if drop(item, item.x, item.y)
                 msg = MessageManager.drop_item(item.name)
               else
@@ -99,7 +99,7 @@ module MyDungeonGame
 
         if player
           # ターンの消費とモブのアクション
-          tick_event = Event.new do |e|
+          tick_event = Event.new(if_alive: thrower) do |e|
             tick
             activate_mobs
             update_mobs

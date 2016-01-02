@@ -26,7 +26,7 @@ module MyDungeonGame
         events = CHARACTER_ATTACK_MOVE_AND_FRAMES.map do |i, frame|
           [step[0] * i, step[1] * i, frame]
         end.map do |cx, cy, frame|
-          Event.new do |e|
+          Event.new(if_alive: attacker) do |e|
             attacker.change_direction_to_object(target) if frame.zero?
             # 攻撃時のエフェクトはダミーを使って描画するため本体は非表示にする
             attacker.hide
@@ -41,7 +41,7 @@ module MyDungeonGame
           end
         end
 
-        last_event = Event.new do |e|
+        last_event = Event.new(if_alive: attacker) do |e|
           @waiting_update_complete = true
           # 攻撃演出終了時に本体を再表示
           attacker.show
