@@ -107,6 +107,7 @@ module MyDungeonGame
 
     # 投擲した場合のイベント
     def hit_event(scene, thrower, target)
+      return Event.new { |e| e.finalize } if thrower.dead?
       with_death_check(scene, thrower, target) do |scene, thrower, target|
         e = super
         offence = (calc_base_hit_damage +

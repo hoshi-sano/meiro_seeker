@@ -28,6 +28,7 @@ module MyDungeonGame
     end
 
     def hit_event(scene, thrower, target)
+      return Event.new { |e| e.finalize } if thrower.dead?
       with_death_check(scene, thrower, target) do |scene, thrower, target|
         e = super
         if target.type == :player
