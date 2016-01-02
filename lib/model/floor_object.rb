@@ -64,6 +64,7 @@ require 'floor_object/item/iron_shield'
 # 弾
 require 'floor_object/item/normal_bullet'
 # 薬
+require 'floor_object/item/hp_recover_item'
 require 'floor_object/item/kizugusuri'
 require 'floor_object/item/kaifuku_no_kusuri'
 require 'floor_object/item/chikara_no_kusuri'
