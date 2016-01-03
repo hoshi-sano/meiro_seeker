@@ -70,3 +70,5 @@ require 'floor_object/item/kaifuku_no_kusuri'
 require 'floor_object/item/chikara_no_kusuri'
 # まんじゅう
 require 'floor_object/item/niku_man'
+# 魔導書
+require 'floor_object/item/grimoire'
