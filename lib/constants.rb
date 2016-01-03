@@ -150,6 +150,11 @@ module MyDungeonGame
     :normal, # ノーマル系
     :undead, # アンデッド系
   ]
+  # 状態異常
+  STATUSES = [
+    :panic,        # 混乱
+    :second_sight, # 透視
+  ]
 
   SAVE_FILE_PATH     = File.join(ROOT, 'data', 'save.dat')
   OLD_SAVE_FILE_PATH = File.join(ROOT, 'data', 'save.dat.old')

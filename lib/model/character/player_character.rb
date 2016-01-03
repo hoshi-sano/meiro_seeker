@@ -59,11 +59,14 @@ module MyDungeonGame
 
     # 毎ターンの自然治癒
     def self_healing
+      # HPの回復
       @self_healing_value += calc_self_healing_value
       plus = @self_healing_value.floor
       @hp += plus
       @hp = @max_hp if @hp > @max_hp
       @self_healing_value -= plus
+      # ステータス異常の回復
+      recover_temporary_status
     end
 
     def calc_self_healing_value

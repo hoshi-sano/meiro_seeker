@@ -45,6 +45,8 @@ module MyDungeonGame
 
     def post_action
       @active_gauge = 0 if @active_gauge >= 1
+      # ステータス異常の回復
+      recover_temporary_status
     end
 
     def action

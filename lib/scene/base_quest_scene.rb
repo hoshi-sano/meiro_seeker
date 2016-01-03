@@ -440,6 +440,8 @@ module MyDungeonGame
     end
 
     def go_to_next_floor(stairs)
+      # 1フロア継続のステータス異常を除去
+      @player.recover_floor_permanent_status
       GeneralManager.next_floor(@floor, @player, stairs)
     end
 

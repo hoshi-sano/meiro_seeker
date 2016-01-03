@@ -179,6 +179,10 @@ module MyDungeonGame
       @defence = self.class.default_defence
       @exp     = self.class.default_exp
       @speed   = self.class.default_speed
+
+      # 状態管理用
+      @temporary_status = {}
+      @floor_permanent_status = []
     end
 
     def inspect
@@ -457,6 +461,41 @@ module MyDungeonGame
         ((Math.log(3.0) / Math.log(1.6)) ** 2) * (@power / 8.0)
       else
         ((Math.log((@power / 2.0) - 1) / Math.log(1.6)) ** 2)
+      end
+    end
+
+    # 引数に指定したステータス異常の状態であるか否か
+    def has_status?(sym)
+      @temporary_status.keys.include?(sym) ||
+        @floor_permanent_status.include?(sym)
+    end
+
+    # 一時的なステータス異常をセット
+    def temporary_status_set(sym, turn=10)
+      raise MustNotHappen unless STATUSES.include?(sym)
+      @temporary_status[:sym] = turn
+    end
+
+    # 毎ターンのステータス異常の回復
+    def recover_temporary_status(step=1)
+      @temporary_status.keys.each do |key|
+        @temporary_status[key] -= step
+        @temporary_status.delete(key) if @temporary_status[key] <= 0
+      end
+    end
+
+    # 1フロアのみ継続するステータス異常をセット
+    def floor_permanent_status_set(sym)
+      raise MustNotHappen unless STATUSES.include?(sym)
+      @floor_permanent_status << sym unless @floor_permanent_status.include?(sym)
+    end
+
+    # 1フロアのみ継続するステータス異常の回復
+    def recover_floor_permanent_status(syms=nil)
+      if syms.nil?
+        @floor_permanent_status = []
+      else
+        @floor_permanent_status = @floor_permanent_status - Array(syms)
       end
     end
 
