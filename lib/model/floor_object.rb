@@ -72,3 +72,4 @@ require 'floor_object/item/chikara_no_kusuri'
 require 'floor_object/item/niku_man'
 # 魔導書
 require 'floor_object/item/grimoire'
+require 'floor_object/item/thunder_grimoire'

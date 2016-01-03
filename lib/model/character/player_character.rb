@@ -177,6 +177,17 @@ module MyDungeonGame
       res
     end
 
+    # 自身を含む周囲8マスのモブやオブジェクトを返す
+    def surrounding_objects
+      res = []
+      ((self.y - 1)..(self.y + 1)).each do |ay|
+        ((self.x - 1)..(self.x + 1)).each do |ax|
+          res << @floor[ax, ay].character || @floor[ax, ay].object
+        end
+      end
+      res
+    end
+
     # 認知可能なモブやオブジェクトを返す
     # (通路であれば周囲8マス、部屋内であれば部屋全体)
     def visible_objects
@@ -186,11 +197,7 @@ module MyDungeonGame
           res << @floor[rx, ry].character || @floor[rx, ry].object
         end
       else
-        ((self.y - 1)..(self.y + 1)).each do |ay|
-          ((self.x - 1)..(self.x + 1)).each do |ax|
-            res << @floor[ax, ay].character || @floor[ax, ay].object
-          end
-        end
+        res = surrounding_objects
       end
       res
     end

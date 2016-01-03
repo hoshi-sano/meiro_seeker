@@ -176,21 +176,25 @@ module MyDungeonGame
       ShowMessageEvent.create(scene, msg)
     end
 
-    def with_death_check(scene, thrower, target, &block)
-      e = yield(scene, thrower, target)
+    def with_death_check(scene, attacker, target, &block)
+      e = yield(scene, attacker, target)
       scene.instance_eval do
         if target.dead?
-          thrower.kill(target)
-          # TODO: プレイヤーの死を実装したら以下のif文を削る
-          if target.type != :player
-            @floor.remove_character(target.x, target.y)
+          kill = Event.new do |e|
+            attacker.kill(target)
+            # TODO: プレイヤーの死を実装したら以下のif文を削る
+            if target.type != :player
+              @floor.remove_character(target.x, target.y)
+            end
+            e.finalize
           end
+          e.set_next(kill)
         end
 
         judge = Event.new do |e|
-          # killメソッドによってthrowerの@eventsにpackしたイベントが登
+          # killメソッドによってattackerの@eventsにpackしたイベントが登
           # 録されるため、それを直ちに実行すべく展開してcut_inする
-          while event_packet = thrower.pop_event
+          while event_packet = attacker.pop_event
             e.set_next_cut_in(event_packet.unpack(self))
           end
           e.finalize
