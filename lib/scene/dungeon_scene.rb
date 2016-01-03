@@ -31,6 +31,8 @@ module MyDungeonGame
                Sabel,
                IronShield,
                NormalBullet,
+               ThunderGrimoire,
+               LightGrimoire,
               ]
       5.times do
         item = items[DungeonManager.randomizer.rand(items.size)].new

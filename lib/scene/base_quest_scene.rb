@@ -552,9 +552,11 @@ module MyDungeonGame
     def display_radar_map
       return if hide_radar_map?
 
+      second_sight = @player.has_status?(:second_sight)
+
       # 床の表示
       @floor.each_tile do |x, y, tile|
-        if tile.walkable? && tile.searched?
+        if tile.walkable? && (second_sight || tile.searched?)
           args = [x * RADAR_MAP_UNIT_SIZE, y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[:tile], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
@@ -563,7 +565,7 @@ module MyDungeonGame
 
       # アイテム、罠、階段の表示
       @floor_objects.each do |obj|
-        if obj.searched?
+        if second_sight || obj.searched?
           args = [obj.x * RADAR_MAP_UNIT_SIZE, obj.y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[obj.type], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
@@ -578,7 +580,7 @@ module MyDungeonGame
       # モブの表示
       vision = @player.visible_objects
       @mobs.each do |mob|
-        if vision.include?(mob)
+        if second_sight || vision.include?(mob)
           args = [mob.x * RADAR_MAP_UNIT_SIZE, mob.y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[:mob], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
