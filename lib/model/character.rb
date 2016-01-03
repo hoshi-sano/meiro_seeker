@@ -44,6 +44,15 @@ module MyDungeonGame
         @groups || [:normal]
       end
 
+      def status(*values)
+        raise MustNotHappen, self unless (STATUSES & values) == values
+        @status = values
+      end
+
+      def default_status
+        @status || []
+      end
+
       def included?(group_sym)
         groups.include?(group_sym)
       end
@@ -182,7 +191,7 @@ module MyDungeonGame
 
       # 状態管理用
       @temporary_status = {}
-      @floor_permanent_status = []
+      @floor_permanent_status = self.class.default_status
     end
 
     def inspect
