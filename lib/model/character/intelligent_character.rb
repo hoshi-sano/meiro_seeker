@@ -10,7 +10,7 @@ module MyDungeonGame
 
     def _action
       # 可能であれば確率でスキル発動
-      return if do_skill
+      return if !has_status?(:panic) && do_skill
 
       # スキルを発動しない場合は移動または通常攻撃
       # 現状把握
@@ -60,7 +60,13 @@ module MyDungeonGame
 
     # 攻撃可能かどうかの判定
     def attackable?(target)
-      false
+      # 自身は攻撃不可、通過不可能な位置の相手は攻撃不可
+      if (target == self) || !throughable?(target.x - self.x, target.y - self.y)
+        return false
+      end
+      # 基本的にすべてのtargetに対して攻撃しない
+      # 混乱時のみ、誰でも攻撃する
+      has_status?(:panic)
     end
 
     # 自身が今の場所に移動する直前に
@@ -109,6 +115,9 @@ module MyDungeonGame
 
     # 状況に応じた移動先の決定
     def analyse
+      # 混乱時はランダム移動
+      return random_walk_dxdy if has_status?(:panic)
+
       dx, dy = nil, nil
       @room = @floor.get_room(self.x, self.y)
       if @room
@@ -184,8 +193,11 @@ module MyDungeonGame
       candidates = {}
       ((self.y - 1)..(self.y + 1)).each do |cand_y|
         ((self.x - 1)..(self.x + 1)).each do |cand_x|
-          # MEMO: 移動先にキャラクターがいる場合は移動不可
-          if movable?(cand_x - self.x, cand_y - self.y)
+          # MEMO: 移動候補先に味方キャラクターがいたら移動不可
+          #       移動候補先に攻撃対象がいたら移動可能(攻撃)
+          if throughable?(cand_x - self.x, cand_y - self.y)
+            tile = @floor[cand_x, cand_y]
+            next if (tile.any_one? && !attackable?(tile.character))
             dist = calc_distance(cand_x, cand_y, *xy)
             candidates[dist] ||= []
             candidates[dist] << [cand_x, cand_y]

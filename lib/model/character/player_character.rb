@@ -229,9 +229,9 @@ module MyDungeonGame
         if randomizer.rand(100)  < self.accuracy
           damage = target.attacked_by(self)
           @events << EventPacket.new(DamageEvent, target, damage)
-          if target.dead?
-            self.kill(target)
-          end
+          # この時点でフロアから消しておくことで、直後のその他のモ
+          # ブの行動で、死んだモブがいた場所に移動が可能になる
+          self.kill(target) if target.dead?
         else
           msg = MessageManager.missed(self.name)
           @events << EventPacket.new(ShowMessageEvent, msg)

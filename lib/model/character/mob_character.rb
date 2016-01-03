@@ -60,11 +60,17 @@ module MyDungeonGame
       random_walk
     end
 
+    # ランダム歩行用座標を返す
+    def random_walk_dxdy
+      dx = randomizer.rand(3) - 1
+      dy = randomizer.rand(3) - 1
+      [dx, dy]
+    end
+
     # ランダム歩行
     # ランダムに決めた移動先が進行不可の場合は向きだけ変更する
     def random_walk
-      dx = randomizer.rand(3) - 1
-      dy = randomizer.rand(3) - 1
+      dx, dy = random_walk_dxdy
       change_direction_by_dxdy(dx, dy)
 
       walk_to(dx, dy)

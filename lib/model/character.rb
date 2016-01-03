@@ -407,9 +407,7 @@ module MyDungeonGame
       if randomizer.rand(100)  < self.accuracy
         damage = target.attacked_by(self)
         @events << EventPacket.new(DamageEvent, target, damage)
-        if target.dead?
-          self.kill(target)
-        end
+        self.kill(target) if target.dead?
       else
         msg = MessageManager.missed(self.name)
         @events << EventPacket.new(ShowMessageEvent, msg)
@@ -425,6 +423,7 @@ module MyDungeonGame
     end
 
     def kill(target)
+      @floor.remove_character(target.x, target.y)
       target.killed_by(self)
       @events << EventPacket.new(DeadEvent, target)
     end

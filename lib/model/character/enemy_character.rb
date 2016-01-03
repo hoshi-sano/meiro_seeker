@@ -15,30 +15,16 @@ module MyDungeonGame
     skill WaitAndSee, 20
     skill ItemThrowSkill, rate: 40, item: NormalBullet
 
+    # targetが攻撃対象か否か
     def attackable?(target)
-      self.hate? != !!target.hate?
-    end
-
-    def go_toward(xy)
-      candidates = {}
-      ((self.y - 1)..(self.y + 1)).each do |cand_y|
-        ((self.x - 1)..(self.x + 1)).each do |cand_x|
-          # MEMO: 移動候補先に味方キャラクターがいたら移動不可
-          #       移動候補先に敵キャラクターがいたら移動可能(攻撃)
-          if throughable?(cand_x - self.x, cand_y - self.y)
-            tile = @floor[cand_x, cand_y]
-            next if (tile.any_one? && !attackable?(tile.character))
-            dist = calc_distance(cand_x, cand_y, *xy)
-            candidates[dist] ||= []
-            candidates[dist] << [cand_x, cand_y]
-          end
-        end
+      # 自身は攻撃不可、通過不可能な位置の相手は攻撃不可
+      if (target == self) || !throughable?(target.x - self.x, target.y - self.y)
+        return false
       end
-
-      key = candidates.keys.min
-      return [0, 0] if key.nil? # 候補が何もない場合
-      cand_x, cand_y = candidates[key].first
-      [cand_x - self.x, cand_y - self.y]
+      # 混乱時は誰でも攻撃する
+      return true if has_status?(:panic)
+      # hate値が自分と異なる相手は攻撃対象
+      self.hate? != !!target.hate?
     end
   end
 end

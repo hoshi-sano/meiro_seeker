@@ -304,11 +304,6 @@ module MyDungeonGame
         when :attack
           targets = @player.attack_target.values.flatten
           @player.attack_to(targets)
-          targets.each do |target|
-            # この時点でフロアから消しておくことで、直後のその他のモ
-            # ブの行動で、死んだモブがいた場所に移動が可能になる
-            @floor.remove_character(target.x, target.y) if target.dead?
-          end
           tick
         when :check
           # 対象を調べる、または対象との会話の発生
