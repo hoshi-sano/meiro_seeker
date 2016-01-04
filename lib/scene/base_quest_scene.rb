@@ -400,11 +400,11 @@ module MyDungeonGame
 
       dash = InputManager.down_dash?
       cur_x, cur_y = @player.x, @player.y
+      underfoot = @floor[cur_x + dx, cur_y + dy]
       if @floor.movable?(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.move_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
         @floor.searched(cur_x + dx, cur_y + dy)
         tick
-        underfoot = @floor[cur_x + dx, cur_y + dy]
         if dash
           # ダッシュ中: アニメーションしない、アイテムの上に乗る
           OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
@@ -423,6 +423,22 @@ module MyDungeonGame
             end
           end
           @em.set_cut_in_event(move_event)
+        end
+        check_stairs(cur_x + dx, cur_y + dy)
+      elsif @floor.switchable?(dash, cur_x, cur_y, cur_x + dx, cur_y + dy)
+        other = @floor[cur_x + dx, cur_y + dy].character
+        # 位置交換相手の見た目上の移動演出を行わせる
+        other.push_next_xy([cur_x, cur_y])
+        # 位置交換相手のaction実行ゲージを0にし、連続で行動しないようにする
+        other.active_gauge = 0
+        @floor.switch_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
+        # プレイヤーはアニメーションする、アイテムの上に乗る
+        args = [self, dx * TILE_WIDTH, dy * TILE_HEIGHT]
+        move_event = MoveEvent.create(*args)
+        @em.set_cut_in_event(move_event)
+        if underfoot.any_object? && underfoot.object.type == :item
+          msg = MessageManager.get_on_item(underfoot.object.name)
+          @em.set_cut_in_event(ShowMessageEvent.create(self, msg))
         end
         check_stairs(cur_x + dx, cur_y + dy)
       end

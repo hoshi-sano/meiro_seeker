@@ -6,7 +6,7 @@ module MyDungeonGame
     image_path ENEMY_IMAGE_PATH
     name "MOB"
 
-    attr_accessor :messages
+    attr_accessor :messages, :active_gauge
 
     def initialize(floor)
       super(floor)

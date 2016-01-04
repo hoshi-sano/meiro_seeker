@@ -48,6 +48,35 @@ module MyDungeonGame
         throughable?(x1, y1, x2, y2)
     end
 
+    # (x1, y1)座標にいるキャラクターが
+    # (x2, y2)座標にいるキャラクターと場所交換可能か？
+    def switchable?(dash, x1, y1, x2, y2)
+      # ダッシュボタンを押していない場合は不可
+      return false unless dash
+      # 移動先に誰かが存在しない場合は不可
+      player = @base_map[x1, y1].character
+      target = @base_map[x2, y2].character
+      return false unless player && target
+      # hate値が等しくかつ通過可能な位置関係であれば可能
+      (player.hate? == target.hate?) &&
+        throughable?(x1, y1, x2, y2)
+    end
+
+    # (x1, y1)座標にいるキャラクターと(x2, y2)座標に
+    # いるキャラクターの位置を交換する
+    def switch_character(x1, y1, x2, y2)
+      a = @base_map[x1, y1].character
+      b = @base_map[x2, y2].character
+      [[a, x1, y1, x2, y2],
+       [b, x2, y2, x1, y1]].each do |target, prev_x, prev_y, to_x, to_y|
+        target.prev_x = prev_x
+        target.prev_y = prev_y
+        target.x = to_x
+        target.y = to_y
+        @base_map[to_x, to_y].character = target
+      end
+    end
+
     # (x, y)座標にいるキャラクターを排除する
     def remove_character(x, y)
       @base_map[x, y].clear_character
