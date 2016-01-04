@@ -1,6 +1,6 @@
 module MyDungeonGame
   # HP回復系アイテムの共通処理
-  class HpRecoverItem < Item
+  class HpRecoverItem < Potion
     class << self
       def recover_point(val)
         @recover_point = val
@@ -21,10 +21,6 @@ module MyDungeonGame
 
     def effect_event(scene)
       ParamRecoverEvent.create(scene, scene.player, :hp, recover_point, gain)
-    end
-
-    def order
-      ORDER[:potion]
     end
 
     def hit_event(scene, thrower, target)
