@@ -151,10 +151,11 @@ module MyDungeonGame
     :undead, # アンデッド系
   ]
   # 状態異常
-  STATUSES = [
-    :confusion,    # 混乱
-    :second_sight, # 透視
-  ]
+  STATUS_NAMES = {
+    confusion:    '混乱',
+    second_sight: '透視',
+  }
+  STATUSES = STATUS_NAMES.keys
 
   SAVE_FILE_PATH     = File.join(ROOT, 'data', 'save.dat')
   OLD_SAVE_FILE_PATH = File.join(ROOT, 'data', 'save.dat.old')

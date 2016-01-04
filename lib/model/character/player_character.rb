@@ -69,6 +69,15 @@ module MyDungeonGame
       recover_temporary_status
     end
 
+    # 毎ターンのステータス異常の回復
+    def recover_temporary_status(step=1)
+      recovered = super
+      recovered.each do |st|
+        msg = MessageManager.status_recover(st)
+        @events << EventPacket.new(ShowMessageEvent, msg)
+      end
+    end
+
     def calc_self_healing_value
       @max_hp / 200.0
     end
@@ -159,11 +168,23 @@ module MyDungeonGame
     end
 
     def attack_or_check
+      return confused_attack_or_check if has_status?(:confusion)
       return if check_target.nil?
       if check_target.hate?
         :attack
       else
         :check
+      end
+    end
+
+    # 混乱時はランダムな方向に素振りまたは攻撃
+    # 対象を調べる、または対象との会話にはならない
+    def confused_attack_or_check
+      change_direction_by_dxdy(*random_walk_dxdy)
+      if check_target
+        :attack
+      else
+        nil
       end
     end
 

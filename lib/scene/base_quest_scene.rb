@@ -382,8 +382,21 @@ module MyDungeonGame
       res = true
       @player.change_direction_by_dxdy(dx, dy)
 
+      # 方向転換ボタンを押している場合はここで終了
       return res if only_direction_change?
-      return res if InputManager.down_diagonal? && !diagonally_move?(dx, dy)
+
+      # 混乱状態の場合はランダム移動
+      confused = @player.has_status?(:confusion)
+      if confused
+        dx, dy = @player.random_walk_dxdy
+        @player.change_direction_by_dxdy(dx, dy)
+      end
+
+      # 斜め移動ボタンを押しており、かつ十字キー入力が斜め移動でない場合は終了
+      # ただし、混乱時は斜め移動ボタンは無効
+      if !confused && InputManager.down_diagonal? && !diagonally_move?(dx, dy)
+        return res
+      end
 
       dash = InputManager.down_dash?
       cur_x, cur_y = @player.x, @player.y

@@ -488,10 +488,15 @@ module MyDungeonGame
 
     # 毎ターンのステータス異常の回復
     def recover_temporary_status(step=1)
+      res = []
       @temporary_status.keys.each do |key|
         @temporary_status[key] -= step
-        @temporary_status.delete(key) if @temporary_status[key] <= 0
+        if @temporary_status[key] <= 0
+          @temporary_status.delete(key)
+          res << key
+        end
       end
+      res
     end
 
     # 1フロアのみ継続するステータス異常をセット
@@ -531,6 +536,14 @@ module MyDungeonGame
       else
         @prev_xy << [nil, prev_y]
       end
+    end
+
+    # ランダム歩行用座標を返す
+    def random_walk_dxdy(force=false)
+      dx = randomizer.rand(3) - 1
+      dy = randomizer.rand(3) - 1
+      dx, dy = random_walk_dxdy if force && dx.zero? && dy.zero?
+      [dx, dy]
     end
   end
 end

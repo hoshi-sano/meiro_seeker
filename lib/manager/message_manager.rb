@@ -16,11 +16,13 @@ module MyDungeonGame
     TO = 't'
     POINT = 'p'
     ATTACKER = 'a'
+    STATUS = 's'
 
     REGEXP = {
       to:            Regexp.new("#{TO}"),
       item:          Regexp.new("#{ITEM}"),
       point:         Regexp.new("#{POINT}"),
+      status:        Regexp.new("#{STATUS}"),
       attacker:      Regexp.new("#{ATTACKER}"),
       item_to:       Regexp.new("[#{ITEM}#{TO}]"),
       from_point:    Regexp.new("[#{FROM}#{POINT}]"),
@@ -62,6 +64,10 @@ module MyDungeonGame
 
       def kill(target)
         LIST[:kill].gsub(REGEXP[:to], target)
+      end
+
+      def confuse(target)
+        LIST[:confuse].gsub(REGEXP[:to], target)
       end
 
       def missed(attacker)
@@ -133,6 +139,11 @@ module MyDungeonGame
         define_method(gain) do |point|
           LIST[gain].gsub(REGEXP[:point], point.to_s)
         end
+      end
+
+      def status_recover(status_sym)
+        status_name = STATUS_NAMES[status_sym]
+        LIST[:status_recover].gsub(REGEXP[:status], status_name)
       end
     end
 
