@@ -32,6 +32,7 @@ module MyDungeonGame
     end
 
     EQUIPPED_SIGN = 'E'
+    MAX_CALIBRATION = 99
 
     attr_reader   :base_strength, :equipped_image_path
     attr_accessor :equipped_by, :calibration

@@ -47,3 +47,6 @@
 :break_playing: "データをセーブし、ゲームを中断します..."
 :dont_power_off: "ゲームを終了したりPCの電源を落としたりしないでください。"
 :light_shines: "聖なる光があたりを照らす！"
+:weapon_enhanced: "装備している武器が強化された！"
+:shield_enhanced: "装備している盾が強化された！"
+:but_nothing_occured: "しかし何も起きなかった。"
