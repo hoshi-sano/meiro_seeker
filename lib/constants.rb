@@ -148,13 +148,16 @@ module MyDungeonGame
 
   ENEMY_GROUPS = [
     :normal, # ノーマル系
-    :undead, # アンデッド系
+    :ghost,  # ゴースト系
+    :dragon, # ドラゴン系
   ]
-  # 状態異常
+  # 状態異常・特殊技能
   STATUS_NAMES = {
     confusion:      '混乱',
     anti_confusion: '混乱よけ',
     second_sight:   '透視',
+    ghost_buster:   'ゴーストバスター',
+    dragon_buster:  'ドラゴンバスター',
   }
   STATUSES = STATUS_NAMES.keys
 

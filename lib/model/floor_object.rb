@@ -60,6 +60,7 @@ require 'floor_object/item/ring'
 require 'floor_object/item/bullet'
 # 武器
 require 'floor_object/item/sabel'
+require 'floor_object/item/ghost_buster'
 # 盾
 require 'floor_object/item/iron_shield'
 # リング

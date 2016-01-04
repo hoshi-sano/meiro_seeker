@@ -301,6 +301,12 @@ module MyDungeonGame
       @shield ? @shield.defence : 0
     end
 
+    # 持っている武器やステータスなどにより、大ダメージを与えることのできる
+    # 敵種族を配列で返す
+    def defeat
+      @weapon ? @weapon.defeat : []
+    end
+
     # 引数に指定したステータス異常の状態であるか否か
     def has_status?(sym)
       super(sym) ||
@@ -364,6 +370,10 @@ module MyDungeonGame
     class Weapon < Equipment
       def offence
         @origin.offence
+      end
+
+      def defeat
+        @origin.defeat
       end
     end
 

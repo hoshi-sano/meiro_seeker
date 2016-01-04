@@ -30,6 +30,7 @@ module MyDungeonGame
                ConfusionPotion,
                NikuMan,
                Sabel,
+               GhostBuster,
                IronShield,
                LightRing,
                CalmRing,

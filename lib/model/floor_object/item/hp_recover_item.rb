@@ -32,8 +32,8 @@ module MyDungeonGame
           # HPが満タンだった場合はHPの最大値がgain分だけ上昇
           r = ParamRecoverEvent.create(scene, target, :hp, recover_point, gain)
           e.set_next(r)
-        elsif target.included?(:undead)
-          # アンデッド系の場合はダメージ
+        elsif target.included?(:ghost)
+          # ゴースト系の場合はダメージ
           target.hp -= recover_point
           e.set_next(DamageEvent.create(scene, target, recover_point))
           msg = MessageManager.to_damage(recover_point)

@@ -237,6 +237,10 @@ module MyDungeonGame
       MOB_ATTACK_ACCURACY
     end
 
+    def groups
+      self.class.groups
+    end
+
     def hate?
       self.class.hate?
     end
@@ -439,8 +443,13 @@ module MyDungeonGame
     def calc_damage(attacker, target)
       r = (randomizer.rand(250) + 875) / 1000.0 # 0.875 - 1.125
       damage = (attacker.offence * r - target.defence).round
+      if attacker.type == :player
+        # プレイヤーの持っている武器が対象の種族に強い
+        # 能力を持っている数の分だけ、1.5を重ねがける
+        (target.groups & attacker.defeat).size.times { damage = damage * 1.5 }
+      end
       if damage > 0
-        damage
+        damage.round
       else
         MINIMUM_DAMAGES[randomizer.rand(MINIMUM_DAMAGES.size)]
       end

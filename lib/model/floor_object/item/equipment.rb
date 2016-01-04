@@ -70,6 +70,17 @@ module MyDungeonGame
       self.class.equipped_images
     end
 
+    # 大ダメージを与えることのできる敵種族を配列で返す
+    def defeat
+      res = []
+      @extra_effect.each do |sym|
+        if idx = sym.match(/_buster$/)
+          res << sym[0...idx].to_sym # '_buster'を除去
+        end
+      end
+      res
+    end
+
     # 引数に指定した特殊能力を持つか否か
     def has_ability?(sym)
       @extra_effect.include?(sym)
