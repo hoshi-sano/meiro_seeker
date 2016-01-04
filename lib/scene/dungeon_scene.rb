@@ -27,6 +27,7 @@ module MyDungeonGame
                Kizugusuri,
                KaifukuNoKusuri,
                ChikaraNoKusuri,
+               ConfusionPotion,
                NikuMan,
                Sabel,
                IronShield,
