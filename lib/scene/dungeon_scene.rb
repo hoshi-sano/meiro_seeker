@@ -71,6 +71,7 @@ module MyDungeonGame
       display_radar_map
       display_window
       OutputManager.update
+      @do_dash = false
     end
 
     # ターンを消費する
