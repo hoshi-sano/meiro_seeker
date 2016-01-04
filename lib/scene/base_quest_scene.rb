@@ -216,6 +216,7 @@ module MyDungeonGame
       display_parameter
       display_window
       OutputManager.update
+      @do_dash = false
     end
 
     # ターンを消費する
@@ -259,7 +260,7 @@ module MyDungeonGame
       dash &= !InputManager.down_ok?
       @mobs.each do |mob|
         # 画面に含まれないモブは1フレームで移動を完了させる
-        if !display_target?(mob) || dash
+        if !display_target?(mob) || @do_dash
           mob.do_not_animation_move
         else
           mob.move
@@ -406,6 +407,7 @@ module MyDungeonGame
         @floor.searched(cur_x + dx, cur_y + dy)
         tick
         if dash
+          @do_dash = true
           # ダッシュ中: アニメーションしない、アイテムの上に乗る
           OutputManager.modify_map_offset(dx * TILE_WIDTH, dy * TILE_HEIGHT)
           if underfoot.any_object? && underfoot.object.type == :item
