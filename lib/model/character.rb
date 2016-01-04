@@ -203,6 +203,8 @@ module MyDungeonGame
         hide:              @hide,
         current_direction: @current_direction,
         death_animating:   @death_animating,
+        temp_status:       @temporary_status,
+        floor_status:      @floor_permanent_status,
       }
     end
 
@@ -481,7 +483,7 @@ module MyDungeonGame
     # 一時的なステータス異常をセット
     def temporary_status_set(sym, turn=10)
       raise MustNotHappen unless STATUSES.include?(sym)
-      @temporary_status[:sym] = turn
+      @temporary_status[sym] = turn
     end
 
     # 毎ターンのステータス異常の回復
