@@ -432,6 +432,7 @@ module MyDungeonGame
         # 位置交換相手の見た目上の移動演出を行わせる
         other.push_next_xy([cur_x, cur_y])
         # 位置交換相手のaction実行ゲージを0にし、連続で行動しないようにする
+        # NOTE: 1/2倍速のモブ以外だと破綻する？
         other.active_gauge = 0
         @floor.switch_character(cur_x, cur_y, cur_x + dx, cur_y + dy)
         # プレイヤーはアニメーションする、アイテムの上に乗る
