@@ -10,7 +10,7 @@ module MyDungeonGame
 
     def _action
       # 可能であれば確率でスキル発動
-      return if !has_status?(:panic) && do_skill
+      return if !has_status?(:confusion) && do_skill
 
       # スキルを発動しない場合は移動または通常攻撃
       # 現状把握
@@ -66,7 +66,7 @@ module MyDungeonGame
       end
       # 基本的にすべてのtargetに対して攻撃しない
       # 混乱時のみ、誰でも攻撃する
-      has_status?(:panic)
+      has_status?(:confusion)
     end
 
     # 自身が今の場所に移動する直前に
@@ -116,7 +116,7 @@ module MyDungeonGame
     # 状況に応じた移動先の決定
     def analyse
       # 混乱時はランダム移動
-      return random_walk_dxdy if has_status?(:panic)
+      return random_walk_dxdy if has_status?(:confusion)
 
       dx, dy = nil, nil
       @room = @floor.get_room(self.x, self.y)

@@ -152,7 +152,7 @@ module MyDungeonGame
   ]
   # 状態異常
   STATUSES = [
-    :panic,        # 混乱
+    :confusion,    # 混乱
     :second_sight, # 透視
   ]
 
