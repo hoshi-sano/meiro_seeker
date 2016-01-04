@@ -31,6 +31,8 @@ module MyDungeonGame
                NikuMan,
                Sabel,
                IronShield,
+               LightRing,
+               CalmRing,
                NormalBullet,
                ThunderGrimoire,
                LightGrimoire,

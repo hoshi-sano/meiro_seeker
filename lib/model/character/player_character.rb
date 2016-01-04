@@ -301,6 +301,18 @@ module MyDungeonGame
       @shield ? @shield.defence : 0
     end
 
+    # 引数に指定したステータス異常の状態であるか否か
+    def has_status?(sym)
+      super(sym) ||
+        [@weapon, @shield, @ring].map { |e| e && e.has_ability?(sym) }.any?
+    end
+
+    # 引数に指定したステータス異常に対して体制を持っているか否か
+    def anti?(sym)
+      super(sym) ||
+        [@weapon, @shield, @ring].map { |e| e && e.anti?(sym) }.any?
+    end
+
     private
 
     # 武器補正の計算
@@ -339,6 +351,14 @@ module MyDungeonGame
       def strength
         @origin.strength
       end
+
+      def anti?(sym)
+        @origin.anti?(sym)
+      end
+
+      def has_ability?(sym)
+        @origin.has_ability?(sym)
+      end
     end
 
     class Weapon < Equipment
@@ -354,6 +374,14 @@ module MyDungeonGame
     end
 
     class Bullet < Equipment
+      # 装備しても見た目に変わりはない
+      def initialize(player, origin)
+        @player = player
+        @origin = origin
+      end
+    end
+
+    class Ring < Equipment
       # 装備しても見た目に変わりはない
       def initialize(player, origin)
         @player = player

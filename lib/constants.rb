@@ -152,8 +152,9 @@ module MyDungeonGame
   ]
   # 状態異常
   STATUS_NAMES = {
-    confusion:    '混乱',
-    second_sight: '透視',
+    confusion:      '混乱',
+    anti_confusion: '混乱よけ',
+    second_sight:   '透視',
   }
   STATUSES = STATUS_NAMES.keys
 

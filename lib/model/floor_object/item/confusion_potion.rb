@@ -8,9 +8,17 @@ module MyDungeonGame
       MessageManager.confuse(target.name)
     end
 
+    def anti_message(target)
+      MessageManager.anti_status(target.name, :confusion)
+    end
+
     def confuse_event(scene, target)
-      target.temporary_status_set(:confusion, 20)
-      ShowMessageEvent.create(scene, message(target))
+      if target.anti?(:confusion)
+        ShowMessageEvent.create(scene, anti_message(target))
+      else
+        target.temporary_status_set(:confusion, 20)
+        ShowMessageEvent.create(scene, message(target))
+      end
     end
 
     def effect_event(scene)

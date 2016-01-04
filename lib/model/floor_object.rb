@@ -56,11 +56,15 @@ require 'floor_object/item'
 require 'floor_object/item/equipment'
 require 'floor_object/item/weapon'
 require 'floor_object/item/shield'
+require 'floor_object/item/ring'
 require 'floor_object/item/bullet'
 # 武器
 require 'floor_object/item/sabel'
 # 盾
 require 'floor_object/item/iron_shield'
+# リング
+require 'floor_object/item/light_ring'
+require 'floor_object/item/calm_ring'
 # 弾
 require 'floor_object/item/normal_bullet'
 # 薬

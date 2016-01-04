@@ -25,6 +25,7 @@ module MyDungeonGame
       status:        Regexp.new("#{STATUS}"),
       attacker:      Regexp.new("#{ATTACKER}"),
       item_to:       Regexp.new("[#{ITEM}#{TO}]"),
+      to_status:     Regexp.new("[#{TO}#{STATUS}]"),
       from_point:    Regexp.new("[#{FROM}#{POINT}]"),
       player_item:   Regexp.new("[#{PLAYER}#{ITEM}]"),
       player_level:  Regexp.new("[#{PLAYER}#{LEVEL}]"),
@@ -144,6 +145,12 @@ module MyDungeonGame
       def status_recover(status_sym)
         status_name = STATUS_NAMES[status_sym]
         LIST[:status_recover].gsub(REGEXP[:status], status_name)
+      end
+
+      def anti_status(target, status_sym)
+        status_name = STATUS_NAMES[status_sym]
+        map = {TO => target, STATUS => status_name}
+        LIST[:anti_status].gsub(REGEXP[:to_status], map)
       end
     end
 

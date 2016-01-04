@@ -480,6 +480,13 @@ module MyDungeonGame
         @floor_permanent_status.include?(sym)
     end
 
+    # 引数に指定したステータス異常に対して体制を持っているか否か
+    def anti?(sym)
+      anti_sym = "anti_#{sym}".to_sym unless sym.match(/^anti_/)
+      @temporary_status.keys.include?(anti_sym) ||
+        @floor_permanent_status.include?(anti_sym)
+    end
+
     # 一時的なステータス異常をセット
     def temporary_status_set(sym, turn=10)
       raise MustNotHappen unless STATUSES.include?(sym)

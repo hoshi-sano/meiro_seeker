@@ -20,6 +20,15 @@ module MyDungeonGame
       def equipped_images
         @equipped_images
       end
+
+      def extra_effect(*values)
+        raise MustNotHappen, self unless (STATUSES & values) == values
+        @extra_effects = values
+      end
+
+      def default_extra_effect
+        @extra_effects || []
+      end
     end
 
     EQUIPPED_SIGN = 'E'
@@ -32,6 +41,7 @@ module MyDungeonGame
       @equipped_by = nil
       @calibration = 0
       @base_strength = self.class.get_base_strength
+      @extra_effect = self.class.default_extra_effect
     end
 
     # 補正値付きの名前の文字列を返す
@@ -57,6 +67,17 @@ module MyDungeonGame
 
     def equipped_images
       self.class.equipped_images
+    end
+
+    # 引数に指定した特殊能力を持つか否か
+    def has_ability?(sym)
+      @extra_effect.include?(sym)
+    end
+
+    # 引数に指定したステータス異常に対して体制を持っているか否か
+    def anti?(sym)
+      anti_sym = "anti_#{sym}".to_sym unless sym.match(/^anti_/)
+      has_ability?(anti_sym)
     end
 
     # 誰かに装備されているか否か
