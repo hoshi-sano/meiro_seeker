@@ -564,7 +564,7 @@ module MyDungeonGame
 
       # 床の表示
       @floor.each_tile do |x, y, tile|
-        if tile.walkable? && (second_sight || tile.searched?)
+        if tile.walkable? && tile.searched?
           args = [x * RADAR_MAP_UNIT_SIZE, y * RADAR_MAP_UNIT_SIZE,
                   RADAR_MAP_IMAGES[:tile], :radar_map]
           OutputManager.reserve_draw_without_offset(*args)
