@@ -29,6 +29,10 @@ module MyDungeonGame
       Grimoire.default_image
     end
 
+    def order
+      ORDER[:grimoire]
+    end
+
     def range
       self.class.instance_variable_get(:@range_type)
     end

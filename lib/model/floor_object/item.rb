@@ -41,13 +41,14 @@ module MyDungeonGame
       equipped_shield: -300,
       equipped_ring:   -200,
       equipped_bullet: -100,
-      weapon: 100,
-      shield: 200,
-      ring:   300,
-      bullet: 400,
-      manju:  500,
-      potion: 600,
-      other:  999,
+      weapon:   100,
+      shield:   200,
+      ring:     300,
+      bullet:   400,
+      manju:    500,
+      potion:   600,
+      grimoire: 700,
+      other:    999,
     }
 
 
