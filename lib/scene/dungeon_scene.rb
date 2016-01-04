@@ -32,6 +32,8 @@ module MyDungeonGame
                Sabel,
                GhostBuster,
                IronShield,
+               HungryShield,
+               AntiHungryShield,
                LightRing,
                CalmRing,
                NormalBullet,

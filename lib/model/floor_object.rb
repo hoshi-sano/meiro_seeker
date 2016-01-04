@@ -63,6 +63,8 @@ require 'floor_object/item/sabel'
 require 'floor_object/item/ghost_buster'
 # 盾
 require 'floor_object/item/iron_shield'
+require 'floor_object/item/hungry_shield'
+require 'floor_object/item/anti_hungry_shield'
 # リング
 require 'floor_object/item/light_ring'
 require 'floor_object/item/calm_ring'
