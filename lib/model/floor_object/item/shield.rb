@@ -3,6 +3,23 @@ module MyDungeonGame
   class Shield < Equipment
     TYPE = :shield
 
+    type  :item
+    image IMAGES[:shield]
+
+    class << self
+      def get_type
+        if self == Shield
+          super
+        else
+          Shield.get_type
+        end
+      end
+    end
+
+    def image
+      Shield.default_image
+    end
+
     def order
       if self.equipped?
         ORDER[:equipped_shield]

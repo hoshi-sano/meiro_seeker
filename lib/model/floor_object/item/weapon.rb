@@ -3,6 +3,23 @@ module MyDungeonGame
   class Weapon < Equipment
     TYPE = :weapon
 
+    type  :item
+    image IMAGES[:weapon]
+
+    class << self
+      def get_type
+        if self == Weapon
+          super
+        else
+          Weapon.get_type
+        end
+      end
+    end
+
+    def image
+      Weapon.default_image
+    end
+
     def order
       if self.equipped?
         ORDER[:equipped_weapon]
