@@ -156,6 +156,8 @@ module MyDungeonGame
     confusion:      '混乱',
     anti_confusion: '混乱よけ',
     second_sight:   '透視',
+    hungry:         'ハラヘリ',
+    anti_hungry:    'ハラヘラズ',
     ghost_buster:   'ゴーストバスター',
     dragon_buster:  'ドラゴンバスター',
   }

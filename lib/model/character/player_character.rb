@@ -87,7 +87,10 @@ module MyDungeonGame
       if @stomach <= 0
         @hp -= 1 if @hp > 0
       else
-        subtrace_hunger_interval(1)
+        base = 1
+        base = base * 2   if has_status?(:hungry)
+        base = base / 2.0 if anti?(:hungry)
+        subtrace_hunger_interval(base)
         if @hunger_interval <= 0
           subtrace_stomach(1)
           @hunger_interval = HUNGER_INTERVAL
