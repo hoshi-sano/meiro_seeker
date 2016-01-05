@@ -189,7 +189,14 @@ module MyDungeonGame
     # 引数に指定した座標を目標に移動する。
     # 移動先の座標候補に、目標物との距離による重み付けをして、もっとも
     # 最短距離となる移動先を選択する。座標候補がない場合は移動しない。
-    def go_toward(xy)
+    # invertフラグが立っている場合は目標物から離れるようにして移動する。
+    # 返り値は [dx, dy] で返す。
+    def go_toward(xy, invert=nil)
+      # 明確にinvertフラグが指定されておらず、逃亡中の状態で、
+      # プレイヤーを感知している場合はinvertフラグを立てる
+      if invert.nil? && has_status?(:escape) && sensing_player_xy
+        invert = true
+      end
       candidates = {}
       ((self.y - 1)..(self.y + 1)).each do |cand_y|
         ((self.x - 1)..(self.x + 1)).each do |cand_x|
@@ -205,9 +212,22 @@ module MyDungeonGame
         end
       end
 
-      key = candidates.keys.min
+      choice = invert ? :max : :min
+      key = candidates.keys.send(choice)
       return [0, 0] if key.nil? # 候補が何もない場合
-      cand_x, cand_y = candidates[key].first
+      # 候補がある場合は前方方向を優先
+      cand_x, cand_y = nil, nil
+      dirs = DIRECTION_STEP_MAP[@current_direction]
+      dirs.values_at(:forward, :f_left, :right).each do |dx, dy|
+        xy = [self.x + dx, self.y + dy]
+        if candidates[key].include?(xy)
+          cand_x, cand_y = *xy
+          break
+        end
+      end
+      # TODO: 逃亡中は壁沿いを再優先したい
+      # 正面系の候補がなかった場合は一番最初のものをチョイス
+      cand_x, cand_y = candidates[key].first if cand_x.nil?
       [cand_x - self.x, cand_y - self.y]
     end
   end
