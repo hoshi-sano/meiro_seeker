@@ -40,7 +40,14 @@ module MyDungeonGame
         when String
           @map_name = "#{storey} #{@map_info[:name]}"
         when Hash
-          @map_name = "#{storey} #{@map_info[:name][storey]}"
+          name = @map_info[:name][storey]
+          unless name
+            @map_info[:name].each do |_name, storey_ary|
+              name = _name if Array(storey_ary).include?(storey)
+              break if name
+            end
+          end
+          @map_name = "#{storey} #{name}"
         end
       end
 
