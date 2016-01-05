@@ -12,10 +12,6 @@ module MyDungeonGame
     defence 1
     exp     4
     speed   1
-#    skill WaitAndSee, 20
-    skill ItemThrowSkill, rate: 100, item: Kizugusuri
-    group :undead
-#    status :confusion
 
     # targetが攻撃対象か否か
     def attackable?(target)
