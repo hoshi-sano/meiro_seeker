@@ -5,17 +5,35 @@ module MyDungeonGame
       DungeonManager.create_floor
     end
 
+    def create_monster_table
+      return nil unless @map_info[:monster_table]
+      @monster_table = []
+      @map_info[:monster_table].each do |k, v|
+        next unless v.include?(@floor.storey)
+        @monster_table << MyDungeonGame.const_get(k)
+      end
+      @monster_table
+    end
+
+    def monster_random_select
+      return nil unless @monster_table
+      idx = DungeonManager.randomizer.rand(@monster_table.size)
+      @monster_table[idx].new(@floor)
+    end
+
     def create_mobs(storey)
-      # TODO: 階に合わせた適切なNPC選択を行う
+      # TODO: 敵以外のモブもランダムで出現させる？
       res = []
       room_num = @floor.all_rooms.size
       # TODO: 敵の数再考
       mob_num = DungeonManager.randomizer.rand(room_num) * 2
       mob_num = [room_num + 1, mob_num].max
-      mob_num.times do
-        mob = EnemyCharacter.new(@floor)
-        set_random_position(mob)
-        res << mob
+      if create_monster_table
+        mob_num.times do
+          mob = monster_random_select
+          set_random_position(mob)
+          res << mob
+        end
       end
       res
     end
@@ -83,7 +101,7 @@ module MyDungeonGame
       @do_action = true
       # 敵の増加
       if (@turn % RESPAWN_INTERVAL).zero?
-        mob = EnemyCharacter.new(@floor)
+        mob = monster_random_select
         set_random_position(mob)
         @mobs << mob
       end

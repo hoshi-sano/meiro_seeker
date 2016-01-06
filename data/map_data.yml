@@ -47,6 +47,9 @@
     "やさしいダンジョン 深層": [7, 8, 9]
   :scene_change:
     9: :start_town_scene
+  :monster_table:
+    EnemyCharacter: [1,2,3,4,5]
+    ItemThief: [4,5,6,7,8,9]
 :second_dungeon:
   :name:
     1: ふつうのダンジョン 浅層
@@ -60,3 +63,6 @@
     9: ふつうのダンジョン 深層
   :scene_change:
     9: :start_town_scene
+  :monster_table:
+    EnemyCharacter: [1,2,3,4,5]
+    ItemThief: [4,5,6,7,8,9]
