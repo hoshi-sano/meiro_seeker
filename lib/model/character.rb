@@ -242,12 +242,6 @@ module MyDungeonGame
       }.to_h
     end
 
-    # ItemThrowSkillによって投擲されるアイテムを返す
-    def throw_item
-      item = (self.class.get_skills[ItemThrowSkill] || {})[:item]
-      item.ancestors.include?(Bullet) ? item.new(1) : item.new
-    end
-
     def accuracy
       # TODO: 状態によって数値を変更
       MOB_ATTACK_ACCURACY

@@ -19,7 +19,13 @@ module MyDungeonGame
         end
 
         def event_args(user)
-          [user, user.throw_item]
+          [user, throw_item(user)]
+        end
+
+        # 投擲するアイテム
+        def throw_item(user)
+          item = (user.class.get_skills[ItemThrowSkill] || {})[:item]
+          item.ancestors.include?(Bullet) ? item.new(1) : item.new
         end
 
         # プレイヤーの方向を見る
