@@ -77,6 +77,7 @@ require 'floor_object/item/kizugusuri'
 require 'floor_object/item/kaifuku_no_kusuri'
 require 'floor_object/item/chikara_no_kusuri'
 require 'floor_object/item/confusion_potion'
+require 'floor_object/item/warp_potion'
 # まんじゅう
 require 'floor_object/item/niku_man'
 # 魔導書

@@ -40,12 +40,12 @@ module MyDungeonGame
     end
 
     def pre_action
-      @warped = false
       @active_gauge += @speed
     end
 
     def post_action
       @active_gauge = 0 if @active_gauge >= 1
+      @warped = false
       # ステータス異常の回復
       recover_temporary_status
     end

@@ -61,7 +61,7 @@ module MyDungeonGame
     # 攻撃可能かどうかの判定
     def attackable?(target)
       # ワープ済の相手は攻撃不可
-      return false if target.warped
+      return false if target.warped || @warped
 
       # 自身は攻撃不可、通過不可能な位置の相手は攻撃不可
       if (target == self) || !throughable?(target.x - self.x, target.y - self.y)

@@ -77,9 +77,19 @@ module MyDungeonGame
       end
     end
 
-    # (x, y)座標にいるキャラクターを排除する
-    def remove_character(x, y)
-      @base_map[x, y].clear_character
+    # 引数が1つの場合は引数のキャラクターを探索して排除する
+    # 引数が2つの場合は(x, y)座標にいるキャラクターを排除する
+    def remove_character(*args)
+      case args.size
+      when 1
+        character = args.first
+        each_tile do |x, y, tile|
+          tile.clear_character if tile.character == character
+        end
+      when 2
+        x, y = *args
+        @base_map[x, y].clear_character
+      end
     end
 
     # (x1, y1)座標にいるキャラクターを(x2, y2)座標に移動する

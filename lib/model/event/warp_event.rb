@@ -32,8 +32,8 @@ module MyDungeonGame
           target.show
           if to.nil?
             # ランダムワープ
+            @floor.remove_character(target)
             set_character_random_position(target)
-            @floor[*before].character = nil
             if target == @player
               @floor.searched(@player.x, @player.y)
               OutputManager.init(@player.x, @player.y)
