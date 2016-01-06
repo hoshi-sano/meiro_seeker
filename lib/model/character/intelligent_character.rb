@@ -38,7 +38,7 @@ module MyDungeonGame
       rate_counter = 0
       usable_skill_to_rate = Hash[
         usable_skills.map { |skill|
-          res = [skill, (rate_counter...skill_to_rates[skill])]
+          res = [skill, (rate_counter...(rate_counter + skill_to_rates[skill]))]
           rate_counter += skill_to_rates[skill]
           res
         }
@@ -92,6 +92,11 @@ module MyDungeonGame
         res = [player.x, player.y]
       end
       res
+    end
+
+    # プレイヤーが隣接している場合、プレイヤーを返す
+    def neighboring_player
+      neighboring_player_xy ? GeneralManager.current_scene.player : nil
     end
 
     # 直線上にプレイヤーがいるか否かを返す

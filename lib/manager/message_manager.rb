@@ -117,6 +117,10 @@ module MyDungeonGame
         LIST[:remove_item].gsub(REGEXP[:item], item)
       end
 
+      def stolen_item(item)
+        LIST[:stolen_item].gsub(REGEXP[:item], item)
+      end
+
       def item_hit_to(item, to)
         map = {ITEM => item, TO => to}
         LIST[:item_hit_to].gsub(REGEXP[:item_to], map)
@@ -124,6 +128,10 @@ module MyDungeonGame
 
       def wait_and_see(attacker)
         LIST[:wait_and_see].gsub(REGEXP[:attacker], attacker)
+      end
+
+      def warped(attacker)
+        LIST[:warped].gsub(REGEXP[:attacker], attacker)
       end
 
       [

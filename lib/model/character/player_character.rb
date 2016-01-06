@@ -150,6 +150,12 @@ module MyDungeonGame
       end
     end
 
+    # 盗める(=装備していない)アイテムの配列を返す
+    def stealable_items
+      # TODO: 泥棒防止能力を持っている場合は空配列を返す
+      @items - %i(weapon shield ring bullet).map { |t| get_equipment(t) }.compact
+    end
+
     # アイテムの装備
     def equip(equipment)
       eq_type = equipment.equipment_type
@@ -163,6 +169,7 @@ module MyDungeonGame
     end
 
     def get_equipment(type)
+      return nil unless equip?(type)
       self.instance_variable_get("@#{type}").origin
     end
 

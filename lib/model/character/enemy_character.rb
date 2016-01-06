@@ -50,7 +50,8 @@ module MyDungeonGame
         if player_xy = @room.player_xy
           # 同じ部屋にプレイヤーがいる場合
           candidates = @room.gate_coordinates
-          gate_xy = nearest_gate_xy(candidates)
+          # 部屋にgateがない場合は実際にはあり得ない程遠くにある想定にする
+          gate_xy = nearest_gate_xy(candidates) || [9999, 9999]
           gate_distance = calc_distance(self.x, self.y, *gate_xy)
           @distance = calc_distance(self.x, self.y, *player_xy)
           if (gate_distance <= @speed) ||
@@ -71,3 +72,5 @@ module MyDungeonGame
     end
   end
 end
+
+require_relative './item_thief'

@@ -91,7 +91,7 @@ module MyDungeonGame
           }
         else
           skill_params = params.select do |k, _|
-            %i(rate item).include?(k)
+            %i(rate item after_state).include?(k)
           end
           @skills[skill_klass] = skill_params
         end
