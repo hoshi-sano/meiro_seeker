@@ -40,6 +40,7 @@ module MyDungeonGame
     end
 
     def pre_action
+      @warped = false
       @active_gauge += @speed
     end
 

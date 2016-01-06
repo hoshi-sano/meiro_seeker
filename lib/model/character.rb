@@ -91,7 +91,7 @@ module MyDungeonGame
           }
         else
           skill_params = params.select do |k, _|
-            %i(rate item after_state).include?(k)
+            %i(rate item after_state message).include?(k)
           end
           @skills[skill_klass] = skill_params
         end
@@ -185,7 +185,7 @@ module MyDungeonGame
 
     attr_reader :level, :exp
     attr_accessor :x, :y, :prev_xy, :events, :name, :hp, :max_hp,
-                  :power, :defence, :death_animating
+                  :power, :defence, :death_animating, :warped
 
     def initialize(floor)
       self.extend(HelperMethods)
@@ -206,6 +206,7 @@ module MyDungeonGame
       @speed   = self.class.default_speed
 
       # 状態管理用
+      @warped = nil # ワープ管理用、連続ワープを防ぐために使う
       @temporary_status = {}
       @floor_permanent_status = self.class.default_status
     end
@@ -261,6 +262,12 @@ module MyDungeonGame
 
     def dead?
       @hp <= 0
+    end
+
+    # ワープ可能か否か
+    # 既にワープ済だった場合はワープさせない
+    def warpable?
+      !@wapred
     end
 
     def completely_removed?

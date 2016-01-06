@@ -5,6 +5,9 @@ module MyDungeonGame
 
     def create(scene, target, to=nil)
       scene.instance_eval do
+        # 連続ワープを防ぐためにワープ済みフラグを立てる
+        target.warped = true
+
         before = [target.x, target.y]
         dummy = target.display_dummy
         # ワープ演出

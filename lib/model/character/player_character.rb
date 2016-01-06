@@ -67,6 +67,8 @@ module MyDungeonGame
       @self_healing_value -= plus
       # ステータス異常の回復
       recover_temporary_status
+      # ワープ済みフラグの解除
+      @warped = false
     end
 
     # 毎ターンのステータス異常の回復
