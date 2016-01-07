@@ -50,6 +50,25 @@
   :monster_table:
     EnemyCharacter: [1,2,3,4,5]
     ItemThief: [4,5,6,7,8,9]
+  :item_table:
+    Kizugusuri:        20
+    KaifukuNoKusuri:   20
+    ChikaraNoKusuri:    5
+    ConfusionPotion:    5
+    NikuMan:           20
+    Sabel:             10
+    GhostBuster:        5
+    IronShield:        10
+    HungryShield:       3
+    AntiHungryShield:   5
+    LightRing:          3
+    CalmRing:           5
+    NormalBullet:      15
+    ThunderGrimoire:   10
+    LightGrimoire:     15
+    ConfusionGrimoire: 15
+    WeaponEnhancementGrimoire: 15
+    ShieldEnhancementGrimoire: 15
 :second_dungeon:
   :name:
     1: ふつうのダンジョン 浅層
