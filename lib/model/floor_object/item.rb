@@ -35,6 +35,7 @@ module MyDungeonGame
       bullet: FileLoadProxy.load_image(BULLET_IMAGE_PATH),
       potion: FileLoadProxy.load_image(POTION_IMAGE_PATH),
       manju: FileLoadProxy.load_image(MANJU_IMAGE_PATH),
+      grimoire: FileLoadProxy.load_image(GRIMOIRE_IMAGE_PATH),
     }
     ORDER = {
       equipped_weapon: -400,

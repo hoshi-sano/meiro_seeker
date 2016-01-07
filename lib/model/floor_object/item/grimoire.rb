@@ -8,7 +8,7 @@ module MyDungeonGame
     ]
 
     type   :item
-    image  IMAGES[:potion] # TODO: 魔導書用の画像を用意する
+    image  IMAGES[:grimoire]
 
     class << self
       def get_type

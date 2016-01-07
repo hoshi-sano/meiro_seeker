@@ -176,6 +176,7 @@ module MyDungeonGame
   BULLET_IMAGE_PATH = File.join(ROOT, 'data', 'shuriken.png')
   POTION_IMAGE_PATH = File.join(ROOT, 'data', 'potion.png')
   MANJU_IMAGE_PATH  = File.join(ROOT, 'data', 'manju.png')
+  GRIMOIRE_IMAGE_PATH = File.join(ROOT, 'data', 'grimoire.png')
   WORD_LIST_PATH    = File.join(ROOT, 'data', 'words.yml')
   MESSAGE_LIST_PATH = File.join(ROOT, 'data', 'messages.yml')
   DICTIONARY_PATH   = File.join(ROOT, 'data', 'dictionary.yml')
