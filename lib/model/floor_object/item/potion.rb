@@ -9,7 +9,7 @@ module MyDungeonGame
         if self == Potion
           super
         else
-          Grimoire.get_type
+          Potion.get_type
         end
       end
     end
