@@ -33,6 +33,9 @@ module MyDungeonGame
         # 同じ部屋にプレイヤーがいる場合
         @distance = calc_distance(self.x, self.y, *player_xy)
         dx, dy = go_toward(player_xy)
+        # プレイヤーが出入り口の上にいる場合、次のターン以降で
+        # ちゃんと追いかけられるよう、@dest_gateを上書きする
+        decide_dest_gate_xy(@room.gate_coordinates)
       else
         # 自身は部屋にいるがプレイヤーが同じ部屋にいない場合
         @distance = -1

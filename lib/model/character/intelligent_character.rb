@@ -9,12 +9,13 @@ module MyDungeonGame
     speed 0.5
 
     def _action
+      # 現状把握
+      dx, dy = analyse
+
       # 可能であれば確率でスキル発動
       return if !has_status?(:confusion) && do_skill
 
       # スキルを発動しない場合は移動または通常攻撃
-      # 現状把握
-      dx, dy = analyse
       if dx && dy
         change_direction_by_dxdy(dx, dy)
         # 移動先に誰かいたら攻撃、誰もいなければ移動成立
