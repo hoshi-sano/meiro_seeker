@@ -6,20 +6,24 @@ module MyDungeonGame
     show_status true
 
     MAX_LINE = 10
+    MAX_PAGE = PORTABLE_ITEM_NUMBER / MAX_LINE
 
     # 入力に応じてカーソルの位置を決める
     def select(x, y)
       return if @choices.size.zero? || (x + y).zero?
-      if !x.zero? && @choices.size > MAX_LINE
-        if @select < MAX_LINE
-          @select += x.abs * MAX_LINE
-          @select = (@choices.size - 1) if @select > @choices.size
-        else
-          @select -= x.abs * MAX_LINE
-        end
-      end
-      @select += y
-      @select = @select % @choices.size
+      page = @select / MAX_LINE
+      idx  = @select % MAX_LINE
+      page_max_idx = [@choices.size - (page * MAX_LINE), MAX_LINE].min - 1
+
+      # 左右でページ切り替え(ループ)
+      page += x
+      page = page % ((@choices.size / MAX_LINE) + 1)
+      # 上下でカーソル移動(ループ)
+      idx += y
+      idx = idx % (page_max_idx + 1)
+
+      @select = (page * MAX_LINE) + idx
+      @select = @choices.size - 1 if @select >= @choices.size
     end
 
     def get_event(scene)
