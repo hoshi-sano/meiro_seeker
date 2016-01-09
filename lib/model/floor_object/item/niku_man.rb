@@ -1,18 +1,10 @@
 module MyDungeonGame
   # 肉まん
   # 満腹度回復系
-  class NikuMan < Item
-    type :item
+  class NikuMan < Manju
     name MessageManager.get('dict.items.niku_man.name')
     note MessageManager.get('dict.items.niku_man.note')
-    image IMAGES[:manju]
-
-    def effect_event(scene)
-      ParamRecoverEvent.create(scene, scene.player, :stomach, 100, 5)
-    end
-
-    def order
-      ORDER[:manju]
-    end
+    recover_point 100
+    gain          5
   end
 end
