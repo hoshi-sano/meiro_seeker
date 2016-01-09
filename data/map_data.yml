@@ -62,6 +62,7 @@
     IronShield:        10
     HungryShield:       3
     AntiHungryShield:   5
+    AntiStealShield:    5
     LightRing:          3
     CalmRing:           5
     NormalBullet:      15

@@ -161,6 +161,7 @@ module MyDungeonGame
     anti_hungry:    'ハラヘラズ',
     ghost_buster:   'ゴーストバスター',
     dragon_buster:  'ドラゴンバスター',
+    anti_steal:     '泥棒よけ',
   }
   STATUSES = STATUS_NAMES.keys
 

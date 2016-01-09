@@ -65,6 +65,7 @@ require 'floor_object/item/ghost_buster'
 require 'floor_object/item/iron_shield'
 require 'floor_object/item/hungry_shield'
 require 'floor_object/item/anti_hungry_shield'
+require 'floor_object/item/anti_steal_shield'
 # リング
 require 'floor_object/item/light_ring'
 require 'floor_object/item/calm_ring'

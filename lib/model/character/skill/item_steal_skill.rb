@@ -4,11 +4,13 @@ module MyDungeonGame
     class ItemStealSkill < Skill
       class << self
         # 攻撃可能な位置にプレイヤーがいる場合発動可能
-        # 逃亡中は発動不可能
+        # 自身が逃亡中は発動不可能
+        # プレイヤーが泥棒よけを持っている場合は発動不可能
         def usable?(user)
           return false if user.has_status?(:escape)
           player = user.neighboring_player
-          player ? user.attackable?(player) : false
+          return false unless player
+          !player.has_status?(:anti_steal) && user.attackable?(player)
         end
 
         def event
