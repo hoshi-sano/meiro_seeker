@@ -331,6 +331,14 @@ module MyDungeonGame
         [@weapon, @shield, @ring].map { |e| e && e.anti?(sym) }.any?
     end
 
+    # targetと場所交換が可能か？
+    def switchable?(target)
+      return false unless target
+      # hate値が等しくかつ通過可能な位置関係であれば可能
+      (self.hate? == target.hate?) &&
+        target.throughable?(self.x - target.x, self.y - target.y)
+    end
+
     private
 
     # 武器補正の計算

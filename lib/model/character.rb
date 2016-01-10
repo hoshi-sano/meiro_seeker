@@ -584,6 +584,8 @@ end
 require 'character/skill'
 require 'character/player_character'
 require 'character/mob_character'
+require 'character/not_walk_character'
+require 'character/immovable_character'
 require 'character/intelligent_character'
 require 'character/follow_player_character'
 require 'character/enemy_character'

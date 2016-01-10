@@ -56,10 +56,7 @@ module MyDungeonGame
       # 移動先に誰かが存在しない場合は不可
       player = @base_map[x1, y1].character
       target = @base_map[x2, y2].character
-      return false unless player && target
-      # hate値が等しくかつ通過可能な位置関係であれば可能
-      (player.hate? == target.hate?) &&
-        throughable?(x1, y1, x2, y2)
+      player.switchable?(target)
     end
 
     # (x1, y1)座標にいるキャラクターと(x2, y2)座標に
