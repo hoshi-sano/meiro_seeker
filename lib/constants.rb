@@ -174,6 +174,7 @@ module MyDungeonGame
   STAIRS_IMAGE_PATH = File.join(ROOT, 'data', 'stairs.png')
   WEAPON_IMAGE_PATH = File.join(ROOT, 'data', 'weapon.png')
   SHIELD_IMAGE_PATH = File.join(ROOT, 'data', 'shield.png')
+  RING_IMAGE_PATH   = File.join(ROOT, 'data', 'ring.png')
   BULLET_IMAGE_PATH = File.join(ROOT, 'data', 'shuriken.png')
   POTION_IMAGE_PATH = File.join(ROOT, 'data', 'potion.png')
   MANJU_IMAGE_PATH  = File.join(ROOT, 'data', 'manju.png')

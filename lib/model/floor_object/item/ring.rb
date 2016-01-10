@@ -4,7 +4,7 @@ module MyDungeonGame
     TYPE = :ring
 
     type  :item
-    image IMAGES[:shield] # TODO: 指輪用の画像を用意する
+    image IMAGES[:ring]
 
     class << self
       def get_type
