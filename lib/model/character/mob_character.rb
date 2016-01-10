@@ -6,13 +6,16 @@ module MyDungeonGame
     image_path ENEMY_IMAGE_PATH
     name "MOB"
 
-    attr_accessor :messages, :active_gauge
+    attr_accessor :active_gauge
 
     def initialize(floor)
       super(floor)
       @next_xy = []
       @active_gauge = 0
-      @messages = []
+    end
+
+    def generate_event_manager(hash)
+      @event_manager = CheckedEventManager.new(self, hash)
     end
 
     def disp_x
@@ -28,10 +31,7 @@ module MyDungeonGame
     end
 
     def checked_events(checker)
-      # TODO: 柔軟なイベント発生ができるようにする
-      @messages.map do |msg|
-        EventPacket.new(TalkEvent, self, msg, checker)
-      end
+      @event_manager.event_create(checker) if @event_manager
     end
 
     # actionが可能か否か
@@ -173,6 +173,102 @@ module MyDungeonGame
 
     def image_path
       self.class.instance_variable_get(:@image_path)
+    end
+
+    # プレイヤーからチェック(調べる、話しかける)された際に
+    # 実行するイベントを管理するクラス
+    # 1モブにつき1インスタンス作成する
+    class CheckedEventManager
+      def initialize(owner, hash)
+        @owner = owner
+        @hash = hash
+        set_next_index
+      end
+
+      def event_size
+        @hash[:contents].size
+      end
+
+      # 次に実行すべきイベントを指すインデックスをセットする
+      def set_next_index
+        case @hash[:type]
+        when :random
+          @idx = @owner.randomizer.rand(event_size)
+        when :flag
+          unless @idx
+            @idx = :none
+          else
+            @idx = @hash[:contents][@idx][:flag_on] || @idx
+          end
+        else
+          @idx ||= -1
+          @idx += 1
+          if @idx >= event_size
+            if @hash[:type] == :loop
+              @idx = 0
+            else
+              @idx -= 1
+            end
+          end
+        end
+      end
+
+      # 実行すべきイベントを作成してEventPacket形式で返す
+      def event_create(checker)
+        event_info = @hash[:contents][@idx]
+        set_next_index
+        event_args(event_info, checker).map do |args|
+          EventPacket.new(*args)
+        end
+      end
+
+      def event_module(type)
+        case type
+        when :talk
+          TalkEvent
+        when :yes_no
+          YesNoEvent
+        else
+          raise MustNotHappen
+        end
+      end
+
+      def event_args(event_info, checker)
+        type = event_info[:event_type]
+        case type
+        when :talk
+          event_info[:messages].map do |msg|
+            [event_module(type), @owner, msg, checker]
+          end
+        when :yes_no
+          messages = event_info[:messages].dup
+          question = messages.pop
+          res = messages.map do |msg|
+            [event_module(:talk), @owner, msg, checker]
+          end
+          letter = {
+            question: question,
+            yes:      event_info[:yes][:label] || MessageManager.get(:yes),
+            no:       event_info[:no][:label]  || MessageManager.get(:no),
+          }
+          yes_event, no_event =
+            %i(yes no).map do |cond|
+              lambda do |e|
+                event_args(event_info[cond][:event], checker).each do |args|
+                  e_mod = args.shift
+                  e.set_next(e_mod.create(GeneralManager.current_scene, *args))
+                end
+                if event_info[cond].has_key?(:flag_on)
+                  self.instance_variable_set(:@idx, event_info[cond][:flag_on])
+                end
+                e.finalize
+              end
+            end
+          res << [event_module(type), letter, { yes: yes_event, no: no_event }]
+        else
+          raise MustNotHappen
+        end
+      end
     end
   end
 end

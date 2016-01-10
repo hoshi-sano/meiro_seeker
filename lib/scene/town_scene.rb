@@ -10,7 +10,7 @@ module MyDungeonGame
       (@map_info[:characters] || []).each do |mob_info|
         mob = MyDungeonGame.const_get(mob_info[:class]).new(@floor)
         set_position(mob, mob_info[:x], mob_info[:y])
-        mob.messages = mob_info[:messages] if mob_info[:messages]
+        mob.generate_event_manager(mob_info[:events]) if mob_info[:events]
         res << mob
       end
       res

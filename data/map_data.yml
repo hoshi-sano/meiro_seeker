@@ -26,9 +26,66 @@
     - :class: IntelligentCharacter
       :x: 7
       :y: 12
-      :messages:
-        - やぁ、こんにちは。
-        - 今日はいい天気だね。
+      :events:
+        # type は :simple, :sequential, :loop, :random, :flag から選択可能
+        :type: :random
+        :contents:
+          - :event_type: :talk
+            :messages:
+              - やぁ、こんにちは。
+              - 今日はいい天気だね。
+          - :event_type: :talk
+            :messages:
+              - やぁ、こんにちは。
+              - さっきも会ったね。
+    - :class: IntelligentCharacter
+      :x: 8
+      :y: 12
+      :events:
+        :type: :loop
+        :contents:
+          - :event_type: :talk
+            :messages:
+              - 1番目のメッセージだよ。
+          - :event_type: :talk
+            :messages:
+              - 2番目のメッセージだよ。
+          - :event_type: :talk
+            :messages:
+              - 3番目のメッセージだよ。
+    - :class: IntelligentCharacter
+      :x: 9
+      :y: 12
+      :events:
+        :type: :flag
+        :contents:
+          :none:
+            :event_type: :yes_no
+            :messages:
+              - ここから先はダンジョンだよ。
+              - 危険だけど行くのかい？
+            :yes:
+              :label: 行く
+              :event:
+                :event_type: :talk
+                :messages:
+                  - うっそー！？
+              :flag_on: :second
+            :no:
+              :label: やめとく
+              :event:
+                :event_type: :talk
+                :messages:
+                  - だよねぇ。
+              :flag_on: :third
+          :second:
+            :event_type: :talk
+            :messages:
+              - やめた方がいいと思うけどなぁ...。
+          :third:
+            :event_type: :talk
+            :messages:
+              - それがいいよ。安全第一。
   :objects:
     # 初級ダンジョンへの入り口
     - :class: TransparentStairs
