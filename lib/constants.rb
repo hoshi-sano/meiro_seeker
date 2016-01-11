@@ -154,6 +154,7 @@ module MyDungeonGame
   # 状態異常・特殊技能
   STATUS_NAMES = {
     escape:         '逃亡',
+    speed_up:       '倍速',
     confusion:      '混乱',
     anti_confusion: '混乱よけ',
     second_sight:   '透視',

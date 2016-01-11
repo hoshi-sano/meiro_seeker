@@ -71,6 +71,10 @@ module MyDungeonGame
         LIST[:confuse].gsub(REGEXP[:to], target)
       end
 
+      def speed_up(target)
+        LIST[:speed_up].gsub(REGEXP[:to], target)
+      end
+
       def missed(attacker)
         LIST[:attacker_missed].gsub(REGEXP[:attacker], attacker)
       end

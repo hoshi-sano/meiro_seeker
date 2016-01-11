@@ -79,6 +79,7 @@ require 'floor_object/item/kaifuku_no_kusuri'
 require 'floor_object/item/chikara_no_kusuri'
 require 'floor_object/item/confusion_potion'
 require 'floor_object/item/warp_potion'
+require 'floor_object/item/speed_up_potion'
 # まんじゅう
 require 'floor_object/item/manju'
 require 'floor_object/item/mantou'

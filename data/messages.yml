@@ -12,6 +12,7 @@
 :attacker_missed: "aの攻撃は、はずれた。"
 :kill: "tをやっつけた。"
 :confuse: "tは混乱した。"
+:speed_up: "tは行動速度が上がった。"
 :get_exp: "pポイントの経験値を得た。"
 :dodge: "aの攻撃を、かわした。"
 :go_to_next?: "次の階へ進みますか？"

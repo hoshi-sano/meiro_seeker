@@ -14,6 +14,10 @@ module MyDungeonGame
       @active_gauge = 0
     end
 
+    def current_speed
+      super / GeneralManager.current_scene.player.current_speed.to_f
+    end
+
     def generate_event_manager(hash)
       @event_manager = CheckedEventManager.new(self, hash)
     end
@@ -40,7 +44,7 @@ module MyDungeonGame
     end
 
     def pre_action
-      @active_gauge += @speed
+      @active_gauge += current_speed
     end
 
     def post_action
@@ -151,7 +155,7 @@ module MyDungeonGame
       end
 
       @next_xy.clear
-      @prev_xy = @prev_xy[(0 - @speed.ceil)..-1] || @prev_xy
+      @prev_xy = @prev_xy[(0 - current_speed.ceil)..-1] || @prev_xy
       res
     end
 

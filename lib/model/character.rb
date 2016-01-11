@@ -230,7 +230,7 @@ module MyDungeonGame
     end
 
     def update_interval
-      self.class.get_update_interval / @speed
+      self.class.get_update_interval / (@speed * (has_status?(:speed_up) ? 2 : 1))
     end
 
     def name
@@ -276,6 +276,10 @@ module MyDungeonGame
 
     def included?(group_sym)
       self.class.included?(group_sym)
+    end
+
+    def current_speed
+      @speed * (has_status?(:speed_up) ? 2 : 1)
     end
 
     def hide

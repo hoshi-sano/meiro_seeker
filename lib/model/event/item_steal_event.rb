@@ -31,7 +31,7 @@ module MyDungeonGame
             e.set_next(msg_event)
             e.set_next(WarpEvent.create(self, thief))
             thief.floor_permanent_status_set(:escape) if opts[:escape]
-            # TODO: 高速移動可能にする if opts[:speed_up]
+            thief.floor_permanent_status_set(:speed_up) if opts[:speed_up]
           else
             # 盗めるアイテムがない場合は様子見のみ行う
             msg = MessageManager.wait_and_see(thief.name)

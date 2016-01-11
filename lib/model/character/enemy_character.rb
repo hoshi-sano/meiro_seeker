@@ -57,7 +57,7 @@ module MyDungeonGame
           gate_xy = nearest_gate_xy(candidates) || [9999, 9999]
           gate_distance = calc_distance(self.x, self.y, *gate_xy)
           @distance = calc_distance(self.x, self.y, *player_xy)
-          if (gate_distance <= @speed) ||
+          if (gate_distance <= current_speed) ||
             # 自身のspeedの範囲に出入り口がある場合、または
              (gate_distance <= calc_distance(*gate_xy, *player_xy))
             # 出入り口との距離がプレイヤーより近い場合はそこへ逃げ込む
