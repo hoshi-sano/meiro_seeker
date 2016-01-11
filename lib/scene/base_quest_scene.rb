@@ -510,11 +510,20 @@ module MyDungeonGame
     # 武器防具などのオプションを表示したい場合はoverrideする
     def display_player
       OutputManager.reserve_draw_center(@player)
+      OutputManager
+        .reserve_draw_center_with_calibration(@player.status_image,
+                                              *STATUS_DISPLAY_CALIBRATION[:player])
     end
 
     def display_mobs
       @mobs.each do |mob|
         OutputManager.reserve_draw(mob.disp_x, mob.disp_y, mob, :character)
+        OutputManager.reserve_draw(
+          mob.disp_x + STATUS_DISPLAY_CALIBRATION[:mob][0],
+          mob.disp_y + STATUS_DISPLAY_CALIBRATION[:mob][1],
+          mob.status_image,
+          :character
+        )
       end
     end
 

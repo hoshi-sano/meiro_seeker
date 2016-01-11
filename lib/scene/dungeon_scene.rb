@@ -125,7 +125,7 @@ module MyDungeonGame
     end
 
     def display_player
-      OutputManager.reserve_draw_center(@player)
+      super
       [@player.weapon, @player.shield].compact.each do |equipment|
         equipment.x, equipment.y = @player.x, @player.y
         equipment.current_direction = @player.current_direction

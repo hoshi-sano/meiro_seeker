@@ -106,6 +106,7 @@ module MyDungeonGame
   MOVE_UNIT = 8
   CHARACTER_PATTERN_NUM_X = 8
   CHARACTER_PATTERN_NUM_Y = 8
+  CHARACTER_STATUS_PATTERN_NUM = 2
   CHARACTER_WALK_PATTERN = 0..3
   CHARACTER_ATTACK_PATTERN = 4..7
   CHARACTER_DEATH_ANIMATION_LENGTH = 10
@@ -165,6 +166,13 @@ module MyDungeonGame
     anti_steal:     '泥棒よけ',
   }
   STATUSES = STATUS_NAMES.keys
+  STATUS_IMAGE_WIDTH  = 12
+  STATUS_IMAGE_HEIGHT = 12
+  STATUS_DISPLAY_CALIBRATION = {
+    player: [TILE_WIDTH / 2 - STATUS_IMAGE_WIDTH,
+             -(TILE_HEIGHT / 2 - STATUS_IMAGE_HEIGHT)],
+    mob:    [(TILE_WIDTH - STATUS_IMAGE_WIDTH), 0],
+  }
 
   SAVE_FILE_PATH     = File.join(ROOT, 'data', 'save.dat')
   OLD_SAVE_FILE_PATH = File.join(ROOT, 'data', 'save.dat.old')

@@ -183,7 +183,8 @@ module MyDungeonGame
     TRANSPARENCY = ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
-    attr_reader :level, :exp
+    attr_reader :level, :exp, :current_frame, :temporary_status,
+                :status_image
     attr_accessor :x, :y, :prev_xy, :events, :name, :hp, :max_hp,
                   :power, :defence, :death_animating, :warped
 
@@ -209,6 +210,8 @@ module MyDungeonGame
       @warped = nil # ワープ管理用、連続ワープを防ぐために使う
       @temporary_status = {}
       @floor_permanent_status = self.class.default_status
+
+      @status_image = StatusImage.new(self)
     end
 
     def inspect
@@ -372,13 +375,63 @@ module MyDungeonGame
       @current_frame = frame
     end
 
-    # 見た目上の更新を行う
+    # ステータス状態表示用のクラス
+    class StatusImage
+      STATUS_IMAGES =
+        %i(confusion speed_up).map { |stat|
+          file_path = File.join(ROOT, 'data', "#{stat}.png")
+          args = [file_path, CHARACTER_STATUS_PATTERN_NUM, 1]
+          [stat, FileLoadProxy.load_image_tiles(*args)[0]]
+        }.to_h
+
+      class << self
+        def displayable_statuses
+          STATUS_IMAGES.keys
+        end
+      end
+
+      def initialize(owner)
+        @owner = owner
+        @current_frame = 0
+        @current_status = 0
+      end
+
+      def width
+        STATUS_IMAGE_WIDTH
+      end
+
+      def height
+        STATUS_IMAGE_HEIGHT
+      end
+
+      def displayable_statuses
+        self.class.displayable_statuses & @owner.temporary_status.keys
+      end
+
+      def update
+        @current_frame =
+          @owner.current_frame % CHARACTER_STATUS_PATTERN_NUM
+        if @owner.current_frame.zero? && displayable_statuses.size > 0
+          @current_status += 1
+          @current_status = @current_status % displayable_statuses.size
+        end
+      end
+
+      def image
+        stats = displayable_statuses
+        current_stat_sym = stats[@current_status]
+        return TRANSPARENCY.image if current_stat_sym.nil?
+        STATUS_IMAGES[current_stat_sym][@current_frame]
+      end
+    end
+
     def update
       if update?
         @current_frame += 1
         unless CHARACTER_WALK_PATTERN.include?(@current_frame)
           @current_frame = 0
         end
+        @status_image.update
       end
     end
 
