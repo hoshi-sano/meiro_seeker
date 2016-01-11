@@ -99,7 +99,7 @@ module MyDungeonGame
 
       # 毎フレームの必須イベントを処理
       display_base_map
-      display_palyer
+      display_player
       display_mobs
       display_floor_objects
       display_parameter
@@ -124,7 +124,7 @@ module MyDungeonGame
       end
     end
 
-    def display_palyer
+    def display_player
       OutputManager.reserve_draw_center(@player)
       [@player.weapon, @player.shield].compact.each do |equipment|
         equipment.x, equipment.y = @player.x, @player.y

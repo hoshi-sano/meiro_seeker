@@ -217,7 +217,7 @@ module MyDungeonGame
 
       # 毎フレームの必須イベントを処理
       display_base_map
-      display_palyer
+      display_player
       display_mobs
       display_floor_objects
       display_parameter
@@ -508,7 +508,7 @@ module MyDungeonGame
 
     # プレーヤーの表示を行う
     # 武器防具などのオプションを表示したい場合はoverrideする
-    def display_palyer
+    def display_player
       OutputManager.reserve_draw_center(@player)
     end
 
