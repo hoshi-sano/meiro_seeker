@@ -6,5 +6,6 @@ require 'room'
 
 require 'floor_object'
 require 'character'
+require 'effect'
 require 'event'
 require 'base_window'

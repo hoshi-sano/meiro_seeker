@@ -224,6 +224,11 @@ module MyDungeonGame
       res
     end
 
+    # 部屋にいるか否かを返す
+    def in_room?
+      !!@floor.get_room(self.x, self.y)
+    end
+
     # 認知可能なモブやオブジェクトを返す
     # (通路であれば周囲8マス、部屋内であれば部屋全体)
     def visible_objects
