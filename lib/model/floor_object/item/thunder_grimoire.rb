@@ -20,25 +20,12 @@ module MyDungeonGame
         e.finalize
       end
       # 落雷のアニメーション
-      thunder_1, thunder_2 = ThunderEffect.new, ThunderEffect.new
-      first_thunder = Event.new do |e|
-        ThunderEffect.surround_player_xy_small(player).each do |x, y|
-          OutputManager.reserve_draw(x, y, thunder_1, :effect)
-        end
-        thunder_1.update
-        e.finalize if thunder_1.finished?
-      end
-      first_event.set_next(first_thunder)
+      thunder = ThunderEffect.new
+      first_event.set_next(thunder.surround_player_event_small(player))
       if player.in_room?
-        5.times { first_event.set_next(Event.new { |e| e.finalize }) }
-        second_thunder = Event.new do |e|
-          ThunderEffect.surround_player_xy_big(player).each do |x, y|
-            OutputManager.reserve_draw(x, y, thunder_2, :effect)
-          end
-          thunder_2.update
-          e.finalize if thunder_2.finished?
-        end
-        first_event.set_next(second_thunder)
+        5.times { first_event.set_next(Event.new { |e| e.finalize }) } # wait
+        first_event.set_next(Event.new { |e| thunder.rewind; e.finalize })
+        first_event.set_next(thunder.surround_player_event_big(player))
       end
       # 非表示にしたレーダーマップを再表示
       map_rollback = Event.new do |e|

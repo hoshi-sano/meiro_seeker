@@ -25,5 +25,27 @@ module MyDungeonGame
          [ player.x      * TILE_WIDTH, (player.y - 11) * TILE_HEIGHT]]
       end
     end
+
+    # playerの周囲を小さく囲む落雷を表示するイベント
+    def surround_player_event_small(player)
+      Event.new do |e|
+        ThunderEffect.surround_player_xy_small(player).each do |x, y|
+          OutputManager.reserve_draw(x, y, self, :effect)
+        end
+        self.update
+        e.finalize if self.finished?
+      end
+    end
+
+    # playerの周囲を大きく囲む落雷を表示するイベント
+    def surround_player_event_big(player)
+      Event.new do |e|
+        ThunderEffect.surround_player_xy_big(player).each do |x, y|
+          OutputManager.reserve_draw(x, y, self, :effect)
+        end
+        self.update
+        e.finalize if self.finished?
+      end
+    end
   end
 end

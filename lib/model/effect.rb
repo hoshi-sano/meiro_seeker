@@ -37,6 +37,8 @@ module MyDungeonGame
       end
     end
 
+    attr_reader :current_frame
+
     def initialize
       @current_frame = 0
       @current_direction = CHARACTER_DIRECTION[:S]
@@ -62,6 +64,10 @@ module MyDungeonGame
       if CHARACTER_DIRECTION.keys.include?(direction)
         @current_direction = CHARACTER_DIRECTION[direction]
       end
+    end
+
+    def rewind
+      @current_frame = 0
     end
 
     def update
