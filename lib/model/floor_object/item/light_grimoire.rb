@@ -6,9 +6,14 @@ module MyDungeonGame
     note MessageManager.get('dict.items.light_grimoire.note')
 
     def effect_event(scene)
-      # TODO: エフェクト
+      # 光が広がるアニメーション
+      animation = LightEffect.vertical_light_event
+
+      # メッセージ表示
       msg = MessageManager.get(:light_shines)
-      e = ShowMessageEvent.create(scene, msg)
+      animation.set_next(ShowMessageEvent.create(scene, msg))
+
+      # 効果
       effect = Event.new do |e|
         scene.instance_eval do
           # フロアとオブジェクトを探知済みにする
@@ -19,8 +24,9 @@ module MyDungeonGame
         end
         e.finalize
       end
-      e.set_next(effect)
-      e
+      animation.set_next(effect)
+
+      animation
     end
   end
 end
