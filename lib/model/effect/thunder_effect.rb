@@ -28,24 +28,30 @@ module MyDungeonGame
 
     # playerの周囲を小さく囲む落雷を表示するイベント
     def surround_player_event_small(player)
-      Event.new do |e|
+      flash = FlashEffect.momentary_flash_event
+      thunder = Event.new do |e|
         ThunderEffect.surround_player_xy_small(player).each do |x, y|
           OutputManager.reserve_draw(x, y, self, :effect)
         end
         self.update
         e.finalize if self.finished?
       end
+      flash.set_next(thunder)
+      flash
     end
 
     # playerの周囲を大きく囲む落雷を表示するイベント
     def surround_player_event_big(player)
-      Event.new do |e|
+      flash = FlashEffect.momentary_flash_event
+      thunder = Event.new do |e|
         ThunderEffect.surround_player_xy_big(player).each do |x, y|
           OutputManager.reserve_draw(x, y, self, :effect)
         end
         self.update
         e.finalize if self.finished?
       end
+      flash.set_next(thunder)
+      flash
     end
   end
 end

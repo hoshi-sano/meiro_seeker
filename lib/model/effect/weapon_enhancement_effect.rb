@@ -47,7 +47,8 @@ module MyDungeonGame
       j = 0
       x, y = *ANIMATION_SCALES[-1][0]
       opts_1 = { scale_x: x, scale_y: y, alpha: 200 }
-      Event.new do |e|
+      flash = FlashEffect.momentary_flash_event
+      animation = Event.new do |e|
         BRIGHT_ANIMATION_SCALES[j].each do |sx, sy|
           OutputManager.reserve_draw_center(self, :effect, opts_1)
           opts_2 = { scale_x: sx, scale_y: sy, alpha: 200 }
@@ -56,6 +57,8 @@ module MyDungeonGame
         j += 1
         e.finalize if j >= BRIGHT_ANIMATION_SCALES.size
       end
+      flash.set_next(animation)
+      flash
     end
 
     def event
