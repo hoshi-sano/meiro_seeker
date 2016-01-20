@@ -193,10 +193,11 @@ module MyDungeonGame
         end
       end
 
-      def reserve_draw_center(obj, type=:character)
+      def reserve_draw_center(obj, type=:character, options={})
         x = (DISPLAY_WIDTH / 2) - (obj.width / 2)
         y = (DISPLAY_HEIGHT / 2) - (obj.height / 2)
-        DISPLAYS[type].reserve_draw(x, y, obj.image, DISPLAYS.keys.index(type))
+        args = [x, y, obj.image, DISPLAYS.keys.index(type), options]
+        DISPLAYS[type].reserve_draw(*args)
       end
 
       def reserve_draw_center_with_calibration(obj, cx, cy, type=:character)

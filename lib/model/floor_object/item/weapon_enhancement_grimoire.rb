@@ -14,9 +14,11 @@ module MyDungeonGame
           weapon.origin.calibration = Equipment::MAX_CALIBRATION
         end
         # TODO: 呪われている場合は呪いの解除
-        # TODO: エフェクト
+        effect = WeaponEnhancementEffect.new
+        first_event = effect.event
         msg = MessageManager.get(:weapon_enhanced)
-        ShowMessageEvent.create(scene, msg)
+        first_event.set_next(ShowMessageEvent.create(scene, msg))
+        first_event
       else
         msg = MessageManager.get(:but_nothing_occured)
         ShowMessageEvent.create(scene, msg)

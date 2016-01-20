@@ -8,8 +8,9 @@ module MyDungeonGame
       @surface = RenderTarget.new(@width, @height)
     end
 
-    def reserve_draw(x, y, obj, z_idx=0)
-      @surface.draw(x, y, obj, z_idx)
+    def reserve_draw(x, y, obj, z_idx=0, opts={})
+      opts[:z] = z_idx
+      @surface.draw_ex(x, y, obj, opts)
     end
 
     def reserve_draw_text(x, y, text, font, z_idx=0)
