@@ -49,11 +49,11 @@ module MyDungeonGame
     end
 
     def width
-      self.class.images.first.first.width
+      self.class.images[@current_direction][@current_frame].width
     end
 
     def height
-      self.class.images.first.first.height
+      self.class.images[@current_direction][@current_frame].height
     end
 
     def update_interval
