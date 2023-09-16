@@ -5,7 +5,9 @@ module MeiroSeeker
     def initialize(width, height)
       @width = width
       @height = height
-      @surface = RenderTarget.new(@width, @height)
+      # DXOpalはRenderTargetが未実装のためいったんImageで代替
+      # @surface = RenderTarget.new(@width, @height)
+      @surface = Image.new(@width, @height)
     end
 
     def reserve_draw(x, y, obj, z_idx=0, opts={})
