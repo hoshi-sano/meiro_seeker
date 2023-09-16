@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 傷薬
   class Kizugusuri < HpRecoverItem
     name          MessageManager.get('dict.items.kizugusuri.name')

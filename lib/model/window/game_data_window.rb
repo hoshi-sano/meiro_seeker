@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class GameDataWindow < BaseWindow
     # TODO: クラス内でポジションを設定できるようにする
     # position WINDOW_POSITION[:game_data]

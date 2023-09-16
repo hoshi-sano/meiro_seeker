@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテムの説明表示用ウインドウ
   class ItemNoteWindow < MessageWindow
     bg_image ViewProxy.rect(*WINDOW_SIZE[:item_note],

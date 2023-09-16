@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class Character
     class Skill
       class << self

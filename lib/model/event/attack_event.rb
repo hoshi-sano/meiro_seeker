@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # モブの直接攻撃演出
   module AttackEvent
     module_function

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # HP回復系アイテムの共通処理
   class HpRecoverItem < Potion
     class << self

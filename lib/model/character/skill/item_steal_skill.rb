@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class Character
     # アイテムを盗み、ワープ後に逃亡状態となるスキル
     class ItemStealSkill < Skill

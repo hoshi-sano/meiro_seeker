@@ -1,7 +1,7 @@
 require 'yaml'
 YAML::ENGINE.yamler = 'psych'
 
-module MyDungeonGame
+module MeiroSeeker
   # メッセージを管理するクラス
   module MessageManager
     LIST =

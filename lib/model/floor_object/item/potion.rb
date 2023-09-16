@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 薬系アイテムの基本クラス
   class Potion < Item
     type  :item

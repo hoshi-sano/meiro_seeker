@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # イベント処理を管理するクラス
   class EventManager
     attr_reader :regular_event, :cut_in_event

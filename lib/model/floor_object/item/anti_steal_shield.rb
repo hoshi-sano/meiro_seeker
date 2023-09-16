@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテムを盗まれなくなる盾
   class AntiStealShield < Shield
     name MessageManager.get('dict.items.anti_steal_shield.name')

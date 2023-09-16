@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 魔導書や特殊攻撃のエフェクトの基本クラス
   class Effect
     class << self

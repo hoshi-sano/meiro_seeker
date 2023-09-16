@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # まんじゅう系アイテムの基本クラス
   class Manju < Item
     type  :item

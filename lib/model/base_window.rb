@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ウインドウの基本クラス
   class BaseWindow
     class << self

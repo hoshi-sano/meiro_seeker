@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # Meiro::Roomクラスの拡張
   module Room
     def floor

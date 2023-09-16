@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 通常弾
   class NormalBullet < Bullet
     type :item

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # フロアに落ちているもの、設置されているものの基本クラス
   # （アイテム、階段、罠など）
   class FloorObject

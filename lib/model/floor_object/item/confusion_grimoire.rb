@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 混迷の魔導書
   # 部屋全体のモンスターを20ターン混乱状態にする
   class ConfusionGrimoire < Grimoire

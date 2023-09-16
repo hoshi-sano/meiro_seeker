@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 力の薬
   # 力の回復・上昇系
   class ChikaraNoKusuri < Potion

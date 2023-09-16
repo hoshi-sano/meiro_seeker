@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ゴースト系に強い武器
   class GhostBuster < Weapon
     name MessageManager.get('dict.items.ghost_buster.name')

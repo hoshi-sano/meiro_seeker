@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 透明階段クラス
   # 階数を先に進めずにマップチェンジしたい場合、先に進む際の質問文を
   # 変更したい場合等に利用する

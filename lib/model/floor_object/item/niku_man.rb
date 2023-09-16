@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 肉まん
   # 満腹度回復系
   class NikuMan < Manju

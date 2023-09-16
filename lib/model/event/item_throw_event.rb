@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   module ItemThrowEvent
     module_function
 

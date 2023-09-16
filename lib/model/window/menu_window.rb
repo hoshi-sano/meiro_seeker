@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class BaseMenuWindow < BaseWindow
     class << self
       def position(val)

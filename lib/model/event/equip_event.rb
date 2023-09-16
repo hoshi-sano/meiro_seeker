@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテム装備イベント
   module EquipEvent
     module_function

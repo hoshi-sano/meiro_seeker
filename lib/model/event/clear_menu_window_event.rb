@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # メニューウインドウ非表示イベント
   module ClearMenuWindowEvent
     module_function

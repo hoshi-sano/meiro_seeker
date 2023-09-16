@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # キャラクターのレベル管理をするクラス
   module LevelManager
     module_function

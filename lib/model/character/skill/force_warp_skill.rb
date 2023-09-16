@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class Character
     # 強制的に相手をワープさせるスキル
     class ForceWarpSkill < Skill

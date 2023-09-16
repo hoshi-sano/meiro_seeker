@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class UnderfootItemWindow < ItemWindow
     position WINDOW_POSITION[:item]
     bg_image ViewProxy.rect(*WINDOW_SIZE[:underfoot_item],

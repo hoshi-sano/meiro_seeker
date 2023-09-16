@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテム説明ウインドウ表示イベント
   module ShowItemNoteEvent
     module_function

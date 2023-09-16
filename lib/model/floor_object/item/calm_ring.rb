@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 混乱を防ぐ指輪
   class CalmRing < Ring
     name         MessageManager.get('dict.items.calm_ring.name')

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ワープする薬
   class WarpPotion < Potion
     name MessageManager.get('dict.items.warp_potion.name')

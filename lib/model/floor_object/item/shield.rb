@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 盾の基本となるクラス
   class Shield < Equipment
     TYPE = :shield

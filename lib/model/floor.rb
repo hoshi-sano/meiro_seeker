@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # Meiro::Floorクラスの拡張
   module Floor
     attr_reader :storey

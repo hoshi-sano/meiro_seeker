@@ -1,6 +1,6 @@
 require 'yaml'
 
-module MyDungeonGame
+module MeiroSeeker
   # ゲーム全体を管理するクラス
   class GeneralManager
     DEFAULT_PLAYER_DATA = {
@@ -24,7 +24,7 @@ module MyDungeonGame
         @scenes = YAML.load_file(SCENES_PATH)
         @scenes.each { |key, scene_info| scene_info[:id] = key }
         scene_info = @scenes[:initial_scene]
-        scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
+        scene_klass = MeiroSeeker.const_get(scene_info[:scene_class])
         @current_scene = scene_klass.new
         @initialized = true
       end
@@ -34,7 +34,7 @@ module MyDungeonGame
         @dungeon = DungeonManager.create_dungeon
         @next_scene_id = @scenes[:initial_scene][:next_scene_id]
         scene_info = @scenes[@next_scene_id]
-        scene_klass = MyDungeonGame.const_get(scene_info[:scene_class])
+        scene_klass = MeiroSeeker.const_get(scene_info[:scene_class])
         @current_scene = scene_klass.new(1, nil, scene_info)
       end
 
@@ -80,7 +80,7 @@ module MyDungeonGame
           @current_scene.scene_id
         next_scene_info = @scenes[@next_scene_id]
         storey = next_scene_info[:storey] if next_scene_info[:storey]
-        scene_klass = MyDungeonGame.const_get(next_scene_info[:scene_class])
+        scene_klass = MeiroSeeker.const_get(next_scene_info[:scene_class])
         @current_scene = scene_klass.new(storey, player, next_scene_info)
         reached_floor(storey)
         save

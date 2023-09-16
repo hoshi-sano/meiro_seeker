@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 「はい/いいえ」のような２択の質問を発生させるイベント
   module YesNoEvent
     module_function

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # キャラクターの通常移動イベント
   # 数フレームかけて対象のマスへ移動するためにイベントを細分化して発行する。
   module MoveEvent

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 倍速の薬
   class SpeedUpPotion < Potion
     name MessageManager.get('dict.items.speed_up_potion.name')

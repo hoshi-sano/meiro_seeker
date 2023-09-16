@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # サーベル
   class Sabel < Weapon
     name MessageManager.get('dict.items.sabel.name')

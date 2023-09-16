@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテムを盗むモンスター
   class ItemThief < EnemyCharacter
     type :mob

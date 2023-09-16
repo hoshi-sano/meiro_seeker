@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 雷鳴の魔導書
   # 部屋全体に25〜45ダメージ
   # 通路で使った場合は周囲8マスにダメージ

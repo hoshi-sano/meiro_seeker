@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class ItemWindow < BaseMenuWindow
     position WINDOW_POSITION[:item]
     bg_image ViewProxy.rect(*WINDOW_SIZE[:item],

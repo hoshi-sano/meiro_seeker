@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 階段クラス
   class Stairs < FloorObject
     type :stairs

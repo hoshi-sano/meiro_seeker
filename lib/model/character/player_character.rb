@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class PlayerCharacter < Character
     type :player
     image_path PLAYER_IMAGE_PATH
@@ -135,7 +135,7 @@ module MyDungeonGame
         msg = MessageManager.pick_up_item(item.name)
         @events << EventPacket.new(ShowMessageEvent, msg)
         true
-      elsif item.kind_of?(MyDungeonGame::Bullet) && # TODO: 条件の再検討
+      elsif item.kind_of?(MeiroSeeker::Bullet) && # TODO: 条件の再検討
             (idx = @items.map(&:class).index(item.class))
         # アイテム欄に余裕はないが数を統合して所持できる物の場合
         @items[idx].merge(item)

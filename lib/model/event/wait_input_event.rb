@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 入力待ちのイベント
   module WaitInputEvent
     module_function

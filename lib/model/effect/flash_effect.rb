@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # フラッシュ光のエフェクト
   # 他のエフェクトと組合せて利用することを想定
   module FlashEffect

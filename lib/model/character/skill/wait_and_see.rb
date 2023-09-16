@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class Character
     # 様子見スキル
     class WaitAndSee < Skill

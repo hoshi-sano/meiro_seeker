@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 天眼の魔導書
   # ダンジョンのマップを見通す
   class LightGrimoire < Grimoire

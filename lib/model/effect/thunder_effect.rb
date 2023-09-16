@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 落雷エフェクト
   class ThunderEffect < Effect
     pattern_x       8

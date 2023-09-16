@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ダンジョン生成を管理するクラス
   class DungeonManager
     DUNGEON_DEFAULT_OPTS = {

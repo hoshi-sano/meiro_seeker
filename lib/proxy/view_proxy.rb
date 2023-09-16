@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class ViewProxy
     attr_reader :width, :height
 

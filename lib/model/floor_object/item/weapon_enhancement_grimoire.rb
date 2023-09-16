@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 武器強化の魔導書
   # 武器の修正値を+1する
   class WeaponEnhancementGrimoire < Grimoire

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class Character
     # アイテム投げスキル
     class ItemThrowSkill < Skill

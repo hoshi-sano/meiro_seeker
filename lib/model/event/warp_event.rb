@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ワープイベント
   module WarpEvent
     module_function

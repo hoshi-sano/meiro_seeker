@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 魔導書の基本となるクラス
   class Grimoire < Item
     RANGE_TYPES = [

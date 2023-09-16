@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテム装備解除イベント
   module RemoveEquipmentEvent
     module_function

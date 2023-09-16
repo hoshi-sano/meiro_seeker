@@ -1,6 +1,6 @@
-file_path = File.join(MyDungeonGame::ROOT, 'data', 'floor.png')
+file_path = File.join(MeiroSeeker::ROOT, 'data', 'floor.png')
 # TODO: flatten を使ってるのがダサいのでなんとかする
-IMAGES = MyDungeonGame::FileLoadProxy.load_image_tiles(file_path, 8, 6).flatten
+IMAGES = MeiroSeeker::FileLoadProxy.load_image_tiles(file_path, 8, 6).flatten
 
 TILE_IMAGE_KEY_MAP = {
   1 => 28,

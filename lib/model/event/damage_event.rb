@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 被ダメージ演出
   module DamageEvent
     module_function

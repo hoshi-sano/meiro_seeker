@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # マントウ
   # 満腹度回復系
   class Mantou < Manju

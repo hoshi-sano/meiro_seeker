@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 死に演出
   module DeadEvent
     module_function

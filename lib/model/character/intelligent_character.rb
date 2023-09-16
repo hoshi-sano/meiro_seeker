@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 現状を分析し、通路を通る、突き当りで右左折する、引き返すなど知的な
   # 行動ができるキャラクターのベースとなるクラス
   class IntelligentCharacter < MobCharacter

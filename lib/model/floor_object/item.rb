@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテムの基本となるクラス
   class Item < FloorObject
     class << self

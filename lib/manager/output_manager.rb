@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 描画まわりを担うクラス
   class OutputManager
     DISPLAYS = {

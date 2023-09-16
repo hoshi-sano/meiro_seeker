@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 腹が減りにくくなる盾
   class AntiHungryShield < Shield
     name MessageManager.get('dict.items.anti_hungry_shield.name')

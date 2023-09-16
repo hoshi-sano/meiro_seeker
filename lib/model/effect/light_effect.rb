@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 広がる光のエフェクト
   module LightEffect
     module_function

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 鉄の盾
   class IronShield < Shield
     name MessageManager.get('dict.items.iron_shield.name')

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 各種パラメータ回復演出
   # gainを指定すると、そのパラメータが満タンだった場合に
   # gainに指定した値の分だけ最大値が増える

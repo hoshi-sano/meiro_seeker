@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ダンジョンモードのシーン
   class DungeonScene < BaseQuestScene
     def create_floor
@@ -10,7 +10,7 @@ module MyDungeonGame
       @monster_table = []
       @map_info[:monster_table].each do |k, v|
         next unless v.include?(@floor.storey)
-        @monster_table << MyDungeonGame.const_get(k)
+        @monster_table << MeiroSeeker.const_get(k)
       end
       @monster_table
     end
@@ -47,7 +47,7 @@ module MyDungeonGame
       @item_table = {}
       rate_counter = 0
       @map_info[:item_table].each do |k, v|
-        item_klass = MyDungeonGame.const_get(k)
+        item_klass = MeiroSeeker.const_get(k)
         @item_table[item_klass] = (rate_counter...(rate_counter + v))
         rate_counter += v
       end

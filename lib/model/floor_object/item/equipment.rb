@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 装備品の基本となるクラス
   class Equipment < Item
     class << self

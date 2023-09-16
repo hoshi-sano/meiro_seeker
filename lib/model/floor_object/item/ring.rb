@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 指輪の基本となるクラス
   class Ring < Equipment
     TYPE = :ring

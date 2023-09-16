@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # タイトルのシーン
   class TitleScene
     # NOTE: 引数は不要かも(ダックタイピイング的に必要かも)

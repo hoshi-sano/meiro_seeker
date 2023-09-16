@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # プレイヤーの攻撃演出
   module PlayerAttackEvent
     module_function

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
   # 共通定数の定義

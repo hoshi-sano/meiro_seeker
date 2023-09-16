@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 弾の基本となるクラス
   class Bullet < Equipment
     TYPE = :bullet

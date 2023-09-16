@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # アイテムを盗むイベント
   # TODO: お金を盗むのも同じイベントで処理できるようにする
   module ItemStealEvent

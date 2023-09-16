@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # キーコンフィグウィンドウ表示イベント
   module ShowKeyConfigWindowEvent
     module_function

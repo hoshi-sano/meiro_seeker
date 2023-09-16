@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 回復の薬
   class KaifukuNoKusuri < HpRecoverItem
     name          MessageManager.get('dict.items.kaifuku_no_kusuri.name')

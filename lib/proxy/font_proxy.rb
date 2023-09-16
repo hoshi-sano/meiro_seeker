@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class FontProxy
     FONT_PATHES.each do |path|
       Font.install(path)

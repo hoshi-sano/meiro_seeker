@@ -11,7 +11,7 @@ require 'helper'
 require 'meiro'
 require 'my_tile'
 
-module MyDungeonGame
+module MeiroSeeker
   module_function
 
   def play

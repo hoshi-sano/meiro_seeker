@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   module SaveEvent
     module_function
 

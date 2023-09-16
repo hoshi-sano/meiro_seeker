@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 武器の基本となるクラス
   class Weapon < Equipment
     TYPE = :weapon

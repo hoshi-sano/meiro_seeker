@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 敵キャラクターのベースとなるクラス
   class EnemyCharacter < FollowPlayerCharacter
     type :mob

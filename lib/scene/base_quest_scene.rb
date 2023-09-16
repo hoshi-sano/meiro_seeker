@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 探索モードのベース
   class BaseQuestScene
     RADAR_MAP_IMAGES = {

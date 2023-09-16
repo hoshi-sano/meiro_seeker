@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 自動で移動しない、場所交換もできないモブキャラクター
   class ImmovableCharacter < NotWalkCharacter
     type :mob

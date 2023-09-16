@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class FileLoadProxy
     class << self
       def load_image(file_path)

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # メニューウインドウ表示イベント
   # 選択肢によって発生するイベントに入れ子にすることが可能
   # 複数のメニューウインドウが存在する場合はLIFOで処理する

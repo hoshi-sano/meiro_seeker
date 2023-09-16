@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 武器強化エフェクト
   class WeaponEnhancementEffect < Effect
     pattern_x       1

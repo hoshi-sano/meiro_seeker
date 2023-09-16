@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # キーコンフィグの設定を行うウィンドウ
   class KeyConfigWindow < BaseMenuWindow
     position WINDOW_POSITION[:key_config]

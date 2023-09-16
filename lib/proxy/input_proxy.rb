@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class InputProxy
     KEY = {
       A: :K_A,

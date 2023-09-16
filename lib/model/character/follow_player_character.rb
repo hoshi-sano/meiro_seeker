@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # プレイヤーを感知している場合、優先してプレイヤーを追いかける行動を
   # とるキャラクターのベースとなるクラス
   class FollowPlayerCharacter < IntelligentCharacter

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class Event
     attr_reader :next_events, :finalized
 

@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   class MessageWindow < BaseWindow
     bg_image ViewProxy.rect(*WINDOW_SIZE[:message],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])

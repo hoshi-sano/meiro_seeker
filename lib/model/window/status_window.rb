@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # ステータスの表示用ウインドウ
   # 武器の強さ、盾の強さ、攻撃力、防御力、満腹度、力、経験値
   class StatusWindow < MessageWindow

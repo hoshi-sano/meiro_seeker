@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # プレイヤー以外のキャラクターのベースとなるクラス
   class MobCharacter < Character
     type :mob

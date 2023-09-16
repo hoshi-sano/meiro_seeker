@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 足元選択時のイベント
   module UnderfootEvent
     module_function

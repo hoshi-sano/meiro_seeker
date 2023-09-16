@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 射撃イベント
   # ItemThrowEventとほぼ同じ
   module ShotEvent

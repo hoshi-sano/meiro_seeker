@@ -1,4 +1,4 @@
-module MyDungeonGame
+module MeiroSeeker
   # 混乱の薬
   class ConfusionPotion < Potion
     name MessageManager.get('dict.items.confusion_potion.name')
