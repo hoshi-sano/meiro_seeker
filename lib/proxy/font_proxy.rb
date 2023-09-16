@@ -1,8 +1,9 @@
 module MeiroSeeker
   class FontProxy
-    FONT_PATHES.each do |path|
-      Font.install(path)
-    end
+    # DXOpalではFont.installは非サポート
+    # FONT_PATHES.each do |path|
+    #   Font.install(path)
+    # end
 
     FONTS = {
       regular: Font.new(22, 'PixelMplus12'),
