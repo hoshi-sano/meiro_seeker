@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset= "utf-8" />
+    <meta name="viewport" content="width=500px">
+    <title>Meiro Seeker</title>
+    <meta property="og:title" content="Meiro Seeker" />
+    <meta name="description" content="Ruby製ローグライクゲーム" />
+    <meta property="og:description" content="Ruby製ローグライクゲーム" />
+    <link rel="canonical" href="https://hoshi-sano.github.io/meiro_seeker/" />
+    <meta property="og:url" content="https://hoshi-sano.github.io/meiro_seeker/" />
+    <meta property="og:site_name" content="meiro_seeker" />
+    <!-- TODO:
+    <meta property="og:image" content="https://hoshi-sano.github.io/meiro_seeker/data/images/card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="https://hoshi-sano.github.io/meiro_seeker/data/images/card.png" />
+    <meta property="twitter:title" content="Meiro Seeker" />
+    <meta name="twitter:site" content="@hoshi-sano" />
+    -->
+    <script type="text/javascript" src="vendor/dxopal.min.js"></script>
+    <script type="text/ruby">
+      DXOpal.dump_error { require_remote "main.rb?#{Time.now.to_i}" }
+    </script>
+    <style>
+      #contents-header {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      #dxopal-canvas-wrapper {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%;
+        text-align: center;
+        margin: 0;
+      }
+
+      #dxopal-canvas {
+        aspect-ratio: auto 450 / 800;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="contents-header">
+      <a href="https://github.com/hoshi-sano/meiro_seeker">github.com/hoshi-sano/meiro_seeker</a>
+    </div>
+
+    <div id="dxopal-canvas-wrapper">
+      <canvas id="dxopal-canvas"></canvas>
+    </div>
+
+    <div id="dxopal-errors"></div>
+  </body>
+</html>
