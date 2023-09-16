@@ -73,11 +73,29 @@ module MeiroSeeker
   end
 end
 
-# load event dir
-here = File.dirname(File.expand_path(__FILE__))
-event_dir = File.join(here, "event")
-Dir.entries(event_dir).each do |fname|
-  if fname =~ /\.rb$/
-    require File.join(event_dir, fname)
-  end
-end
+require_remote "lib/model/event/attack_event.rb"
+require_remote "lib/model/event/clear_menu_window_event.rb"
+require_remote "lib/model/event/damage_event.rb"
+require_remote "lib/model/event/dead_event.rb"
+require_remote "lib/model/event/equip_event.rb"
+require_remote "lib/model/event/go_to_next_floor_event.rb"
+require_remote "lib/model/event/item_steal_event.rb"
+require_remote "lib/model/event/item_throw_event.rb"
+require_remote "lib/model/event/move_event.rb"
+require_remote "lib/model/event/param_recover_event.rb"
+require_remote "lib/model/event/player_attack_event.rb"
+require_remote "lib/model/event/player_level_up_event.rb"
+require_remote "lib/model/event/put_item_event.rb"
+require_remote "lib/model/event/remove_equipment_event.rb"
+require_remote "lib/model/event/save_event.rb"
+require_remote "lib/model/event/shot_event.rb"
+require_remote "lib/model/event/show_item_note_event.rb"
+require_remote "lib/model/event/show_key_config_window_event.rb"
+require_remote "lib/model/event/show_menu_event.rb"
+require_remote "lib/model/event/show_message_event.rb"
+require_remote "lib/model/event/show_start_menu_event.rb"
+require_remote "lib/model/event/talk_event.rb"
+require_remote "lib/model/event/underfoot_event.rb"
+require_remote "lib/model/event/wait_input_event.rb"
+require_remote "lib/model/event/warp_event.rb"
+require_remote "lib/model/event/yes_no_event.rb"

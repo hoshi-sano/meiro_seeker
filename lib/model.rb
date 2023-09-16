@@ -1,11 +1,9 @@
-$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), 'model'))
-
 # meiro拡張
-require 'floor'
-require 'room'
+require_remote "lib/model/floor.rb"
+require_remote "lib/model/room.rb"
 
-require 'floor_object'
-require 'character'
-require 'effect'
-require 'event'
-require 'base_window'
+require_remote "lib/model/floor_object.rb"
+require_remote "lib/model/character.rb"
+require_remote "lib/model/effect.rb"
+require_remote "lib/model/event.rb"
+require_remote "lib/model/base_window.rb"

@@ -91,11 +91,7 @@ module MeiroSeeker
   end
 end
 
-# load effect dir
-here = File.dirname(File.expand_path(__FILE__))
-effect_dir = File.join(here, "effect")
-Dir.entries(effect_dir).each do |fname|
-  if fname =~ /\.rb$/
-    require File.join(effect_dir, fname)
-  end
-end
+require_remote "lib/model/effect/flash_effect.rb"
+require_remote "lib/model/effect/light_effect.rb"
+require_remote "lib/model/effect/thunder_effect.rb"
+require_remote "lib/model/effect/weapon_enhancement_effect.rb"

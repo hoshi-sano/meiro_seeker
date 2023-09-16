@@ -1,7 +1,7 @@
-$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), 'lib'))
+require "dxopal"
+include DXOpal
 
-require 'dxruby'
-require 'meiro_seeker'
+require_remote "lib/meiro_seeker.rb"
 
 Window.fps = 30
 Window.loop do

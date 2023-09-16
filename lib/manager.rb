@@ -1,9 +1,7 @@
-$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), 'manager'))
-
-require 'general_manager'
-require 'input_manager'
-require 'output_manager'
-require 'dungeon_manager'
-require 'event_manager'
-require 'message_manager'
-require 'level_manager'
+require_remote "lib/manager/general_manager.rb"
+require_remote "lib/manager/input_manager.rb"
+require_remote "lib/manager/output_manager.rb"
+require_remote "lib/manager/dungeon_manager.rb"
+require_remote "lib/manager/event_manager.rb"
+require_remote "lib/manager/message_manager.rb"
+require_remote "lib/manager/level_manager.rb"

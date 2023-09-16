@@ -32,15 +32,15 @@ module MeiroSeeker
   end
 end
 
-require 'window/message_window'
-require 'window/yes_no_window'
-require 'window/menu_window'
-require 'window/sub_menu_window'
-require 'window/item_window'
-require 'window/item_menu_window'
-require 'window/item_note_window'
-require 'window/status_window'
-require 'window/underfoot_item_window'
-require 'window/key_config_window'
-require 'window/game_starting_window'
-require 'window/game_data_window'
+require_remote "lib/model/window/message_window.rb"
+require_remote "lib/model/window/yes_no_window.rb"
+require_remote "lib/model/window/menu_window.rb"
+require_remote "lib/model/window/sub_menu_window.rb"
+require_remote "lib/model/window/item_window.rb"
+require_remote "lib/model/window/item_menu_window.rb"
+require_remote "lib/model/window/item_note_window.rb"
+require_remote "lib/model/window/status_window.rb"
+require_remote "lib/model/window/underfoot_item_window.rb"
+require_remote "lib/model/window/key_config_window.rb"
+require_remote "lib/model/window/game_starting_window.rb"
+require_remote "lib/model/window/game_data_window.rb"

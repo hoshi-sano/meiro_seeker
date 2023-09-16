@@ -34,11 +34,7 @@ module MeiroSeeker
   end
 end
 
-# load skill dir
-here = File.dirname(File.expand_path(__FILE__))
-skill_dir = File.join(here, "skill")
-Dir.entries(skill_dir).each do |fname|
-  if fname =~ /\.rb$/
-    require File.join(skill_dir, fname)
-  end
-end
+require_remote "lib/model/character/skill/force_warp_skill.rb"
+require_remote "lib/model/character/skill/item_steal_skill.rb"
+require_remote "lib/model/character/skill/item_throw_skill.rb"
+require_remote "lib/model/character/skill/wait_and_see.rb"

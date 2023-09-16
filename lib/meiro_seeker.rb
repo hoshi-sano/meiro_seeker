@@ -1,11 +1,11 @@
 # フレームワーク用ライブラリ
-require 'constants'
-require 'error'
-require 'proxy'
-require 'manager'
-require 'model'
-require 'scene'
-require 'helper'
+require_remote "lib/constants.rb"
+require_remote "lib/error.rb"
+require_remote "lib/proxy.rb"
+require_remote "lib/manager.rb"
+require_remote "lib/model.rb"
+require_remote "lib/scene.rb"
+require_remote "lib/helper.rb"
 
 # ゲームデータライブラリ
 require 'meiro'

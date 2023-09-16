@@ -1,6 +1,4 @@
-$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), 'scene'))
-
-require 'title_scene'
-require 'base_quest_scene'
-require 'town_scene'
-require 'dungeon_scene'
+require_remote "lib/scene/title_scene.rb"
+require_remote "lib/scene/base_quest_scene.rb"
+require_remote "lib/scene/town_scene.rb"
+require_remote "lib/scene/dungeon_scene.rb"

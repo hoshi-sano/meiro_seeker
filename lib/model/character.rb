@@ -638,11 +638,11 @@ module MeiroSeeker
   end
 end
 
-require 'character/skill'
-require 'character/player_character'
-require 'character/mob_character'
-require 'character/not_walk_character'
-require 'character/immovable_character'
-require 'character/intelligent_character'
-require 'character/follow_player_character'
-require 'character/enemy_character'
+require_remote "lib/model/character/skill.rb"
+require_remote "lib/model/character/player_character.rb"
+require_remote "lib/model/character/mob_character.rb"
+require_remote "lib/model/character/not_walk_character.rb"
+require_remote "lib/model/character/immovable_character.rb"
+require_remote "lib/model/character/intelligent_character.rb"
+require_remote "lib/model/character/follow_player_character.rb"
+require_remote "lib/model/character/enemy_character.rb"

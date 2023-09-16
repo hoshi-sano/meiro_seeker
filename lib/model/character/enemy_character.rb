@@ -76,4 +76,4 @@ module MeiroSeeker
   end
 end
 
-require_relative './item_thief'
+require_remote 'lib/model/character/item_thief.rb"
