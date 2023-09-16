@@ -77,7 +77,7 @@ module MeiroSeeker
 
   class MainMenuWindow < BaseMenuWindow
     position WINDOW_POSITION[:menu]
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:menu],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:menu],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
     show_status true
 

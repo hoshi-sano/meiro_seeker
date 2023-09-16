@@ -180,7 +180,7 @@ module MeiroSeeker
       },
     }
 
-    TRANSPARENCY = ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
+    TRANSPARENCY = ViewProxy.rect([TILE_WIDTH, TILE_HEIGHT],
                                   TRANSPARENT[:color], TRANSPARENT[:alpha])
 
     attr_reader :level, :exp, :current_frame, :temporary_status,

@@ -2,11 +2,11 @@ module MeiroSeeker
   class GameDataWindow < BaseWindow
     # TODO: クラス内でポジションを設定できるようにする
     # position WINDOW_POSITION[:game_data]
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:game_data],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:game_data],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     TRANSPARENCY =
-      ViewProxy.rect(1, 1, TRANSPARENT[:color], TRANSPARENT[:alpha])
+      ViewProxy.rect([1, 1], TRANSPARENT[:color], TRANSPARENT[:alpha])
 
     attr_reader :text
 

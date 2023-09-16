@@ -1,7 +1,7 @@
 module MeiroSeeker
   # アイテムの説明表示用ウインドウ
   class ItemNoteWindow < MessageWindow
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:item_note],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:item_note],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:item_note])
 
     attr_reader :x, :y, :show_status

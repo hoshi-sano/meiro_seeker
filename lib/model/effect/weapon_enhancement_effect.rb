@@ -23,7 +23,7 @@ module MeiroSeeker
                                [[0.75, 0.75], [0.70, 0.70], [2.00, 2.00]],
                               ]
     # 元画像の白抜き画像を作成
-    WHITE_IMAGE = ViewProxy.rect(284, 284, [0, 0, 0], 0)
+    WHITE_IMAGE = ViewProxy.rect([284, 284], [0, 0, 0], 0)
     (0...284).each do |x|
       (0...284).each do |y|
         alpha = self.instance_variable_get(:@images)[0][0][x, y][0]

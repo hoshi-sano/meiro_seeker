@@ -24,7 +24,9 @@ module MeiroSeeker
     end
 
     class << self
-      def rect(width, height, color=[255, 255, 255], alpha=255)
+      def rect(width_height, color=[255, 255, 255], alpha=255)
+        width = width_height[0]
+        height = width_height[1]
         Rect.new(width, height, color, alpha)
       end
 

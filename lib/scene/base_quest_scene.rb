@@ -2,15 +2,15 @@ module MeiroSeeker
   # 探索モードのベース
   class BaseQuestScene
     RADAR_MAP_IMAGES = {
-      player: ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+      player: ViewProxy.rect([RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE],
                              RADAR_MAP_COLOR[:player], RADAR_MAP_ALPHA[:player]),
-      mob:    ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+      mob:    ViewProxy.rect([RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE],
                              RADAR_MAP_COLOR[:mob], RADAR_MAP_ALPHA[:mob]),
-      item:   ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+      item:   ViewProxy.rect([RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE],
                              RADAR_MAP_COLOR[:item], RADAR_MAP_ALPHA[:item]),
-      stairs: ViewProxy.box(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+      stairs: ViewProxy.box([RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE],
                             RADAR_MAP_COLOR[:stairs], RADAR_MAP_ALPHA[:stairs]),
-      tile:   ViewProxy.rect(RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE,
+      tile:   ViewProxy.rect([RADAR_MAP_UNIT_SIZE, RADAR_MAP_UNIT_SIZE],
                              RADAR_MAP_COLOR[:tile], RADAR_MAP_ALPHA[:tile]),
     }.freeze
 

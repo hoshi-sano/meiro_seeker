@@ -3,7 +3,7 @@ module MeiroSeeker
   # 他のエフェクトと組合せて利用することを想定
   module FlashEffect
     module_function
-    def image;  ViewProxy.rect(DISPLAY_WIDTH, DISPLAY_HEIGHT).image;  end
+    def image;  ViewProxy.rect([DISPLAY_WIDTH, DISPLAY_HEIGHT]).image;  end
     def width;  self.image.width; end
     def height; self.image.height; end
 

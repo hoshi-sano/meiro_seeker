@@ -12,7 +12,7 @@ module MeiroSeeker
                                RADAR_MAP_UNIT_SIZE * HEIGHT_TILE_NUM),
       other:     ViewProxy.new(DISPLAY_WIDTH, DISPLAY_HEIGHT),
     }.freeze
-    PARAMETER_BACK = ViewProxy.rect(*WINDOW_SIZE[:parameter],
+    PARAMETER_BACK = ViewProxy.rect(WINDOW_SIZE[:parameter],
                                     WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     class << self
@@ -106,8 +106,7 @@ module MeiroSeeker
           method, key = *method_key
           v = player.send(method)
           v, key = 1, :zero if v <= 0
-          args = [v, HP_METER_HEIGHT, HP_METER_COLOR[key], HP_METER_ALPHA[key]]
-          res[i] = ViewProxy.rect(*args)
+          res[i] = ViewProxy.rect([v, HP_METER_HEIGHT], HP_METER_COLOR[key], HP_METER_ALPHA[key])
         end
         res
       end
@@ -126,9 +125,8 @@ module MeiroSeeker
           method, key = *method_key
           v = player.send(method)
           v, key = 1, :zero if v <= 0
-          args = [v, STOMACH_METER_HEIGHT,
-                  STOMACH_METER_COLOR[key], STOMACH_METER_ALPHA[key]]
-          res[i] = ViewProxy.rect(*args)
+          res[i] = ViewProxy.rect([v, STOMACH_METER_HEIGHT],
+                                  STOMACH_METER_COLOR[key], STOMACH_METER_ALPHA[key])
         end
         res
       end
@@ -209,7 +207,7 @@ module MeiroSeeker
       # 暗転
       def blackout(opts={})
         alpha = opts[:alpha] || 0
-        black = ViewProxy.rect(DISPLAY_WIDTH, DISPLAY_HEIGHT, [0, 0, 0], alpha)
+        black = ViewProxy.rect([DISPLAY_WIDTH, DISPLAY_HEIGHT], [0, 0, 0], alpha)
         DISPLAYS[:other].reserve_draw(0, 0, black.image)
         if opts[:map_name]
           font = FontProxy.get_font(:map_name)

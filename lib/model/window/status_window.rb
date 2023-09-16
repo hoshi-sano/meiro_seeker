@@ -2,7 +2,7 @@ module MeiroSeeker
   # ステータスの表示用ウインドウ
   # 武器の強さ、盾の強さ、攻撃力、防御力、満腹度、力、経験値
   class StatusWindow < MessageWindow
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:message],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:message],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     def initialize(player, font_type=:regular)

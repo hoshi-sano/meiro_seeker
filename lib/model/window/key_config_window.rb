@@ -2,7 +2,7 @@ module MeiroSeeker
   # キーコンフィグの設定を行うウィンドウ
   class KeyConfigWindow < BaseMenuWindow
     position WINDOW_POSITION[:key_config]
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:key_config],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:key_config],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
     show_status true
 

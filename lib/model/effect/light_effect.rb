@@ -2,7 +2,7 @@ module MeiroSeeker
   # 広がる光のエフェクト
   module LightEffect
     module_function
-    def image;  ViewProxy.rect(DISPLAY_WIDTH, DISPLAY_HEIGHT).image; end
+    def image;  ViewProxy.rect([DISPLAY_WIDTH, DISPLAY_HEIGHT]).image; end
     def width;  self.image.width; end
     def height; self.image.height; end
 

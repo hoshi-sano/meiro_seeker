@@ -4,7 +4,7 @@ module MeiroSeeker
   # 変更したい場合等に利用する
   class TransparentStairs < Stairs
     type :stairs
-    image ViewProxy.rect(TILE_WIDTH, TILE_HEIGHT,
+    image ViewProxy.rect([TILE_WIDTH, TILE_HEIGHT],
                          TRANSPARENT[:color], TRANSPARENT[:alpha]).image
 
     def initialize(floor)

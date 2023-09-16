@@ -1,7 +1,7 @@
 module MeiroSeeker
   class UnderfootItemWindow < ItemWindow
     position WINDOW_POSITION[:item]
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:underfoot_item],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:underfoot_item],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
     show_status true
 

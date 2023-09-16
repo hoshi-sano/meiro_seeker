@@ -1,6 +1,6 @@
 module MeiroSeeker
   class YesNoWindow < BaseWindow
-    bg_image ViewProxy.rect(*WINDOW_SIZE[:yes_no],
+    bg_image ViewProxy.rect(WINDOW_SIZE[:yes_no],
                             WINDOW_COLOR[:regular], WINDOW_ALPHA[:regular])
 
     YES = -1
