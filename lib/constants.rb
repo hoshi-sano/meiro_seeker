@@ -188,13 +188,15 @@ module MeiroSeeker
   POTION_IMAGE_PATH = File.join(ROOT, 'data', 'potion.png')
   MANJU_IMAGE_PATH  = File.join(ROOT, 'data', 'manju.png')
   GRIMOIRE_IMAGE_PATH = File.join(ROOT, 'data', 'grimoire.png')
-  WORD_LIST_PATH    = File.join(ROOT, 'data', 'words.yml')
-  MESSAGE_LIST_PATH = File.join(ROOT, 'data', 'messages.yml')
-  DICTIONARY_PATH   = File.join(ROOT, 'data', 'dictionary.yml')
-  SCENES_PATH       = File.join(ROOT, 'data', 'scenes.yml')
-  MAP_DATA_PATH     = File.join(ROOT, 'data', 'map_data.yml')
   FONT_BASE_DIR     = File.join(ROOT, 'data', 'fonts')
   FONT_PATHES       = [
     File.join('PixelMplus', 'PixelMplus12-Regular.ttf'),
   ].map { |path| File.join(FONT_BASE_DIR, path) }
 end
+
+require_remote "data/dictionary.rb"
+require_remote "data/map_data.rb"
+require_remote "data/messages.rb"
+require_remote "data/scenario.rb"
+require_remote "data/scenes.rb"
+require_remote "data/words.rb"

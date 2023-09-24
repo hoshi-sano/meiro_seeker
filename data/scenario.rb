@@ -1,0 +1,18 @@
+MeiroSeeker::SCENARIO = {:mob_1=>
+  {:scenario_type=>:normal,
+   :events=>[{:class=>:TalkEvent, :messages=>["これはメッセージです", "２つ目のメッセージです"]}]},
+ :mob_2=>
+  {:scenario_type=>:sequential,
+   :events=>
+    [{:class=>:TalkEvent, :messages=>["これは１つ目のイベントのメッセージです"]},
+     {:class=>:TalkEvent, :messages=>["これは２つ目のイベントのメッセージです"]}]},
+ :mob_3=>
+  {:scenario_type=>:sequential_loop,
+   :events=>
+    [{:class=>:TalkEvent, :messages=>["これは１つ目のイベントのメッセージです"]},
+     {:class=>:TalkEvent, :messages=>["これは２つ目のイベントのメッセージです"]}]},
+ :mob_4=>
+  {:scenario_type=>:random,
+   :events=>
+    [{:class=>:TalkEvent, :messages=>["これは１つ目のイベントのメッセージです"]},
+     {:class=>:TalkEvent, :messages=>["これは２つ目のイベントのメッセージです"]}]}}

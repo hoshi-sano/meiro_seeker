@@ -1,0 +1,112 @@
+MeiroSeeker::MAP_DATA = {:town_00=>
+  {:name=>"ハジマリの街",
+   :map_data=>
+    "###############\n" +
+    "###### # ######\n" +
+    "###### # ######\n" +
+    "###### # ######\n" +
+    "###### # ######\n" +
+    "###### # ######\n" +
+    "###### # ######\n" +
+    "###### # ######\n" +
+    "#####     #####\n" +
+    "#####     #####\n" +
+    "##### # # #####\n" +
+    "#####     #####\n" +
+    "#####     #####\n" +
+    "###############\n" +
+    "###############\n" +
+    "###############\n" +
+    "###############\n",
+   :player_initial_xy=>{:x=>5, :y=>11},
+   :characters=>
+    [{:class=>"IntelligentCharacter",
+      :x=>7,
+      :y=>12,
+      :events=>
+       {:type=>:random,
+        :contents=>
+         [{:event_type=>:talk, :messages=>["やぁ、こんにちは。", "今日はいい天気だね。"]},
+          {:event_type=>:talk, :messages=>["やぁ、こんにちは。", "さっきも会ったね。"]}]}},
+     {:class=>"NotWalkCharacter",
+      :x=>8,
+      :y=>12,
+      :events=>
+       {:type=>:loop,
+        :contents=>
+         [{:event_type=>:talk, :messages=>["1番目のメッセージだよ。"]},
+          {:event_type=>:talk, :messages=>["2番目のメッセージだよ。"]},
+          {:event_type=>:talk, :messages=>["3番目のメッセージだよ。"]}]}},
+     {:class=>"ImmovableCharacter",
+      :x=>7,
+      :y=>8,
+      :events=>
+       {:type=>:flag,
+        :contents=>
+         {:none=>
+           {:event_type=>:yes_no,
+            :messages=>["ここから先はダンジョンだよ。", "危険だけど行くのかい？"],
+            :yes=>
+             {:label=>"行く",
+              :event=>{:event_type=>:talk, :messages=>["うっそー！？"]},
+              :flag_on=>:second},
+            :no=>
+             {:label=>"やめとく",
+              :event=>{:event_type=>:talk, :messages=>["だよねぇ。"]},
+              :flag_on=>:third}},
+          :second=>{:event_type=>:talk, :messages=>["やめた方がいいと思うけどなぁ...。"]},
+          :third=>{:event_type=>:talk, :messages=>["それがいいよ。安全第一。"]}}}}],
+   :objects=>
+    [{:class=>"TransparentStairs",
+      :next_scene_id=>:first_dungeon,
+      :x=>6,
+      :y=>6},
+     {:class=>"TransparentStairs",
+      :next_scene_id=>:second_dungeon,
+      :x=>8,
+      :y=>6}]},
+ :first_dungeon=>
+  {:name=>
+    {"やさしいダンジョン 浅層"=>[1, 2, 3],
+     "やさしいダンジョン 中層"=>[4, 5, 6],
+     "やさしいダンジョン 深層"=>[7, 8, 9]},
+   :scene_change=>{9=>:start_town_scene},
+   :monster_table=>
+    {"EnemyCharacter"=>[1, 2, 3, 4, 5], "ItemThief"=>[4, 5, 6, 7, 8, 9]},
+   :item_table=>
+    {"Kizugusuri"=>20,
+     "KaifukuNoKusuri"=>20,
+     "ChikaraNoKusuri"=>5,
+     "ConfusionPotion"=>5,
+     "WarpPotion"=>10,
+     "SpeedUpPotion"=>10,
+     "NikuMan"=>20,
+     "Mantou"=>20,
+     "Sabel"=>10,
+     "GhostBuster"=>5,
+     "IronShield"=>10,
+     "HungryShield"=>3,
+     "AntiHungryShield"=>5,
+     "AntiStealShield"=>5,
+     "LightRing"=>3,
+     "CalmRing"=>5,
+     "NormalBullet"=>15,
+     "ThunderGrimoire"=>10,
+     "LightGrimoire"=>15,
+     "ConfusionGrimoire"=>15,
+     "WeaponEnhancementGrimoire"=>15,
+     "ShieldEnhancementGrimoire"=>15}},
+ :second_dungeon=>
+  {:name=>
+    {1=>"ふつうのダンジョン 浅層",
+     2=>"ふつうのダンジョン 浅層",
+     3=>"ふつうのダンジョン 浅層",
+     4=>"ふつうのダンジョン 中層",
+     5=>"ふつうのダンジョン 中層",
+     6=>"ふつうのダンジョン 中層",
+     7=>"ふつうのダンジョン 深層",
+     8=>"ふつうのダンジョン 深層",
+     9=>"ふつうのダンジョン 深層"},
+   :scene_change=>{9=>:start_town_scene},
+   :monster_table=>
+    {"EnemyCharacter"=>[1, 2, 3, 4, 5], "ItemThief"=>[4, 5, 6, 7, 8, 9]}}}

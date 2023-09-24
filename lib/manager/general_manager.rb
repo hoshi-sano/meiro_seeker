@@ -1,5 +1,3 @@
-require 'yaml'
-
 module MeiroSeeker
   # ゲーム全体を管理するクラス
   class GeneralManager
@@ -21,7 +19,7 @@ module MeiroSeeker
 
       # ゲーム開始時に1回だけ呼ばれる
       def initialize_game
-        @scenes = YAML.load_file(SCENES_PATH)
+        @scenes = SCENES
         @scenes.each { |key, scene_info| scene_info[:id] = key }
         scene_info = @scenes[:initial_scene]
         scene_klass = MeiroSeeker.const_get(scene_info[:scene_class])
@@ -46,7 +44,7 @@ module MeiroSeeker
       end
 
       def map_data
-        @map_data ||= YAML.load_file(MAP_DATA_PATH)
+        @map_data ||= MAP_DATA
       end
 
       def player_data

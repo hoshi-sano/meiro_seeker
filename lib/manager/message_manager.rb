@@ -1,13 +1,8 @@
-require 'yaml'
-YAML::ENGINE.yamler = 'psych'
-
 module MeiroSeeker
   # メッセージを管理するクラス
   module MessageManager
-    LIST =
-      YAML.load_file(MESSAGE_LIST_PATH).
-      merge(YAML.load_file(WORD_LIST_PATH)).
-      merge(YAML.load_file(DICTIONARY_PATH))
+
+    LIST = MESSAGES.merge(WORDS).merge(DICTIONARY)
 
     PLAYER = 'p'
     LEVEL = 'l'
